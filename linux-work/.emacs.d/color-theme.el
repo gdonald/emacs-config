@@ -84,8 +84,8 @@
 ;; elisp.  You can also set more specific menu resources for Emacs in
 ;; the resource file.  Here is a sample entry for your resource file:
 ;;
-;;   Emacs*Background:		DarkSlateGray
-;;   Emacs*Foreground:		wheat
+;;   Emacs*Background:          DarkSlateGray
+;;   Emacs*Foreground:          wheat
 
 ;; Creating your own color theme:
 ;;
@@ -209,10 +209,10 @@
 ;; Emacs / XEmacs compatibility and workaround layer
 
 (cond ((and (facep 'tool-bar)
-	    (not (facep 'toolbar)))
+            (not (facep 'toolbar)))
        (put 'toolbar 'face-alias 'tool-bar))
       ((and (facep 'toolbar)
-	    (not (facep 'tool-bar)))
+            (not (facep 'tool-bar)))
        (put 'tool-bar 'face-alias 'toolbar)))
 
 (defvar color-theme-xemacs-p (string-match "XEmacs" emacs-version)
@@ -236,13 +236,13 @@
 
 (cond ((fboundp 'custom-face-attributes-get)
        (defalias 'color-theme-face-attr-construct
-	 'custom-face-attributes-get))
+         'custom-face-attributes-get))
       ((fboundp 'face-custom-attributes-get)
        (defalias 'color-theme-face-attr-construct
-	 'face-custom-attributes-get))
+         'face-custom-attributes-get))
       (t
        (defun color-theme-face-attr-construct (&rest ignore)
-	 (error "Unable to construct face attributes"))))
+         (error "Unable to construct face attributes"))))
 
 (defun color-theme-alist (plist)
   "Transform PLIST into an alist if it is a plist and return it.
@@ -255,11 +255,11 @@ and no alist.
 This is used to make sure `default-frame-alist' really is an alist and not
 a plist.  In XEmacs, the alist is deprecated; a plist is used instead."
   (cond ((consp (car plist))
-	 plist)
-	((not (symbolp (car plist)))
-	 (error "Wrong type argument: plist, %S" plist))
-	(t
-	 (plist-to-alist plist)))); XEmacs only
+         plist)
+        ((not (symbolp (car plist)))
+         (error "Wrong type argument: plist, %S" plist))
+        (t
+         (plist-to-alist plist)))); XEmacs only
 
 ;; Customization
 
@@ -275,7 +275,7 @@ a plist.  In XEmacs, the alist is deprecated; a plist is used instead."
     (define-key map (kbd "q") 'bury-buffer)
     (define-key map (kbd "?") 'color-theme-describe)
     (if color-theme-xemacs-p
-	(define-key map (kbd "<button2>") 'color-theme-install-at-mouse)
+        (define-key map (kbd "<button2>") 'color-theme-install-at-mouse)
       (define-key map (kbd "<mouse-2>") 'color-theme-install-at-mouse))
     map)
   "Mode map used for the buffer created by `color-theme-select'.")
@@ -297,16 +297,16 @@ of `color-theme-history-max-length'.")
 (defun color-theme-add-to-history (name)
   "Add color-theme NAME to `color-theme-history'."
   (setq color-theme-history
-	(cons (list name color-theme-is-cumulative)
-	      color-theme-history)
-	color-theme-counter (+ 1 color-theme-counter))
+        (cons (list name color-theme-is-cumulative)
+              color-theme-history)
+        color-theme-counter (+ 1 color-theme-counter))
   ;; Truncate the list if necessary.
   (when (and (integerp color-theme-history-max-length)
-	     (>= (length color-theme-history)
-		 color-theme-history-max-length))
+             (>= (length color-theme-history)
+                 color-theme-history-max-length))
     (setcdr (nthcdr (1- color-theme-history-max-length)
-		    color-theme-history)
-	    nil)))
+                    color-theme-history)
+            nil)))
 
 ;; (let ((l '(1 2 3 4 5)))
 ;;   (setcdr (nthcdr 2 l) nil)
@@ -349,10 +349,10 @@ of `color-theme-history-max-length'.")
     (color-theme-dark-laptop "Dark Laptop" "Laurent Michel <ldm@cs.brown.edu>")
     (color-theme-deep-blue "Deep Blue" "Tomas Cerha <cerha@brailcom.org>")
     (color-theme-digital-ofs1 "Digital OFS1" "Gareth Owen <gowen@gwowen.freeserve.co.uk>")
-    (color-theme-euphoria "Euphoria" "oGLOWo@oGLOWo.cjb.net")
+    (color-theme-euporia "Euphoria" "oGLOWo@oGLOWo.cjb.net")
     (color-theme-feng-shui "Feng Shui" "Walter Higgins <walterh@rocketmail.com>")
     (color-theme-fischmeister "Fischmeister"
-			      "Sebastian Fischmeister <sfischme@nexus.lzk.tuwien.ac.at>")
+                              "Sebastian Fischmeister <sfischme@nexus.lzk.tuwien.ac.at>")
     (color-theme-gnome "Gnome" "Jonadab <jonadab@bright.net>")
     (color-theme-gnome2 "Gnome 2" "Alex Schroeder <alex@gnu.org>")
     (color-theme-gray1 "Gray1" "Paul Pulli <P.Pulli@motorola.com>")
@@ -394,9 +394,9 @@ of `color-theme-history-max-length'.")
     (color-theme-scintilla "Scintilla" "Gordon Messmer <gordon@dragonsdawn.net>")
     (color-theme-shaman "Shaman" "shaman@interdon.net")
     (color-theme-sitaramv-nt "Sitaram NT"
-			     "Sitaram Venkatraman <sitaramv@loc251.tandem.com>")
+                             "Sitaram Venkatraman <sitaramv@loc251.tandem.com>")
     (color-theme-sitaramv-solaris "Sitaram Solaris"
-				  "Sitaram Venkatraman <sitaramv@loc251.tandem.com>")
+                                  "Sitaram Venkatraman <sitaramv@loc251.tandem.com>")
     (color-theme-snow "Snow" "Nicolas Rist <Nicolas.Rist@alcatel.de>")
     (color-theme-snowish "Snowish" "Girish Bharadwaj <girishb@gbvsoft.com>")
     (color-theme-standard-ediff "Standard Ediff" "Emacs Team, added by Alex Schroeder <alex@gnu.org>" t)
@@ -443,8 +443,8 @@ The values are stored in `color-theme-original-frame-alist' on
 startup."
   (if (null color-theme-original-frame-alist)
       (setq color-theme-original-frame-alist
-	    (color-theme-filter (frame-parameters (selected-frame))
-				color-theme-legal-frame-parameters))))
+            (color-theme-filter (frame-parameters (selected-frame))
+                                color-theme-legal-frame-parameters))))
 (add-hook 'after-init-hook 'color-theme-backup-original-values)
 
 ;;;###autoload
@@ -460,32 +460,32 @@ libraries are mainly useful for color theme authors."
   (erase-buffer)
   ;; recreate the snapshot if necessary
   (when (or (not (assq 'color-theme-snapshot color-themes))
-	    (not (commandp 'color-theme-snapshot)))
+            (not (commandp 'color-theme-snapshot)))
     (fset 'color-theme-snapshot (color-theme-make-snapshot))
     (setq color-themes (delq (assq 'color-theme-snapshot color-themes)
-			     color-themes)
-	  color-themes (delq (assq 'bury-buffer color-themes)
-			     color-themes)
-	  color-themes (append '((color-theme-snapshot
-				  "[Reset]" "Undo changes, if possible.")
-				 (bury-buffer
-				  "[Quit]" "Bury this buffer."))
-			     color-themes)))
+                             color-themes)
+          color-themes (delq (assq 'bury-buffer color-themes)
+                             color-themes)
+          color-themes (append '((color-theme-snapshot
+                                  "[Reset]" "Undo changes, if possible.")
+                                 (bury-buffer
+                                  "[Quit]" "Bury this buffer."))
+                             color-themes)))
   (dolist (theme color-themes)
     (let ((func (nth 0 theme))
-	  (name (nth 1 theme))
-	  (author (nth 2 theme))
-	  (library (nth 3 theme))
-	  (desc))
+          (name (nth 1 theme))
+          (author (nth 2 theme))
+          (library (nth 3 theme))
+          (desc))
       (when (or (not library) arg)
-	(setq desc (format "%-23s %s" 
-			   (if library (concat name " [lib]") name)
-			   author))
-	(put-text-property 0 (length desc) 'color-theme func desc)
-	(put-text-property 0 (length name) 'face 'bold desc)
-	(put-text-property 0 (length name) 'mouse-face 'highlight desc)
-	(insert desc)
-	(newline))))
+        (setq desc (format "%-23s %s"
+                           (if library (concat name " [lib]") name)
+                           author))
+        (put-text-property 0 (length desc) 'color-theme func desc)
+        (put-text-property 0 (length name) 'face 'bold desc)
+        (put-text-property 0 (length name) 'mouse-face 'highlight desc)
+        (insert desc)
+        (newline))))
   (beginning-of-buffer)
   (setq buffer-read-only t)
   (set-buffer-modified-p nil)
@@ -573,7 +573,7 @@ See `color-themes'."
   (let ((func (get-text-property (point) 'color-theme)))
     ;; install theme
     (if func
-	(funcall func))
+        (funcall func))
     ;; If goto-address is being used, remove all overlays in the current
     ;; buffer and run it again.  The face used for the mail addresses in
     ;; the the color theme selection buffer is based on the variable
@@ -581,7 +581,7 @@ See `color-themes'."
     ;; existing overlays, however, thereby confusing users.
     (when (functionp 'goto-address); Emacs
       (dolist (o (overlays-in (point-min) (point-max)))
-	(delete-overlay o))
+        (delete-overlay o))
       (goto-address))))
 
 (defun color-theme-install-at-point-for-current-frame ()
@@ -609,20 +609,20 @@ reversed: only non-matching elements will be retained."
     (dolist (elem old-list)
       (setq name (symbol-name (if (listp elem) (car elem) elem)))
       (when (or (and (not exclude)
-		     (string-match regexp name))
-		(and exclude
-		     (not (string-match regexp name))))
-	;; Now make sure that if elem is a cons cell, and the cdr of
-	;; that cons cell is a string, then we need a *new* string in
-	;; the new list.  Having a new cons cell is of no use because
-	;; modify-frame-parameters will modify this string, thus
-	;; modifying our color theme functions!
-	(when (and (consp elem)
-		   (stringp (cdr elem)))
-	  (setq elem (cons (car elem)
-			   (copy-sequence (cdr elem)))))
-	;; Now store elem
-	(setq new-list (cons elem new-list))))
+                     (string-match regexp name))
+                (and exclude
+                     (not (string-match regexp name))))
+        ;; Now make sure that if elem is a cons cell, and the cdr of
+        ;; that cons cell is a string, then we need a *new* string in
+        ;; the new list.  Having a new cons cell is of no use because
+        ;; modify-frame-parameters will modify this string, thus
+        ;; modifying our color theme functions!
+        (when (and (consp elem)
+                   (stringp (cdr elem)))
+          (setq elem (cons (car elem)
+                           (copy-sequence (cdr elem)))))
+        ;; Now store elem
+        (setq new-list (cons elem new-list))))
     new-list))
 
 (defun color-theme-spec-filter (spec)
@@ -631,13 +631,13 @@ This makes sure that SPEC has the form ((t (PLIST ...))).
 Only properties not in `color-theme-illegal-default-attributes'
 are included in the SPEC returned."
   (let ((props (cadar spec))
-	result prop val)
+        result prop val)
     (while props
       (setq prop (nth 0 props)
-	    val (nth 1 props)
-	    props (nthcdr 2 props))
+            val (nth 1 props)
+            props (nthcdr 2 props))
       (unless (memq prop color-theme-illegal-default-attributes)
-	(setq result (cons val (cons prop result)))))
+        (setq result (cons val (cons prop result)))))
     `((t ,(nreverse result)))))
 
 ;; (color-theme-spec-filter '((t (:background "blue3"))))
@@ -652,14 +652,14 @@ This modifies PLIST."
   ;; deal with empty plist
   (when plist
     (let ((lastcell (cdr plist))
-	  (l (cddr plist)))
+          (l (cddr plist)))
       (while l
-	(if (eq (car l) prop)
-	    (progn
-	      (setq l (cddr l))
-	      (setcdr lastcell l))
-	  (setq lastcell (cdr l)
-		l (cddr l))))))
+        (if (eq (car l) prop)
+            (progn
+              (setq l (cddr l))
+              (setcdr lastcell l))
+          (setq lastcell (cdr l)
+                l (cddr l))))))
   plist)
 
 ;; (color-theme-plist-delete '(a b c d e f g h) 'a)
@@ -670,7 +670,7 @@ This modifies PLIST."
 ;; (color-theme-plist-delete '(a b c d e f c d g h) 'c)
 
 (if (or (featurep 'xemacs)
-	(< emacs-major-version 21))
+        (< emacs-major-version 21))
     (defalias 'color-theme-spec-compat 'identity)
   (defun color-theme-spec-compat (spec)
     "Filter the attributes in SPEC such that is is never invalid.
@@ -681,13 +681,13 @@ attribute, if there is no :weight, or deletes it.  This undoes the
 doings of `color-theme-spec-canonical-font', more or less."
     (let ((props (cadar spec)))
       (when (plist-member props :bold)
-	(setq props (color-theme-plist-delete props :bold))
-	(unless (plist-member props :weight)
-	  (setq props (plist-put props :weight 'bold))))
+        (setq props (color-theme-plist-delete props :bold))
+        (unless (plist-member props :weight)
+          (setq props (plist-put props :weight 'bold))))
       (when (plist-member props :italic)
-	(setq props (color-theme-plist-delete props :italic))
-	(unless (plist-member props :slant)
-	  (setq props (plist-put props :slant 'italic))))
+        (setq props (color-theme-plist-delete props :italic))
+        (unless (plist-member props :slant)
+          (setq props (plist-put props :slant 'italic))))
       `((t ,props)))))
 
 ;; (color-theme-spec-compat '((t (:foreground "blue" :bold t))))
@@ -700,12 +700,12 @@ doings of `color-theme-spec-canonical-font', more or less."
   ;; add these to the front of atts -- this will keept the old value for
   ;; customize-face in Emacs 21.
   (when (and (memq (plist-get atts :weight)
-		   '(ultra-bold extra-bold bold semi-bold))
-	     (not (plist-get atts :bold)))
+                   '(ultra-bold extra-bold bold semi-bold))
+             (not (plist-get atts :bold)))
     (setq atts (cons :bold (cons t atts))))
   (when (and (not (memq (plist-get atts :slant)
-			'(normal nil)))
-	     (not (plist-get atts :italic)))
+                        '(normal nil)))
+             (not (plist-get atts :italic)))
     (setq atts (cons :italic (cons t atts))))
   atts)
 ;; (color-theme-spec-canonical-font (color-theme-face-attr-construct 'bold (selected-frame)))
@@ -720,26 +720,26 @@ doings of `color-theme-spec-canonical-font', more or less."
   "Return the new height given OLD and NEW height.
 OLD is the current setting, NEW is the setting inherited from."
   (cond ((not old)
-	 new)
-	((integerp old)
-	 old)
-	((and (floatp old)
-	      (integerp new))
-	 (round (* old new)))
-	((and (floatp old)
-	      (floatp new))
-	 (* old new))
-	((and (functionp old)
-	      (integerp new))
-	 (round (funcall old new)))
-	((and (functionp old)
-	      (float new))
-	 `(lambda (f) (* (funcall ,old f) ,new)))
-	((and (functionp old)
-	      (functionp new))
-	 `(lambda (f) (* (funcall ,old (funcall ,new f)))))
-	(t
-	 (error "Illegal :height attributes: %S or %S" old new))))
+         new)
+        ((integerp old)
+         old)
+        ((and (floatp old)
+              (integerp new))
+         (round (* old new)))
+        ((and (floatp old)
+              (floatp new))
+         (* old new))
+        ((and (functionp old)
+              (integerp new))
+         (round (funcall old new)))
+        ((and (functionp old)
+              (float new))
+         `(lambda (f) (* (funcall ,old f) ,new)))
+        ((and (functionp old)
+              (functionp new))
+         `(lambda (f) (* (funcall ,old (funcall ,new f)))))
+        (t
+         (error "Illegal :height attributes: %S or %S" old new))))
 ;; (color-theme-spec-resolve-height 12 1.2)
 ;; (color-theme-spec-resolve-height 1.2 1.2)
 ;; (color-theme-spec-resolve-height 1.2 12)
@@ -761,24 +761,24 @@ OLD is the current setting, NEW is the setting inherited from."
       ;; :inherit attribute.
       (setq atts (delq ':inherit (delq face atts)))
       (let ((more-atts (color-theme-spec-resolve-inheritance
-			(color-theme-face-attr-construct
-			 face (selected-frame))))
-	    att val)
-	(while more-atts
-	  (setq att (car more-atts)
-		val (cadr more-atts)
-		more-atts (cddr more-atts))
-	  ;; Color-theme assumes that no value is ever 'unspecified.
-	  (cond ((eq att ':height); cumulative effect!
-		 (setq atts (plist-put atts 
-				       ':height 
-				       (color-theme-spec-resolve-height
-					(plist-get atts att) 
-					val))))
-		;; Default: Only put if it has not been specified before.
-		((not (plist-get atts att))
-		 (setq atts (cons att (cons val atts))))
-		  
+                        (color-theme-face-attr-construct
+                         face (selected-frame))))
+            att val)
+        (while more-atts
+          (setq att (car more-atts)
+                val (cadr more-atts)
+                more-atts (cddr more-atts))
+          ;; Color-theme assumes that no value is ever 'unspecified.
+          (cond ((eq att ':height); cumulative effect!
+                 (setq atts (plist-put atts
+                                       ':height
+                                       (color-theme-spec-resolve-height
+                                        (plist-get atts att)
+                                        val))))
+                ;; Default: Only put if it has not been specified before.
+                ((not (plist-get atts att))
+                 (setq atts (cons att (cons val atts))))
+
 ))))
     atts))
 ;; (color-theme-spec-resolve-inheritance '(:bold t))
@@ -802,19 +802,19 @@ If ATTS contains :inverse-video t, remove it and swap foreground and
 background color.  Return ATTS."
   (let ((inv (plist-get atts ':inverse-video)))
     (if inv
-	(let (result att)
-	  (while atts
-	    (setq att (car atts)
-		  atts (cdr atts))
-	    (cond ((and (eq att :foreground) (not color-theme-xemacs-p))
-		   (setq result (cons :background result)))
-		  ((and (eq att :background) (not color-theme-xemacs-p))
-		   (setq result (cons :foreground result)))
-		  ((eq att :inverse-video)
-		   (setq atts (cdr atts))); this prevents using dolist
-		  (t
-		   (setq result (cons att result)))))
-	  (nreverse result))
+        (let (result att)
+          (while atts
+            (setq att (car atts)
+                  atts (cdr atts))
+            (cond ((and (eq att :foreground) (not color-theme-xemacs-p))
+                   (setq result (cons :background result)))
+                  ((and (eq att :background) (not color-theme-xemacs-p))
+                   (setq result (cons :foreground result)))
+                  ((eq att :inverse-video)
+                   (setq atts (cdr atts))); this prevents using dolist
+                  (t
+                   (setq result (cons att result)))))
+          (nreverse result))
       ;; else
       atts)))
 ;; (color-theme-spec-maybe-invert '(:bold t))
@@ -838,12 +838,12 @@ because :inverse-video is handled differently in Emacs and XEmacs.  We
 will loose on a tty without colors, because in that situation,
 :inverse-video means something."
   (let ((atts
-	 (color-theme-spec-canonical-font
-	  (color-theme-spec-maybe-invert
-	   (color-theme-spec-resolve-inheritance
-	    (color-theme-face-attr-construct face (selected-frame)))))))
+         (color-theme-spec-canonical-font
+          (color-theme-spec-maybe-invert
+           (color-theme-spec-resolve-inheritance
+            (color-theme-face-attr-construct face (selected-frame)))))))
     (if atts
-	`(,face ((t ,atts)))
+        `(,face ((t ,atts)))
       `(,face ((t (nil)))))))
 
 (defun color-theme-get-params ()
@@ -851,9 +851,9 @@ will loose on a tty without colors, because in that situation,
 Such an alist may be installed by `color-theme-install-frame-params'.  The
 frame parameters returned must match `color-theme-legal-frame-parameters'."
   (let ((params (color-theme-filter (frame-parameters (selected-frame))
-				    color-theme-legal-frame-parameters)))
+                                    color-theme-legal-frame-parameters)))
     (sort params (lambda (a b) (string< (symbol-name (car a))
-					(symbol-name (car b)))))))
+                                        (symbol-name (car b)))))))
 
 (defun color-theme-get-vars ()
   "Return a list of variable settings usable in a color theme.
@@ -861,14 +861,14 @@ Such an alist may be installed by `color-theme-install-variables'.
 The variable names must match `color-theme-legal-variables', and the
 variable must be a user variable according to `user-variable-p'."
   (let ((vars)
-	(val))
+        (val))
     (mapatoms (lambda (v)
-		(and (boundp v)
-		     (user-variable-p v)
-		     (string-match color-theme-legal-variables
-				   (symbol-name v))
-		     (setq val (eval v))
-		     (add-to-list 'vars (cons v val)))))
+                (and (boundp v)
+                     (user-variable-p v)
+                     (string-match color-theme-legal-variables
+                                   (symbol-name v))
+                     (setq val (eval v))
+                     (add-to-list 'vars (cons v val)))))
     (sort vars (lambda (a b) (string< (car a) (car b))))))
 
 (defun color-theme-print-alist (alist)
@@ -906,18 +906,18 @@ faces returned must not match `color-theme-illegal-faces'."
 (defun color-theme-reset-faces ()
   "Reset face settings for all faces returned by `color-theme-get-faces'."
   (let ((faces (color-theme-get-faces))
-	(face) (spec) (entry)
-	(frame (if color-theme-is-global nil (selected-frame))))
+        (face) (spec) (entry)
+        (frame (if color-theme-is-global nil (selected-frame))))
     (while faces
       (setq entry (color-theme-spec (car faces)))
       (setq face (nth 0 entry))
       (setq spec '((t (nil))))
       (setq faces (cdr faces))
       (if (functionp 'face-spec-reset-face)
-	  (face-spec-reset-face face frame)
-	(face-spec-set face spec frame)
-	(if color-theme-is-global
-	    (put face 'face-defface-spec spec))))))
+          (face-spec-reset-face face frame)
+        (face-spec-set face spec frame)
+        (if color-theme-is-global
+            (put face 'face-defface-spec spec))))))
 
 (defun color-theme-print-theme (func doc params vars faces)
   "Print a theme into the current buffer.
@@ -925,10 +925,10 @@ FUNC is the function name, DOC the doc string, PARAMS the
 frame parameters, VARS the variable bindings, and FACES
 the list of faces and their specs."
   (insert "(defun " (symbol-name func) " ()\n"
-	  "  \"" doc "\"\n"
-	  "  (interactive)\n"
-	  "  (color-theme-install\n"
-	  "   '(" (symbol-name func))
+          "  \"" doc "\"\n"
+          "  (interactive)\n"
+          "  (color-theme-install\n"
+          "   '(" (symbol-name func))
   ;; alist of frame parameters
   (color-theme-print-alist params)
   ;; alist of variables
@@ -953,8 +953,8 @@ Example:
       \(interactive)
       \(color-theme-install
        '(...
-	 ...
-	 ...)))
+         ...
+         ...)))
     \(my-color-theme)
 
 If you want to use a specific color theme function, you can call the
@@ -967,21 +967,21 @@ Example:
   (interactive)
   (message "Pretty printing current color theme function...")
   (switch-to-buffer (if buf
-			buf
-		      (get-buffer-create "*Color Theme*")))
+                        buf
+                      (get-buffer-create "*Color Theme*")))
   (unless buf
     (setq buffer-read-only nil)
     (erase-buffer))
   ;; insert defun
   (color-theme-print-theme 'my-color-theme
-			   (concat "Color theme by "
-				   (if (string= "" user-full-name)
-				       (user-login-name)
-				     user-full-name)
-				   ", created " (format-time-string "%Y-%m-%d") ".")
-			   (color-theme-get-params)
-			   (color-theme-get-vars)
-			   (mapcar 'color-theme-spec (color-theme-get-faces)))
+                           (concat "Color theme by "
+                                   (if (string= "" user-full-name)
+                                       (user-login-name)
+                                     user-full-name)
+                                   ", created " (format-time-string "%Y-%m-%d") ".")
+                           (color-theme-get-params)
+                           (color-theme-get-vars)
+                           (mapcar 'color-theme-spec (color-theme-get-faces)))
   (unless buf
     (emacs-lisp-mode))
   (goto-char (point-min))
@@ -992,72 +992,72 @@ Example:
   (let (theme)
     (while (and (not theme) code)
       (when (eq (car code) 'color-theme-install)
-	(setq theme code))
+        (setq theme code))
       (when (listp (car code))
-	(setq theme (color-theme-analyze-find-theme (car code))))
+        (setq theme (color-theme-analyze-find-theme (car code))))
       (setq code (cdr code)))
     theme))
 
 ;; (equal (color-theme-analyze-find-theme
-;; 	'(defun color-theme-blue-eshell ()
-;; 	   "Color theme for eshell faces only."
-;; 	   (color-theme-install
-;; 	    '(color-theme-blue-eshell
-;; 	      nil
-;; 	      (eshell-ls-archive-face ((t (:bold t :foreground "IndianRed"))))
-;; 	      (eshell-ls-backup-face ((t (:foreground "Grey"))))))))
+;;      '(defun color-theme-blue-eshell ()
+;;         "Color theme for eshell faces only."
+;;         (color-theme-install
+;;          '(color-theme-blue-eshell
+;;            nil
+;;            (eshell-ls-archive-face ((t (:bold t :foreground "IndianRed"))))
+;;            (eshell-ls-backup-face ((t (:foreground "Grey"))))))))
 ;;        '(color-theme-install
-;; 	 (quote
-;; 	  (color-theme-blue-eshell
-;; 	   nil
-;; 	   (eshell-ls-archive-face ((t (:bold t :foreground "IndianRed"))))
-;; 	   (eshell-ls-backup-face ((t (:foreground "Grey")))))))))
+;;       (quote
+;;        (color-theme-blue-eshell
+;;         nil
+;;         (eshell-ls-archive-face ((t (:bold t :foreground "IndianRed"))))
+;;         (eshell-ls-backup-face ((t (:foreground "Grey")))))))))
 
 (defun color-theme-analyze-add-face (a b regexp faces)
   "If only one of A or B are in FACES, the other is added, and FACES is returned.
 If REGEXP is given, this is only done if faces contains a match for regexps."
   (when (or (not regexp)
-	    (catch 'found
-	      (dolist (face faces)
-		(when (string-match regexp (symbol-name (car face)))
-		  (throw 'found t)))))
+            (catch 'found
+              (dolist (face faces)
+                (when (string-match regexp (symbol-name (car face)))
+                  (throw 'found t)))))
     (let ((face-a (assoc a faces))
-	  (face-b (assoc b faces)))
+          (face-b (assoc b faces)))
       (if (and face-a (not face-b))
-	  (setq faces (cons (list b (nth 1 face-a))
-			    faces))
-	(if (and (not face-a) face-b)
-	    (setq faces (cons (list a (nth 1 face-b))
-			      faces))))))
+          (setq faces (cons (list b (nth 1 face-a))
+                            faces))
+        (if (and (not face-a) face-b)
+            (setq faces (cons (list a (nth 1 face-b))
+                              faces))))))
   faces)
 
 ;; (equal (color-theme-analyze-add-face
-;; 	'blue 'violet nil
-;; 	'((blue ((t (:foreground "blue"))))
-;; 	  (bold ((t (:bold t))))))
+;;      'blue 'violet nil
+;;      '((blue ((t (:foreground "blue"))))
+;;        (bold ((t (:bold t))))))
 ;;        '((violet ((t (:foreground "blue"))))
-;; 	 (blue ((t (:foreground "blue"))))
-;; 	 (bold ((t (:bold t))))))
+;;       (blue ((t (:foreground "blue"))))
+;;       (bold ((t (:bold t))))))
 ;; (equal (color-theme-analyze-add-face
-;; 	'violet 'blue nil
-;; 	'((blue ((t (:foreground "blue"))))
-;; 	  (bold ((t (:bold t))))))
+;;      'violet 'blue nil
+;;      '((blue ((t (:foreground "blue"))))
+;;        (bold ((t (:bold t))))))
 ;;        '((violet ((t (:foreground "blue"))))
-;; 	 (blue ((t (:foreground "blue"))))
-;; 	 (bold ((t (:bold t))))))
+;;       (blue ((t (:foreground "blue"))))
+;;       (bold ((t (:bold t))))))
 ;; (equal (color-theme-analyze-add-face
-;; 	'violet 'blue "foo"
-;; 	'((blue ((t (:foreground "blue"))))
-;; 	  (bold ((t (:bold t))))))
+;;      'violet 'blue "foo"
+;;      '((blue ((t (:foreground "blue"))))
+;;        (bold ((t (:bold t))))))
 ;;        '((blue ((t (:foreground "blue"))))
-;; 	 (bold ((t (:bold t))))))
+;;       (bold ((t (:bold t))))))
 ;; (equal (color-theme-analyze-add-face
-;; 	'violet 'blue "blue"
-;; 	'((blue ((t (:foreground "blue"))))
-;; 	  (bold ((t (:bold t))))))
+;;      'violet 'blue "blue"
+;;      '((blue ((t (:foreground "blue"))))
+;;        (bold ((t (:bold t))))))
 ;;        '((violet ((t (:foreground "blue"))))
-;; 	 (blue ((t (:foreground "blue"))))
-;; 	 (bold ((t (:bold t))))))
+;;       (blue ((t (:foreground "blue"))))
+;;       (bold ((t (:bold t))))))
 
 (defun color-theme-analyze-add-faces (faces)
   "Add missing faces to FACES and return it."
@@ -1068,30 +1068,30 @@ If REGEXP is given, this is only done if faces contains a match for regexps."
   ;; argument specifies a regexp.  Only if an existing face name
   ;; matches this regexp, is the rule applied.
   (let ((rules '((font-lock-builtin-face font-lock-reference-face)
-		 (font-lock-doc-face font-lock-doc-string-face)
-		 (font-lock-constant-face font-lock-preprocessor-face)
-		 ;; In Emacs 21 `modeline' is just an alias for
-		 ;; `mode-line'.  I recommend the use of
-		 ;; `modeline' until further notice.
-		 (modeline mode-line)
-		 (modeline modeline-buffer-id)
-		 (modeline modeline-mousable)
-		 (modeline modeline-mousable-minor-mode)
-		 (region primary-selection)
-		 (region zmacs-region)
-		 (font-lock-string-face dired-face-boring "^dired")
-		 (font-lock-function-name-face dired-face-directory "^dired")
-		 (default dired-face-executable "^dired")
-		 (font-lock-warning-face dired-face-flagged "^dired")
-		 (font-lock-warning-face dired-face-marked "^dired")
-		 (default dired-face-permissions "^dired")
-		 (default dired-face-setuid "^dired")
-		 (default dired-face-socket "^dired")
-		 (font-lock-keyword-face dired-face-symlink "^dired")
-		 (tool-bar menu))))
+                 (font-lock-doc-face font-lock-doc-string-face)
+                 (font-lock-constant-face font-lock-preprocessor-face)
+                 ;; In Emacs 21 `modeline' is just an alias for
+                 ;; `mode-line'.  I recommend the use of
+                 ;; `modeline' until further notice.
+                 (modeline mode-line)
+                 (modeline modeline-buffer-id)
+                 (modeline modeline-mousable)
+                 (modeline modeline-mousable-minor-mode)
+                 (region primary-selection)
+                 (region zmacs-region)
+                 (font-lock-string-face dired-face-boring "^dired")
+                 (font-lock-function-name-face dired-face-directory "^dired")
+                 (default dired-face-executable "^dired")
+                 (font-lock-warning-face dired-face-flagged "^dired")
+                 (font-lock-warning-face dired-face-marked "^dired")
+                 (default dired-face-permissions "^dired")
+                 (default dired-face-setuid "^dired")
+                 (default dired-face-socket "^dired")
+                 (font-lock-keyword-face dired-face-symlink "^dired")
+                 (tool-bar menu))))
     (dolist (rule rules)
       (setq faces (color-theme-analyze-add-face
-		   (nth 0 rule) (nth 1 rule) (nth 2 rule) faces))))
+                   (nth 0 rule) (nth 1 rule) (nth 2 rule) faces))))
   ;; The `fringe' face defines what the left and right borders of the
   ;; frame look like in Emacs 21.  To give them default fore- and
   ;; background colors, use (fringe ((t (nil)))) in your color theme.
@@ -1119,9 +1119,9 @@ If REGEXP is given, this is only done if faces contains a match for regexps."
   (unless (eq (caar faces) 'default)
     (let ((face (assoc 'default faces)))
       (setq faces (cons face
-			(sort (delete face faces)
-			      (lambda (a b)
-				(string-lessp (car a) (car b))))))))
+                        (sort (delete face faces)
+                              (lambda (a b)
+                                (string-lessp (car a) (car b))))))))
   faces)
 
 (defun color-theme-analyze-remove-heights (faces)
@@ -1136,19 +1136,19 @@ If REGEXP is given, this is only done if faces contains a match for regexps."
   (let (result)
     (dolist (face faces)
       (let ((props (cadar (nth 1 face))))
-	(if (and (plist-member props :height)
-		 (integerp (plist-get props :height)))
-	    (setq props (color-theme-plist-delete props :height)
-		  result (cons (list (car face) `((t ,props)))
-			       result))
-	  (setq result (cons face result)))))
+        (if (and (plist-member props :height)
+                 (integerp (plist-get props :height)))
+            (setq props (color-theme-plist-delete props :height)
+                  result (cons (list (car face) `((t ,props)))
+                               result))
+          (setq result (cons face result)))))
     (nreverse result)))
 
 ;; (equal (color-theme-analyze-remove-heights
-;; 	'((blue ((t (:foreground "blue" :height 2))))
-;; 	  (bold ((t (:bold t :height 1.0))))))
+;;      '((blue ((t (:foreground "blue" :height 2))))
+;;        (bold ((t (:bold t :height 1.0))))))
 ;;        '((blue ((t (:foreground "blue"))))
-;; 	 (bold ((t (:bold t :height 1.0))))))
+;;       (bold ((t (:bold t :height 1.0))))))
 
 (defun color-theme-analyze-defun ()
   "Once you have a color-theme printed, check for missing faces.
@@ -1167,39 +1167,39 @@ author."
       (eval-defun nil)
       (goto-char (point-min))
       (let* ((code (read (current-buffer)))
-	     (theme (color-theme-canonic
-		     (eval
-		      (cadr
-		       (color-theme-analyze-find-theme
-			code)))))
-	     (func (color-theme-function theme))
-	     (doc (documentation func t))
-	     (variables (color-theme-variables theme))
-	     (faces (color-theme-faces theme))
-	     (params (color-theme-frame-params theme)))
-	(setq faces (color-theme-analyze-remove-heights
-		     (color-theme-analyze-add-faces faces)))
-	;; Remove any variable bindings of faces that point to their
-	;; symbol?  Perhaps not, because another theme might want to
-	;; change this, so it is important to be able to reset them.
-	;; 	(let (result)
-	;; 	  (dolist (var variables)
-	;; 	    (unless (eq (car var) (cdr var))
-	;; 	      (setq result (cons var result))))
-	;; 	  (setq variables (nreverse result)))
-	;; Now modify the theme directly.
-	(setq theme (color-theme-analyze-find-theme code))
-	(setcdr (cadadr theme) (list params variables faces))
-	(message "Pretty printing analysed color theme function...")
-	(with-current-buffer (get-buffer-create "*Color Theme*")
-	  (setq buffer-read-only nil)
-	  (erase-buffer)
-	  ;; insert defun
-	  (color-theme-print-theme func doc params variables faces)
-	  (emacs-lisp-mode))
-	(message "Pretty printing analysed color theme function... done")
-	(ediff-buffers (current-buffer)
-		       (get-buffer "*Color Theme*"))))))
+             (theme (color-theme-canonic
+                     (eval
+                      (cadr
+                       (color-theme-analyze-find-theme
+                        code)))))
+             (func (color-theme-function theme))
+             (doc (documentation func t))
+             (variables (color-theme-variables theme))
+             (faces (color-theme-faces theme))
+             (params (color-theme-frame-params theme)))
+        (setq faces (color-theme-analyze-remove-heights
+                     (color-theme-analyze-add-faces faces)))
+        ;; Remove any variable bindings of faces that point to their
+        ;; symbol?  Perhaps not, because another theme might want to
+        ;; change this, so it is important to be able to reset them.
+        ;;      (let (result)
+        ;;        (dolist (var variables)
+        ;;          (unless (eq (car var) (cdr var))
+        ;;            (setq result (cons var result))))
+        ;;        (setq variables (nreverse result)))
+        ;; Now modify the theme directly.
+        (setq theme (color-theme-analyze-find-theme code))
+        (setcdr (cadadr theme) (list params variables faces))
+        (message "Pretty printing analysed color theme function...")
+        (with-current-buffer (get-buffer-create "*Color Theme*")
+          (setq buffer-read-only nil)
+          (erase-buffer)
+          ;; insert defun
+          (color-theme-print-theme func doc params variables faces)
+          (emacs-lisp-mode))
+        (message "Pretty printing analysed color theme function... done")
+        (ediff-buffers (current-buffer)
+                       (get-buffer "*Color Theme*"))))))
 
 ;;; Creating a snapshot of the current color theme
 
@@ -1209,19 +1209,19 @@ author."
   "Return the definition of the current color-theme.
 The function returned will recreate the color-theme in use at the moment."
   (eval `(lambda ()
-	   "The color theme in use when the selection buffer was created.
+           "The color theme in use when the selection buffer was created.
 \\[color-theme-select] creates the color theme selection buffer.  At the
 same time, this snapshot is created as a very simple undo mechanism.
 The snapshot is created via `color-theme-snapshot'."
-	   (interactive)
-	   (color-theme-install
-	    '(color-theme-snapshot
-	      ;; alist of frame parameters
-	      ,(color-theme-get-params)
-	      ;; alist of variables
-	      ,(color-theme-get-vars)
-	      ;; remaining elements of snapshot: face specs
-	      ,@(color-theme-get-face-definitions))))))
+           (interactive)
+           (color-theme-install
+            '(color-theme-snapshot
+              ;; alist of frame parameters
+              ,(color-theme-get-params)
+              ;; alist of variables
+              ,(color-theme-get-vars)
+              ;; remaining elements of snapshot: face specs
+              ,@(color-theme-get-face-definitions))))))
 
 
 
@@ -1239,12 +1239,12 @@ frame paramters automatically affects the relevant faces.")
 This uses `color-theme-frame-param-frobbing-rules'."
   (dolist (rule color-theme-frame-param-frobbing-rules)
     (let* ((param (nth 0 rule))
-	   (face (nth 1 rule))
-	   (prop (nth 2 rule))
-	   (val (cdr (assq param params)))
-	   (frame (if color-theme-is-global nil (selected-frame))))
+           (face (nth 1 rule))
+           (prop (nth 2 rule))
+           (val (cdr (assq param params)))
+           (frame (if color-theme-is-global nil (selected-frame))))
       (when val
-	(set-face-property face prop val frame)))))
+        (set-face-property face prop val frame)))))
 
 (defun color-theme-alist-reduce (old-list)
   "Reduce OLD-LIST.
@@ -1254,7 +1254,7 @@ only installing unique attributes."
   (let (new-list)
     (dolist (elem old-list)
       (when (not (assq (car elem) new-list))
-	(setq new-list (cons elem new-list))))
+        (setq new-list (cons elem new-list))))
     new-list))
 
 (defun color-theme-install-frame-params (params)
@@ -1273,34 +1273,34 @@ indicates a dedicated minibuffer frame.
 
 Called from `color-theme-install'."
   (setq params (color-theme-filter
-		params color-theme-legal-frame-parameters))
+                params color-theme-legal-frame-parameters))
   ;; We have a new list in params now, therefore we may use
   ;; destructive nconc.
   (if color-theme-is-global
       (let ((frames (frame-list)))
-	(if (or color-theme-is-cumulative
-		(null color-theme-original-frame-alist))
-	    (setq default-frame-alist
-		  (append params (color-theme-alist default-frame-alist))
-		  minibuffer-frame-alist
-		  (append params (color-theme-alist minibuffer-frame-alist)))
-	  (setq default-frame-alist
-		(append params color-theme-original-frame-alist)
-		minibuffer-frame-alist
-		(append params (color-theme-alist minibuffer-frame-alist))))
-	(setq default-frame-alist
-	      (color-theme-alist-reduce default-frame-alist)
-	      minibuffer-frame-alist
-	      (color-theme-alist-reduce minibuffer-frame-alist))
-	(dolist (frame frames)
-	  (let ((params (if (eq 'only (cdr (assq 'minibuffer (frame-parameters frame))))
-			    minibuffer-frame-alist
-			  default-frame-alist)))
-	    (condition-case var
-		(modify-frame-parameters frame params)
-	      (error (message "Error using params %S: %S" params var))))))
+        (if (or color-theme-is-cumulative
+                (null color-theme-original-frame-alist))
+            (setq default-frame-alist
+                  (append params (color-theme-alist default-frame-alist))
+                  minibuffer-frame-alist
+                  (append params (color-theme-alist minibuffer-frame-alist)))
+          (setq default-frame-alist
+                (append params color-theme-original-frame-alist)
+                minibuffer-frame-alist
+                (append params (color-theme-alist minibuffer-frame-alist))))
+        (setq default-frame-alist
+              (color-theme-alist-reduce default-frame-alist)
+              minibuffer-frame-alist
+              (color-theme-alist-reduce minibuffer-frame-alist))
+        (dolist (frame frames)
+          (let ((params (if (eq 'only (cdr (assq 'minibuffer (frame-parameters frame))))
+                            minibuffer-frame-alist
+                          default-frame-alist)))
+            (condition-case var
+                (modify-frame-parameters frame params)
+              (error (message "Error using params %S: %S" params var))))))
     (condition-case var
-	(modify-frame-parameters (selected-frame) params)
+        (modify-frame-parameters (selected-frame) params)
       (error (message "Error using params %S: %S" params var))))
   (when color-theme-xemacs-p
     (color-theme-frob-faces params)))
@@ -1321,9 +1321,9 @@ Called from `color-theme-install'."
   (let ((vars (color-theme-filter vars color-theme-legal-variables)))
     (dolist (var vars)
       (if (or color-theme-is-global color-theme-xemacs-p)
-	  (set (car var) (cdr var))
-	(make-variable-frame-local (car var))
-	(modify-frame-parameters (selected-frame) (list var))))))
+          (set (car var) (cdr var))
+        (make-variable-frame-local (car var))
+        (modify-frame-parameters (selected-frame) (list var))))))
 
 (defun color-theme-install-faces (faces)
   "Change faces using FACES.
@@ -1352,31 +1352,31 @@ Called from `color-theme-install'."
     (color-theme-reset-faces))
   ;; install new faces
   (let ((faces (color-theme-filter faces color-theme-illegal-faces t))
-	(frame (if color-theme-is-global nil (selected-frame))))
+        (frame (if color-theme-is-global nil (selected-frame))))
     (dolist (entry faces)
       (let ((face (nth 0 entry))
-	    (spec (nth 1 entry)))
-	(or (facep face)
-	    (make-empty-face face))
-	;; remove weird properties from the default face only
-	(when (eq face 'default)
-	  (setq spec (color-theme-spec-filter spec)))
-	;; Emacs/XEmacs customization issues: filter out :bold when
-	;; the spec contains :weight, etc, such that the spec remains
-	;; "valid" for custom.
-	(setq spec (color-theme-spec-compat spec))
-	;; using a spec of ((t (nil))) to reset a face doesn't work
-	;; in Emacs 21, we use the new function face-spec-reset-face
-	;; instead
-	(if (and (functionp 'face-spec-reset-face)
-		 (equal spec '((t (nil)))))
-	    (face-spec-reset-face face frame)
-	  (condition-case var
-	      (progn
-		(face-spec-set face spec frame)
-		(if color-theme-is-global
-		    (put face 'face-defface-spec spec)))
-	    (error (message "Error using spec %S: %S" spec var))))))))
+            (spec (nth 1 entry)))
+        (or (facep face)
+            (make-empty-face face))
+        ;; remove weird properties from the default face only
+        (when (eq face 'default)
+          (setq spec (color-theme-spec-filter spec)))
+        ;; Emacs/XEmacs customization issues: filter out :bold when
+        ;; the spec contains :weight, etc, such that the spec remains
+        ;; "valid" for custom.
+        (setq spec (color-theme-spec-compat spec))
+        ;; using a spec of ((t (nil))) to reset a face doesn't work
+        ;; in Emacs 21, we use the new function face-spec-reset-face
+        ;; instead
+        (if (and (functionp 'face-spec-reset-face)
+                 (equal spec '((t (nil)))))
+            (face-spec-reset-face face frame)
+          (condition-case var
+              (progn
+                (face-spec-set face spec frame)
+                (if color-theme-is-global
+                    (put face 'face-defface-spec spec)))
+            (error (message "Error using spec %S: %S" spec var))))))))
 
 ;; `custom-set-faces' is unusable here because it doesn't allow to set
 ;; the faces for one frame only.
@@ -1404,13 +1404,13 @@ This deals with all the backwards compatibility stuff."
   (let (function frame-params variables faces)
     (when (functionp (car theme))
       (setq function (car theme)
-	    theme (cdr theme)))
+            theme (cdr theme)))
     (setq frame-params (car theme)
-	  theme (cdr theme))
+          theme (cdr theme))
     ;; optional variable defintions (for backwards compatibility)
     (when (listp (caar theme))
       (setq variables (car theme)
-	    theme (cdr theme)))
+            theme (cdr theme)))
     ;; face definitions
     (setq faces theme)
     (list function frame-params variables faces)))
@@ -1438,8 +1438,8 @@ alist.  Membership will be tested using `assq'."
   (let (result)
     (dolist (l alists)
       (dolist (entry l)
-	(unless (assq (car entry) result)
-	  (setq result (cons entry result)))))
+        (unless (assq (car entry) result)
+          (setq result (cons entry result)))))
     (nreverse result)))
 ;; (color-theme-merge-alists '((a . 1) (b . 2)))
 ;; (color-theme-merge-alists '((a . 1) (b . 2) (a . 3)))
@@ -1460,44 +1460,44 @@ a difference."
    (list
     (intern
      (completing-read "Theme A: "
-		      (mapcar (lambda (i) (list (symbol-name (car i))))
-			      color-themes)
-		      (lambda (i) (string-match "color-theme" (car i)))))
+                      (mapcar (lambda (i) (list (symbol-name (car i))))
+                              color-themes)
+                      (lambda (i) (string-match "color-theme" (car i)))))
     (intern
      (completing-read "Theme B: "
-		      (mapcar (lambda (i) (list (symbol-name (car i))))
-			      color-themes)
-		      (lambda (i) (string-match "color-theme" (car i)))))))
+                      (mapcar (lambda (i) (list (symbol-name (car i))))
+                              color-themes)
+                      (lambda (i) (string-match "color-theme" (car i)))))))
   ;; install the themes in a new frame and get the definitions
   (let ((color-theme-is-global nil))
     (select-frame (make-frame))
     (funcall theme-a)
     (setq theme-a (list theme-a
-			(color-theme-get-params)
-			(color-theme-get-vars)
-			(color-theme-get-face-definitions)))
+                        (color-theme-get-params)
+                        (color-theme-get-vars)
+                        (color-theme-get-face-definitions)))
     (funcall theme-b)
     (setq theme-b (list theme-b
-			(color-theme-get-params)
-			(color-theme-get-vars)
-			(color-theme-get-face-definitions)))
+                        (color-theme-get-params)
+                        (color-theme-get-vars)
+                        (color-theme-get-face-definitions)))
     (delete-frame))
   (let ((params (set-difference
-		 (color-theme-frame-params theme-b)
-		 (color-theme-frame-params theme-a)
-		 :test 'equal))
-	(vars (set-difference
-	       (color-theme-variables theme-b)
-	       (color-theme-variables theme-a)
-	       :test 'equal))
-	(faces (set-difference
-		(color-theme-faces theme-b)
-		(color-theme-faces theme-a)
-		:test 'equal)))
+                 (color-theme-frame-params theme-b)
+                 (color-theme-frame-params theme-a)
+                 :test 'equal))
+        (vars (set-difference
+               (color-theme-variables theme-b)
+               (color-theme-variables theme-a)
+               :test 'equal))
+        (faces (set-difference
+                (color-theme-faces theme-b)
+                (color-theme-faces theme-a)
+                :test 'equal)))
     (list 'diff
-	  params
-	  vars
-	  faces)))
+          params
+          vars
+          faces)))
 
 
 
@@ -1553,14 +1553,14 @@ frame-parameter settings of previous color themes."
   (interactive)
   (require 'reporter)
   (let ((reporter-eval-buffer (current-buffer))
-	final-resting-place
-	after-sep-pos
-	(reporter-status-message "Formatting buffer...")
-	(reporter-status-count 0)
-	(problem "Yet another color-theme")
-	(agent (reporter-compose-outgoing))
-	(mailbuf (current-buffer))
-	hookvar)
+        final-resting-place
+        after-sep-pos
+        (reporter-status-message "Formatting buffer...")
+        (reporter-status-count 0)
+        (problem "Yet another color-theme")
+        (agent (reporter-compose-outgoing))
+        (mailbuf (current-buffer))
+        hookvar)
     ;; do the work
     (require 'sendmail)
     ;; If mailbuf did not get made visible before, make it visible now.
@@ -1578,9 +1578,9 @@ frame-parameter settings of previous color themes."
     (mail-text)
     (setq after-sep-pos (point))
     (unwind-protect
-	(progn
-	  (setq final-resting-place (point-marker))
-	  (goto-char final-resting-place))
+        (progn
+          (setq final-resting-place (point-marker))
+          (goto-char final-resting-place))
       (color-theme-print (current-buffer))
       (goto-char final-resting-place)
       (insert "\n\n")
@@ -1589,17 +1589,17 @@ frame-parameter settings of previous color themes."
       (set-marker final-resting-place nil))
     ;; compose the minibuf message and display this.
     (let* ((sendkey-whereis (where-is-internal
-			     (get agent 'sendfunc) nil t))
-	   (abortkey-whereis (where-is-internal
-			      (get agent 'abortfunc) nil t))
-	   (sendkey (if sendkey-whereis
-			(key-description sendkey-whereis)
-		      "C-c C-c")); TBD: BOGUS hardcode
-	   (abortkey (if abortkey-whereis
-			 (key-description abortkey-whereis)
-		       "M-x kill-buffer"))); TBD: BOGUS hardcode
+                             (get agent 'sendfunc) nil t))
+           (abortkey-whereis (where-is-internal
+                              (get agent 'abortfunc) nil t))
+           (sendkey (if sendkey-whereis
+                        (key-description sendkey-whereis)
+                      "C-c C-c")); TBD: BOGUS hardcode
+           (abortkey (if abortkey-whereis
+                         (key-description abortkey-whereis)
+                       "M-x kill-buffer"))); TBD: BOGUS hardcode
       (message "Enter a message and type %s to send or %s to abort."
-	       sendkey abortkey))))
+               sendkey abortkey))))
 
 
 
@@ -1876,8 +1876,8 @@ by your default style sheet.
 This is what you should put in your .Xdefaults file, if you want to
 change the colors of the menus in Emacs 20 as well:
 
-emacs*Background:		DarkSlateGray
-emacs*Foreground:		Wheat"
+emacs*Background:               DarkSlateGray
+emacs*Foreground:               Wheat"
   (interactive)
   (color-theme-blue-gnus)
   (let ((color-theme-is-cumulative t))
@@ -1888,22 +1888,22 @@ emacs*Foreground:		Wheat"
     (color-theme-install
      '(color-theme-gnome2
        ((foreground-color . "wheat")
-	(background-color . "darkslategrey")
-	(mouse-color . "Grey")
-	(cursor-color . "LightGray")
-	(border-color . "black")
-	(background-mode . dark))
+        (background-color . "darkslategrey")
+        (mouse-color . "Grey")
+        (cursor-color . "LightGray")
+        (border-color . "black")
+        (background-mode . dark))
        ((apropos-keybinding-face . underline)
-	(apropos-label-face . italic)
-	(apropos-match-face . secondary-selection)
-	(apropos-property-face . bold-italic)
-	(apropos-symbol-face . info-xref)
-	(goto-address-mail-face . message-header-to-face)
-	(goto-address-mail-mouse-face . secondary-selection)
-	(goto-address-url-face . info-xref)
-	(goto-address-url-mouse-face . highlight)
-	(list-matching-lines-face . bold)
-	(view-highlight-face . highlight))
+        (apropos-label-face . italic)
+        (apropos-match-face . secondary-selection)
+        (apropos-property-face . bold-italic)
+        (apropos-symbol-face . info-xref)
+        (goto-address-mail-face . message-header-to-face)
+        (goto-address-mail-mouse-face . secondary-selection)
+        (goto-address-url-face . info-xref)
+        (goto-address-url-mouse-face . highlight)
+        (list-matching-lines-face . bold)
+        (view-highlight-face . highlight))
        (default ((t (nil))))
        (bbdb-company ((t (:foreground "pale green"))))
        (bbdb-name ((t (:bold t :foreground "pale green"))))
@@ -1969,8 +1969,8 @@ Doesn't mess with most faces, but does turn on dark background mode."
    '(color-theme-simple-1
      ((foreground-color . "white")
       (background-color . "black")
-      (cursor-color	. "indian red")
-      (background-mode	. dark))
+      (cursor-color     . "indian red")
+      (background-mode  . dark))
      (default ((t (nil))))
      (modeline ((t (:foreground "black" :background "white"))))
      (modeline-buffer-id ((t (:foreground "black" :background "white"))))
@@ -2019,8 +2019,8 @@ Used at Ryerson Polytechnic University in the Electronic Engineering department.
    '(color-theme-ryerson
      ((foreground-color . "white")
       (background-color . "midnightblue")
-      (cursor-color	. "red")
-      (background-mode	. dark))
+      (cursor-color     . "red")
+      (background-mode  . dark))
      (default ((t (nil))))
      (modeline ((t (:foreground "black" :background "slategray3"))))
      (modeline-buffer-id ((t (:foreground "black" :background "slategray3"))))
@@ -2743,31 +2743,31 @@ widget, custom, latex, ediff."
   (interactive)
   ;; Build a list of faces without parameters
   (let ((old-faces (face-list))
-	(faces)
-	(face)
-	(foreground (or color "green")))
+        (faces)
+        (face)
+        (foreground (or color "green")))
     (dolist (face old-faces)
       (cond ((memq face '(bold bold-italic))
-	     (add-to-list 'faces `(,face (( t (:bold t))))))
-	    ((memq face '(italic underline show-paren-mismatch-face))
-	     (add-to-list 'faces `(,face (( t (:underline t))))))
-	    ((memq face '(modeline modeline-buffer-id modeline-mousable
-			  modeline-mousable-minor-mode highlight region
-			  secondary-selection show-paren-match-face))
-	     (add-to-list 'faces `(,face (( t (:foreground "black"
-					       :background ,foreground
-					       :inverse t))))))
-	    (t
-	     (add-to-list 'faces `(,face (( t (nil))))))))
+             (add-to-list 'faces `(,face (( t (:bold t))))))
+            ((memq face '(italic underline show-paren-mismatch-face))
+             (add-to-list 'faces `(,face (( t (:underline t))))))
+            ((memq face '(modeline modeline-buffer-id modeline-mousable
+                          modeline-mousable-minor-mode highlight region
+                          secondary-selection show-paren-match-face))
+             (add-to-list 'faces `(,face (( t (:foreground "black"
+                                               :background ,foreground
+                                               :inverse t))))))
+            (t
+             (add-to-list 'faces `(,face (( t (nil))))))))
     (color-theme-install
      (append
       (list (or func 'color-theme-retro-green)
-	    (list (cons 'foreground-color foreground)
-		  (cons 'background-color "black")
-		  (cons 'mouse-color foreground)
-		  (cons 'cursor-color foreground)
-		  (cons 'border-color foreground)
-		  (cons 'background-mode 'dark)))
+            (list (cons 'foreground-color foreground)
+                  (cons 'background-color "black")
+                  (cons 'mouse-color foreground)
+                  (cons 'cursor-color foreground)
+                  (cons 'border-color foreground)
+                  (cons 'background-mode 'dark)))
       faces))))
 
 (defun color-theme-retro-orange ()
@@ -2984,7 +2984,7 @@ Emacs.pane.menubar.background: darkGrey
 Emacs.pane.menubar.foreground: black"
   (interactive)
 ;  (setq term-default-fg-color "white"
-;	 term-default-bg "black")
+;        term-default-bg "black")
   (color-theme-install
    '(color-theme-pok-wob
      ((foreground-color . "white")
@@ -3136,8 +3136,8 @@ custom, widget, info, flyspell, gnus, message, man, woman, dired.
 This is what you should put in your .Xdefaults file, if you want to
 change the colors of the menus:
 
-emacs*Background:		DarkSlateGray
-emacs*Foreground:		Wheat"
+emacs*Background:               DarkSlateGray
+emacs*Foreground:               Wheat"
   (interactive)
   (color-theme-blue-gnus)
   (let ((color-theme-is-cumulative t))
@@ -3145,13 +3145,13 @@ emacs*Foreground:		Wheat"
     (color-theme-install
      '(color-theme-blue-sea
        ((background-color . "MidnightBlue")
-	(background-mode . dark)
-	(border-color . "Grey")
-	(cursor-color . "Grey")
-	(foreground-color . "Grey")
-	(mouse-color . "Grey"))
+        (background-mode . dark)
+        (border-color . "Grey")
+        (cursor-color . "Grey")
+        (foreground-color . "Grey")
+        (mouse-color . "Grey"))
        ((Man-overstrike-face . woman-bold-face)
-	(Man-underline-face . woman-italic-face))
+        (Man-underline-face . woman-italic-face))
        (default ((t (nil))))
        (bold ((t (:bold t))))
        (bold-italic ((t (:bold t :foreground "beige"))))
@@ -4216,14 +4216,14 @@ Supports standard, font-lock and info faces, and it uses
     (color-theme-install
      '(color-theme-goldenrod
        ((background-color . "black")
-	(background-mode . dark)
-	(border-color . "black")
-	(cursor-color . "light goldenrod")
-	(foreground-color . "goldenrod")
-	(mouse-color . "goldenrod"))
+        (background-mode . dark)
+        (border-color . "black")
+        (cursor-color . "light goldenrod")
+        (foreground-color . "goldenrod")
+        (mouse-color . "goldenrod"))
        ((goto-address-mail-face . info-xref)
-	(list-matching-lines-face . bold)
-	(view-highlight-face . highlight))
+        (list-matching-lines-face . bold)
+        (view-highlight-face . highlight))
        (default ((t (nil))))
        (bold ((t (:bold t))))
        (bold-italic ((t (:italic t :bold t :foreground "lavender"))))
@@ -4610,8 +4610,8 @@ Wheat on black.  Includes faces for font-lock, gnus, paren."
 Black on bisque, a light color. Based on some settings from Robin S. Socha.
 Features some color changes to programming languages, especially vhdl-mode.
 You might also want to put something like
-   Emacs*Foreground:	       Black
-   Emacs*Background:	       bisque2
+   Emacs*Foreground:           Black
+   Emacs*Background:           bisque2
 in your ~/.Xdefaults."
   (interactive)
   (color-theme-install
@@ -4734,16 +4734,16 @@ White on dark blue color theme.
 There is some redundancy in the X resources, but I do not have time to
 find out which should go or which should stay:
 
-Emacs*dialog*Background:	midnightblue
-Emacs*dialog*Foreground:	white
-Emacs*popup*Background:		midnightblue
-Emacs*popup*Foreground:		white
-emacs*background:		#00005a
-emacs*cursorColor:		gray90
-emacs*foreground:		White
-emacs.dialog*.background:	midnightblue
-emacs.menu*.background:		midnightblue
-emacs.pane.menubar.background:	midnightblue"
+Emacs*dialog*Background:        midnightblue
+Emacs*dialog*Foreground:        white
+Emacs*popup*Background:         midnightblue
+Emacs*popup*Foreground:         white
+emacs*background:               #00005a
+emacs*cursorColor:              gray90
+emacs*foreground:               White
+emacs.dialog*.background:       midnightblue
+emacs.menu*.background:         midnightblue
+emacs.pane.menubar.background:  midnightblue"
   (interactive)
   (color-theme-install
    '(color-theme-parus
@@ -4887,9 +4887,9 @@ fonts."
     (color-theme-install
      '(color-theme-high-contrast
        ((cursor-color . "red")
-	(width . 60)
-	(height . 25)
-	(background . dark))
+        (width . 60)
+        (height . 25)
+        (background . dark))
        (default ((t (:stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight bold :height 240 :width normal :family "adobe-courier"))))
 
        (bold ((t (:bold t :underline t))))
@@ -5023,22 +5023,22 @@ color foreground-color and fontlock color."
     (color-theme-install
      '(color-theme-classic
        ((foreground-color . "AntiqueWhite")
-	(background-color . "darkslategrey")
-	(mouse-color . "Grey")
-	(cursor-color . "Red")
-	(border-color . "black")
-	(background-mode . dark))
+        (background-color . "darkslategrey")
+        (mouse-color . "Grey")
+        (cursor-color . "Red")
+        (border-color . "black")
+        (background-mode . dark))
        ((apropos-keybinding-face . underline)
-	(apropos-label-face . italic)
-	(apropos-match-face . secondary-selection)
-	(apropos-property-face . bold-italic)
-	(apropos-symbol-face . info-xref)
-	(goto-address-mail-face . message-header-to-face)
-	(goto-address-mail-mouse-face . secondary-selection)
-	(goto-address-url-face . info-xref)
-	(goto-address-url-mouse-face . highlight)
-	(list-matching-lines-face . bold)
-	(view-highlight-face . highlight))
+        (apropos-label-face . italic)
+        (apropos-match-face . secondary-selection)
+        (apropos-property-face . bold-italic)
+        (apropos-symbol-face . info-xref)
+        (goto-address-mail-face . message-header-to-face)
+        (goto-address-mail-mouse-face . secondary-selection)
+        (goto-address-url-face . info-xref)
+        (goto-address-url-mouse-face . highlight)
+        (list-matching-lines-face . bold)
+        (view-highlight-face . highlight))
        (default ((t (nil))))
        (bold ((t (:bold t))))
        (bold-italic ((t (:italic t :bold t :foreground "beige"))))
@@ -6414,10 +6414,10 @@ uses neep, for example."
     (color-theme-install
      '(color-theme-robin-hood
        ((foreground-color . "navajo white")
-	(background-color . "#304020"))
+        (background-color . "#304020"))
        ((CUA-mode-read-only-cursor-color . "white")
-	(help-highlight-face . info-xref)
-	(list-matching-lines-buffer-name-face . bold))
+        (help-highlight-face . info-xref)
+        (list-matching-lines-buffer-name-face . bold))
        (default ((t (nil))))
        (button ((t (:bold t))))
        (calendar-today-face ((t (:foreground "lemon chiffon"))))
@@ -8168,7 +8168,7 @@ Based on `color-theme-subtle-blue' with a slightly darker background."
     (color-theme-install
      '(color-theme-dark-blue
        ((background-color . "#537182")
-	(foreground-color . "AntiqueWhite2"))
+        (foreground-color . "AntiqueWhite2"))
        nil
        (default ((t (nil))))
        (blank-space-face ((t (:background "LightGray"))))
@@ -8515,7 +8515,7 @@ Color theme by Thomas Gehrlein, created 2001-10-21."
 ;;
 ;; 1. cd into the Emacs lisp directory and run the following command:
 ;;    ( for d in `find -type d`; \
-;;      do grep --files-with-matches 'defface[		]' $d/*.el; \
+;;      do grep --files-with-matches 'defface[          ]' $d/*.el; \
 ;;      done ) | sort | uniq
 ;;    Put the result in a lisp block, using load-library calls.
 ;;
@@ -8964,7 +8964,7 @@ This builds on `color-theme-jsc-light'."
     (color-theme-install
      '(color-theme-jsc-light2
        ((vc-annotate-very-old-color . "#0046FF")
-	(senator-eldoc-use-color . t))
+        (senator-eldoc-use-color . t))
        nil
        (bold ((t (:bold t :weight bold))))
        (bold-italic ((t (:italic t :bold t :slant italic :weight bold))))
@@ -9332,10 +9332,10 @@ This builds on `color-theme-jsc-light'."
 
 (defun color-theme-kingsajz ()
   "Color theme by Olgierd \"Kingsajz\" Ziolko, created 2001-12-04.
-Another theme with wheat on DarkSlatGrey. Based on Subtle Hacker. 
-Used on Emacs 21.1 @ WinMe. Not tested on any other systems. 
+Another theme with wheat on DarkSlatGrey. Based on Subtle Hacker.
+Used on Emacs 21.1 @ WinMe. Not tested on any other systems.
 
-Some faces uses Andale mono font (nice fixed-width font). 
+Some faces uses Andale mono font (nice fixed-width font).
 It is available at:  http://www.microsoft.com/typography/downloads/andale32.exe
 
 Hail Eris! All hail Discordia!"
@@ -9787,9 +9787,9 @@ A pastelly-mac like color-theme."
     (color-theme-install
      '(color-theme-katester
        ((background-color . "ivory")
-	(cursor-color . "slateblue")
-	(foreground-color . "black")
-	(mouse-color . "slateblue"))
+        (cursor-color . "slateblue")
+        (foreground-color . "black")
+        (mouse-color . "slateblue"))
        (default ((t ((:background "ivory" :foreground "black")))))
        (bold ((t (:bold t))))
        (font-lock-string-face ((t (:foreground "maroon"))))
@@ -11037,63 +11037,63 @@ Green on black theme including font-lock, speedbar, and widget."
       (background-mode . dark)
       (border-color . "black")
       (cursor-color . "yellow")
-      (foreground-color . "#00ff00")
+      (foreground-color . "#00ee00")
       (mouse-color . "yellow"))
      ((help-highlight-face . underline)
       (list-matching-lines-face . bold)
       (widget-mouse-face . highlight))
-     (default ((t (:stipple nil :background "black" :foreground "#00ff00" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal :family "misc-fixed"))))
+     (default ((t (:stipple nil :background "black" :foreground "#00dd00" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal :family "misc-fixed"))))
      (bold ((t (:bold t :weight bold))))
      (bold-italic ((t (:italic t :bold t :slant italic :weight bold))))
      (border ((t (:background "black"))))
      (comint-highlight-input ((t (:bold t :weight bold))))
      (comint-highlight-prompt ((t (:foreground "cyan"))))
-     (cursor ((t (:background "yellow"))))
+     (cursor ((t (:background "#ff0000"))))
      (fixed-pitch ((t (:family "courier"))))
      (font-lock-builtin-face ((t (:foreground "magenta"))))
      (font-lock-comment-face ((t (:foreground "deeppink"))))
-     (font-lock-constant-face ((t (:foreground "blue"))))
+     (font-lock-constant-face ((t (:foreground "#ff8019"))))
      (font-lock-doc-face ((t (:foreground "cyan"))))
      (font-lock-doc-string-face ((t (:foreground "cyan"))))
      (font-lock-function-name-face ((t (:foreground "purple"))))
-     (font-lock-keyword-face ((t (:foreground "red"))))
+     (font-lock-keyword-face ((t (:foreground "#ff0000"))))
      (font-lock-preprocessor-face ((t (:foreground "blue1"))))
      (font-lock-reference-face ((t (nil))))
      (font-lock-string-face ((t (:foreground "cyan"))))
      (font-lock-type-face ((t (:foreground "yellow"))))
      (font-lock-variable-name-face ((t (:foreground "violet"))))
      (font-lock-warning-face ((t (:bold t :foreground "red" :weight bold))))
-     (fringe ((t (:background "gray16" :foreground "#00ff00"))))
+     (fringe ((t (:background "gray16" :foreground "#00dd00"))))
      (header-line ((t (:box (:line-width -1 :style released-button) :background "grey20" :foreground "grey90" :box nil))))
      (highlight ((t (:background "darkolivegreen"))))
-     (horizontal-divider ((t (:background "gray16" :foreground "#00ff00"))))
+     (horizontal-divider ((t (:background "gray16" :foreground "#00dd00"))))
      (isearch ((t (:background "palevioletred2" :foreground "brown4"))))
      (isearch-lazy-highlight-face ((t (:background "paleturquoise4"))))
      (italic ((t (:italic t :slant italic))))
-     (menu ((t (:background "gray16" :foreground "green"))))
-     (modeline ((t (:background "gray16" :foreground "#00ff00" :box (:line-width -1 :style released-button)))))
-     (modeline-buffer-id ((t (:background "gray16" :foreground "#00ff00"))))
-     (modeline-mousable ((t (:background "gray16" :foreground "#00ff00"))))
-     (modeline-mousable-minor-mode ((t (:background "gray16" :foreground "#00ff00"))))
+     (menu ((t (:background "#0000ff" :foreground "#ffffff"))))
+     (modeline ((t (:background "#ffffff" :foreground "#0000ff" :box (:line-width -1 :style released-button)))))
+     (modeline-buffer-id ((t (:background "#ffffff" :foreground "#0000ff"))))
+     (modeline-mousable ((t (:background "#ffffff" :foreground "#0000ff"))))
+     (modeline-mousable-minor-mode ((t (:background "#ffffff" :foreground "#0000ff"))))
      (mouse ((t (:background "yellow"))))
-     (primary-selection ((t (:background "#00ff00" :foreground "black"))))
+     (primary-selection ((t (:background "#00dd00" :foreground "black"))))
      (region ((t (:background "steelblue" :foreground "white"))))
-     (scroll-bar ((t (:background "gray16" :foreground "#00ff00"))))
-     (secondary-selection ((t (:background "#00ff00" :foreground "black"))))
+     (scroll-bar ((t (:background "gray16" :foreground "#00dd00"))))
+     (secondary-selection ((t (:background "#00dd00" :foreground "black"))))
      (show-paren-match-face ((t (:background "turquoise"))))
      (show-paren-mismatch-face ((t (:background "purple" :foreground "white"))))
-     (speedbar-button-face ((t (:foreground "#00ff00"))))
-     (speedbar-directory-face ((t (:foreground "#00ff00"))))
-     (speedbar-file-face ((t (:foreground "cyan"))))
-     (speedbar-highlight-face ((t (:background "#00ff00" :foreground "purple"))))
+     (speedbar-button-face ((t (:foreground "#00dd00"))))
+     (speedbar-directory-face ((t (:foreground "#00dd00"))))
+     (speedbar-file-face ((t (:foreground "cyan" :background "#001a1a"))))
+     (speedbar-highlight-face ((t (:background "#00dd00" :foreground "purple"))))
      (speedbar-selected-face ((t (:foreground "deeppink" :underline t))))
      (speedbar-tag-face ((t (:foreground "yellow"))))
-     (tool-bar ((t (:background "gray16" :foreground "green" :box (:line-width 1 :style released-button)))))
-     (tooltip ((t (:background "gray16" :foreground "#00ff00"))))
+     (tool-bar ((t (:background "#0000ff" :foreground "green" :box (:line-width 1 :style released-button)))))
+     (tooltip ((t (:background "gray16" :foreground "#00dd00"))))
      (trailing-whitespace ((t (:background "red"))))
      (underline ((t (:underline t))))
      (variable-pitch ((t (:family "helv"))))
-     (vertical-divider ((t (:background "gray16" :foreground "#00ff00"))))
+     (vertical-divider ((t (:background "gray16" :foreground "#00dd00"))))
      (widget-button-face ((t (:bold t :weight bold))))
      (widget-button-pressed-face ((t (:foreground "red"))))
      (widget-documentation-face ((t (:foreground "lime green"))))
@@ -12328,10 +12328,10 @@ Includes custom, erc, font-lock, jde, semantic, speedbar, widget."
   "Color theme by Ivica Loncar, created 2002-08-02.
 Some additional X resources as suggested by the author:
 
-Emacs*menubar.Foreground:		Yellow
-Emacs*menubar.Background:		#1a2b3c
-Emacs*menubar.topShadowColor:		gray
-Emacs*menubar.bottomShadowColor:	dimgray
+Emacs*menubar.Foreground:               Yellow
+Emacs*menubar.Background:               #1a2b3c
+Emacs*menubar.topShadowColor:           gray
+Emacs*menubar.bottomShadowColor:        dimgray
 
 Some fonts I really like (note: this fonts are not highly
 available):
@@ -12342,16 +12342,16 @@ Emacs*menubar*Font:  -etl-fixed-medium-r-normal--14-*-*-*-*-*-iso8859-1
 Mouse fix:
 
 Emacs*dialog*XmPushButton.translations:#override\n\
-	  <Btn1Down>:         Arm()\n\
+          <Btn1Down>:         Arm()\n\
  <Btn1Down>,<Btn1Up>: Activate()\
-			 Disarm()\n\
+                         Disarm()\n\
       <Btn1Down>(2+):     MultiArm()\n\
-	<Btn1Up>(2+):       MultiActivate()\n\
-	    <Btn1Up>:           Activate()\
-			 Disarm()\n\
+        <Btn1Up>(2+):       MultiActivate()\n\
+            <Btn1Up>:           Activate()\
+                         Disarm()\n\
       <Key>osfSelect:    ArmAndActivate()\n\
     <Key>osfActivate:   ArmAndActivate()\n\
-	<Key>osfHelp:    Help()\n\
+        <Key>osfHelp:    Help()\n\
  ~Shift ~Meta ~Alt <Key>Return:  ArmAndActivate()\n\
        <EnterWindow>:      Enter()\n\
        <LeaveWindow>:      Leave()\n
@@ -12855,7 +12855,7 @@ Bonus: do not use 3D modeline."
      (zmacs-region ((t (:background "gray65")))))))
 
 (defun color-theme-emacs-nw ()
-  "Follow emacs21's color-theme, with -nw getting 100% compatibility. 
+  "Follow emacs21's color-theme, with -nw getting 100% compatibility.
 
 Alex's `color-theme-emacs-21' follows emacs21's theme, but in the
 current scheme of things, that means that when it works on X, it won't
@@ -12865,7 +12865,7 @@ there are multiple windows.
 
 OTOH, `color-theme-emacs-nw' follows emacs21's theme but the goal is
 100% -nw compatibility, and in X; we shall try for decent color
-scheme, and as much compability default emacs21's X as possble. 
+scheme, and as much compability default emacs21's X as possble.
 Bugs to deego@gnufans.org.
 
 TODO: Try to make this theme relative to color-theme-emacs-21 rather
@@ -13246,13 +13246,13 @@ its default 80x25 state -- dark grey on black."
     (color-theme-install
      '(color-theme-late-night
        ((background-color . "#000")
-	(background-mode . dark)
-	(background-toolbar-color . "#000")
-	(border-color . "#000")
-	(bottom-toolbar-shadow-color . "#000")
-	(cursor-color	. "#888")
-	(foreground-color . "#666")
-	(top-toolbar-shadow-color . "#111"))
+        (background-mode . dark)
+        (background-toolbar-color . "#000")
+        (border-color . "#000")
+        (bottom-toolbar-shadow-color . "#000")
+        (cursor-color   . "#888")
+        (foreground-color . "#666")
+        (top-toolbar-shadow-color . "#111"))
        (default ((t (nil))))
        (bold ((t (:bold t))))
        (button ((t (:bold t))))
@@ -15099,7 +15099,7 @@ There is very limited undo capability to the previous state only."
   :set (lambda (symbol value)
          (set-default symbol value)
          (cond
-          (value             
+          (value
            (fset 'color-theme-snapshot (color-theme-make-snapshot))
            (eval
             (delq nil
@@ -15117,9 +15117,9 @@ There is very limited undo capability to the previous state only."
 Only frame parameter names that match this regexp can be changed as part
 of a color theme."
   :type '(choice (const :tag "Colors only" "\\(color\\|mode\\)$")
-		 (const :tag "Colors, fonts, and size"
-			"\\(color\\|mode\\|font\\|height\\|width\\)$")
-		 (regexp :tag "Custom regexp"))
+                 (const :tag "Colors, fonts, and size"
+                        "\\(color\\|mode\\|font\\|height\\|width\\)$")
+                 (regexp :tag "Custom regexp"))
   :group 'color-theme
   :link '(info-link "(elisp)Window Frame Parameters"))
 
@@ -15196,8 +15196,8 @@ previous color themes."
 Two other values are acceptable: t means no limit, and
 nil means that no history is maintained."
   :type '(choice (const :tag "No history" nil)
-		 (const :tag "Unlimited length" t)
-		 integer)
+                 (const :tag "Unlimited length" t)
+                 integer)
   :group 'color-theme)
 
 (provide 'color-theme)
