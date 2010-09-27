@@ -192,3 +192,8 @@
  )
 
 (put 'downcase-region 'disabled nil)
+
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(add-to-list 'load-path "~/.emacs.d//slime/")
+(require 'slime-autoloads)
+(slime-setup)

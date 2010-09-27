@@ -1,3 +1,5 @@
+# This file has been placed in the public domain.
+#
 # Where to put the info file(s). NB: the GNU Coding Standards (GCS)
 # and the Filesystem Hierarchy Standard (FHS) differ on where info
 # files belong. The GCS says /usr/local/info; the FHS says
@@ -12,23 +14,40 @@ INSTALL_CMD=install -m 644
 # Info files generated here.
 infofiles=slime.info
 
-all: slime.ps slime.info slime.pdf
+TEXI = slime.texi contributors.texi
 
-install: install-info
+all: slime.info slime.pdf html/index.html
 
-uninstall: uninstall-info
+slime.dvi: $(TEXI)
+	texi2dvi slime.texi
 
 slime.ps: slime.dvi
 	dvips -o $@ $<
 
-slime.dvi: slime.texi contributors.texi
-	texi2dvi slime.texi
+slime.info: $(TEXI)
+	makeinfo $<
 
-slime.pdf: slime.texi contributors.texi
+slime.html: $(TEXI)
+	texi2html $<
+
+html/index.html: $(TEXI)
+	makeinfo -o html --html $<
+
+html.tgz: html/index.html
+	tar -czf $@ html
+
+DOCDIR=/project/slime/public_html/doc
+# invoke this like: make CLUSER=heller publish
+publish: html.tgz
+	scp html.tgz $(CLUSER)@common-lisp.net:$(DOCDIR)
+	ssh $(CLUSER)@common-lisp.net "cd $(DOCDIR); tar -zxf html.tgz"
+
+slime.pdf: $(TEXI)
 	texi2pdf $<
 
-slime.info: slime.texi contributors.texi
-	makeinfo $<
+install: install-info
+
+uninstall: uninstall-info
 
 # Create contributors.texi, a texinfo table listing all known
 # contributors of code.
@@ -82,19 +101,8 @@ uninstall-info:
 
 clean:
 	rm -f contributors.texi
-	rm -f slime.aux
-	rm -f slime.cp
-	rm -f slime.dvi
-	rm -f slime.fn
-	rm -f slime.ky
-	rm -f slime.log
-	rm -f slime.pg
-	rm -f slime.tmp
-	rm -f slime.toc
-	rm -f slime.tp
-	rm -f slime.vr
-
-really_clean: clean
-	rm -f slime.info
-	rm -f slime.pdf
-	rm -f slime.ps
+	rm -f slime.aux slime.cp slime.cps slime.fn slime.fns slime.ky
+	rm -f slime.kys slime.log slime.pg slime.tmp slime.toc slime.tp
+	rm -f slime.vr slime.vrs
+	rm -f slime.info slime.pdf slime.dvi slime.ps slime.html
+	rm -rf html html.tgz
