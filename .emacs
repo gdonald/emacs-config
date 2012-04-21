@@ -1,3 +1,4 @@
+
 ;; aditional load-paths
 (setq load-path (cons "~/.emacs.d" load-path))
 
@@ -12,6 +13,9 @@
 ;(color-theme-clarity)
 ;(color-theme-hober)
 ;(color-theme-lethe)
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 
@@ -181,6 +185,8 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(erc-nick "gdonald")
+ '(erc-nick-uniquifier "42")
  '(js2-basic-offset 2)
  '(js2-highlight-level 3)
  '(js2-idle-timer-delay 0.1))
