@@ -14,14 +14,14 @@
 ;(color-theme-hober)
 ;(color-theme-lethe)
 
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+;(require 'yaml-mode)
+;(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
-(set-frame-parameter (selected-frame) 'alpha '(85 50))
-(add-to-list 'default-frame-alist '(alpha 85 50))
+;(set-frame-parameter (selected-frame) 'alpha '(85 50))
+;(add-to-list 'default-frame-alist '(alpha 85 50))
 
 ;(set-background-color "ARGBBB000000")
 
@@ -199,7 +199,7 @@
 
 (put 'downcase-region 'disabled nil)
 
-(setq inferior-lisp-program "/usr/bin/sbcl")
-(add-to-list 'load-path "~/.emacs.d//slime/")
-(require 'slime-autoloads)
-(slime-setup)
+;(setq inferior-lisp-program "/usr/bin/sbcl")
+;(add-to-list 'load-path "~/.emacs.d//slime/")
+;(require 'slime-autoloads)
+;(slime-setup)
