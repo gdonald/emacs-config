@@ -17,7 +17,7 @@
 ;(require 'yaml-mode)
 ;(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
-(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+;(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
 ;(set-frame-parameter (selected-frame) 'alpha '(85 50))
@@ -73,8 +73,8 @@
 ;(setq ecb-wget-setup '("/usr/bin/wget" . other))
 
 ;; javascript
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;(autoload 'js2-mode "js2" nil t)
+;(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 
 ;; cucumber
@@ -87,17 +87,17 @@
 ;(add-to-list 'auto-mode-alist '("\\.feature" . feature-mode))
 
 ;; php mode
-(require 'php-mode)
+;(require 'php-mode)
 
 ;; rails
-(setq load-path (cons "~/.emacs.d/rails" load-path))
-(require 'rails)
+;(setq load-path (cons "~/.emacs.d/rails" load-path))
+;(require 'rails)
 
 ;(setq auto-mode-alist (cons '(".erb$" . html-mode) auto-mode-alist))
 
 ;; css
-(autoload 'css-mode "css-mode")
-(setq auto-mode-alist (cons '("\\.css\\'" . css-mode) auto-mode-alist))
+;(autoload 'css-mode "css-mode")
+;(setq auto-mode-alist (cons '("\\.css\\'" . css-mode) auto-mode-alist))
 
 ;; Make all "yes or no" prompts show "y or n" instead.
 ;(fset 'yes-or-no-p 'y-or-n-p)
