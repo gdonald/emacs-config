@@ -17,7 +17,7 @@
 ;(require 'yaml-mode)
 ;(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
-;(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
 ;(set-frame-parameter (selected-frame) 'alpha '(85 50))
@@ -73,8 +73,8 @@
 ;(setq ecb-wget-setup '("/usr/bin/wget" . other))
 
 ;; javascript
-;(autoload 'js2-mode "js2" nil t)
-;(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 
 ;; cucumber
@@ -87,17 +87,17 @@
 ;(add-to-list 'auto-mode-alist '("\\.feature" . feature-mode))
 
 ;; php mode
-;(require 'php-mode)
+(require 'php-mode)
 
 ;; rails
-;(setq load-path (cons "~/.emacs.d/rails" load-path))
-;(require 'rails)
+(setq load-path (cons "~/.emacs.d/rails" load-path))
+(require 'rails)
 
 ;(setq auto-mode-alist (cons '(".erb$" . html-mode) auto-mode-alist))
 
 ;; css
-;(autoload 'css-mode "css-mode")
-;(setq auto-mode-alist (cons '("\\.css\\'" . css-mode) auto-mode-alist))
+(autoload 'css-mode "css-mode")
+(setq auto-mode-alist (cons '("\\.css\\'" . css-mode) auto-mode-alist))
 
 ;; Make all "yes or no" prompts show "y or n" instead.
 ;(fset 'yes-or-no-p 'y-or-n-p)
@@ -200,6 +200,73 @@
 (put 'downcase-region 'disabled nil)
 
 ;(setq inferior-lisp-program "/usr/bin/sbcl")
-;(add-to-list 'load-path "~/.emacs.d//slime/")
+;(add-to-list 'load-path "~/.emacs.d/slime")
 ;(require 'slime-autoloads)
+
 ;(slime-setup)
+
+;(setq inferior-lisp-program "/usr/bin/clisp")
+;(setq inferior-lisp-program "/usr/bin/clisp")
+;(setq slime-contribs '(slime-fancy))
+
+; start package.el with emacs
+(require 'package)
+
+; repo list
+(add-to-list 'package-archives '( "melpa" . "http://melpa.milkbox.net/packages/" ) )
+
+;(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+;                         ("marmalade" . "http://marmalade-repo.org/packages/")
+;                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+
+; init packages
+(package-initialize)
+
+; start autotcomplete
+(require 'auto-complete)
+
+; autocomplete config
+(require 'auto-complete-config)
+(ac-config-default)
+
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(defun my:ac-c-header-init ()
+  (require 'auto-complete-c-headers)
+  (add-to-list 'ac-sources 'ac-source-c-headers))
+
+(add-hook 'c++-mode-hook 'my:ac-c-header-init)
+(add-hook 'c-mode-hook 'my:ac-c-header-init)
+
+; iedit key binding
+(define-key global-map (kbd "C-c ;") 'iedit-mode)
+
+
+; flymake google c++ mode
+(defun my:flymake-google-init()
+  (require 'flymake-google-cpplint)
+  (custom-set-variables
+   '(flymake-google-cpplint-command "/usr/local/bin/cpplint.py"))
+  (flymake-google-cpplint-load)
+)
+(add-hook 'c-mode-hook 'my:flymake-google-init)
+(add-hook 'c++-mode-hook 'my:flymake-google-init)
+
+; google c/c++ style
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+
+
+; elpy-mode
+(elpy-enable)
+; deactivate highlight-indentation-mode
+(cl-callf2 delq 'highlight-indentation-mode elpy-default-minor-modes)
+
+; elpy fixes
+(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+(define-key global-map (kbd "C-c o") 'iedit-mode)
