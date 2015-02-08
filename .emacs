@@ -224,11 +224,19 @@
 (package-initialize)
 
 ; start autotcomplete
-(require 'auto-complete)
+;(require 'auto-complete)
 
 ; autocomplete config
+;(require 'auto-complete-config)
+;(ac-config-default)
+
+
+; auto-complete
+(add-to-list 'load-path "/home/destiney/.emacs.d/elpa/auto-complete-20150201.150")
 (require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "/home/destiney/.emacs.d/elpa/auto-complete-20150201.150/dict")
 (ac-config-default)
+
 
 
 (require 'yasnippet)
@@ -263,10 +271,27 @@
 
 
 ; elpy-mode
-(elpy-enable)
+;(elpy-enable)
 ; deactivate highlight-indentation-mode
-(cl-callf2 delq 'highlight-indentation-mode elpy-default-minor-modes)
+;(cl-callf2 delq 'highlight-indentation-mode elpy-default-minor-modes)
 
 ; elpy fixes
-(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
-(define-key global-map (kbd "C-c o") 'iedit-mode)
+;(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+;(define-key global-map (kbd "C-c o") 'iedit-mode)
+
+
+
+; go
+(add-to-list 'load-path "/home/destiney/.emacs.d/elpa/go-mode-20150129.313")
+(require 'go-mode-autoloads)
+
+; auto-complete
+;(add-to-list 'load-path "/home/destiney/.emacs.d/elpa/auto-complete-20150201.150")
+;(require 'auto-complete-config)
+;(add-to-list 'ac-dictionary-directories "/home/destiney/.emacs.d/elpa/auto-complete-20150201.150/dict")
+;(ac-config-default)
+
+; gocode
+
+(require 'go-autocomplete)
+;(require 'auto-complete-config)
