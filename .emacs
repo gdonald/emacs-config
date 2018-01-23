@@ -268,7 +268,9 @@
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
-
+;; fixes gnu brace indent
+(setq c-default-style "bsd"
+      c-basic-offset 2)
 
 ; elpy-mode
 ;(elpy-enable)
