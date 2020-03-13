@@ -1,299 +1,152 @@
+(require 'package)
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  (when no-ssl
+    (warn "Your version of Emacs does not support SSL connections"))
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t))
 
-;; aditional load-paths
-(setq load-path (cons "~/.emacs.d" load-path))
+(package-initialize)
 
-;; colors
-;(require 'color-theme)
-;(setq color-theme-is-global t)
-;(color-theme-tty-dark)
-;(color-theme-euphoria)
-;(color-theme-arjen)
-;(color-theme-dark-laptop)
-;(color-theme-gray30)
-;(color-theme-clarity)
-;(color-theme-hober)
-;(color-theme-lethe)
+(setq load-path (cons "~/.emacs.d/lisp" load-path))
 
-;(require 'yaml-mode)
-;(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(setq explicit-shell-file-name "/usr/local/bin/zsh")
 
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 
-;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
-;(set-frame-parameter (selected-frame) 'alpha '(85 50))
-;(add-to-list 'default-frame-alist '(alpha 85 50))
-
-;(set-background-color "ARGBBB000000")
-
-
-;; Load CEDET.
-;; See cedet/common/cedet.info for configuration details.
-;(load-file "~/.emacs.d/cedet/common/cedet.el")
-
-;; Enable EDE (Project Management) features
-;(global-ede-mode 1)
-
-;; Enable EDE for a pre-existing C++ project
-;; (ede-cpp-root-project "NAME" :file "~/myproject/Makefile")
-
-;; Enabling Semantic (code-parsing, smart completion) features
-;; Select one of the following:
-
-;; * This enables the database and idle reparse engines
-;(semantic-load-enable-minimum-features)
-
-;; * This enables some tools useful for coding, such as summary mode
-;;   imenu support, and the semantic navigator
-;(semantic-load-enable-code-helpers)
-
-;; * This enables even more coding tools such as intellisense mode
-;;   decoration mode, and stickyfunc mode (plus regular code helpers)
-;(semantic-load-enable-gaudy-code-helpers)
-
-;; * This enables the use of Exuberent ctags if you have it installed.
-;;   If you use C++ templates or boost, you should NOT enable it.
-;; (semantic-load-enable-all-exuberent-ctags-support)
-
-;; Enable SRecode (Template management) minor-mode.
-;; (global-srecode-minor-mode 1)
-
-
-;(add-to-list 'load-path "~/.emacs.d/ecb")
-
-;; cedet, required for ecb
-;(semantic-load-enable-excessive-code-helpers)
-
-;; emacs code browser
-;(require 'ecb)
-;(setq ecb-auto-activate t)
-;(setq ecb-fix-window-size nil)
-;(setq ecb-layout-name "left14")
-;(setq ecb-source-path '("~/rails/artemis" "~/htdocs" "~"))
-;(setq ecb-tip-of-the-day nil)
-;(setq ecb-wget-setup '("/usr/bin/wget" . other))
-
-;; javascript
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-
-;; cucumber
-;(add-to-list 'load-path "~/.emacs.d/plugins")
-;(require 'yasnippet)
-;(yas/initialize)
-;(yas/load-directory "~/.emacs.d/plugins/snippets")
-
-;(load "cucumber-mode")
-;(add-to-list 'auto-mode-alist '("\\.feature" . feature-mode))
-
-;; php mode
-(require 'php-mode)
-
-;; rails
-(setq load-path (cons "~/.emacs.d/rails" load-path))
-(require 'rails)
-
-;(setq auto-mode-alist (cons '(".erb$" . html-mode) auto-mode-alist))
-
-;; css
-(autoload 'css-mode "css-mode")
-(setq auto-mode-alist (cons '("\\.css\\'" . css-mode) auto-mode-alist))
-
-;; Make all "yes or no" prompts show "y or n" instead.
-;(fset 'yes-or-no-p 'y-or-n-p)
-
-;; no cursor blinking
-;(blink-cursor-mode nil)
-
-;; show column numbers
+(global-linum-mode t)
+(setq linum-format "%4d \u2502 ")
 (setq column-number-mode t)
 
-;; always do syntax highlighting
-;(setq global-font-lock-mode t)
-
-;; use spaces to indent, not tabs
 (setq indent-tabs-mode nil)
-
-;; tab width
 (setq tab-width 2)
-
-;; no backup files
+(setq js-indent-level 2)
 (setq make-backup-files nil)
-
-;; save places in files
-;(setq-default save-place t)
-;(setq save-place-file "~/.emacs.places")
-
-;; scrollbars to the right side
-;(setq scroll-bar-mode (quote right))
-
 (setq show-paren-mode t)
 (setq size-indication-mode t)
 
-;(setq text-mode-hook (quote (turn-on-auto-fill (lambda nil (auto-fill-mode 1)))))
-;(setq transient-mark-mode t)
-
-;; no annoying bell
-;(setq ring-bell-function (lambda nil))
-;(setq visible-bell t)
-
-; truncate
-(setq default-truncate-lines 1)
-(setq truncate-partial-width-windows 1)
-
-
-;(setq ecb-options-version "2.32")
-
-;; custom
-;(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-;; '(truncate-lines t)
-; '(blink-cursor-mode nil)
-; '(column-number-mode t)
-; '(ecb-layout-window-sizes (quote (("left14" (0.30935251798561153 . 0.46938775510204084) (0.30935251798561153 . 0.4897959183673469)))))
-; '(ecb-options-version "2.40")
-; '(fringe-mode 0 nil (fringe))
-; '(global-font-lock-mode t)
-; '(hscroll-margin 5)
-; '(semanticdb-default-save-directory "~/.semantic")
-; '(show-paren-mode t)
-; '(size-indication-mode t)
-; '(speedbar-frame-parameters (quote ((minibuffer) (width . 20) (border-width . 0) (menu-bar-lines . 0) (tool-bar-lines . 0) (unsplittable . t) (set-background-color "black"))))
-; '(uniquify-buffer-name-style (quote forward) nil (uniquify)))
-;(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-; '(default ((t (:inherit nil :stipple nil :background "black" :foreground "gainsboro" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 101 :width normal :foundry "unknown" :family "Liberation Mono")))))
-
-;(put 'upcase-region 'disabled nil)
-
-
-;;(setq ri-ruby-script "~/.emacs.d/ri-emacs.rb")
-;;(autoload 'ri "~/.emacs.d/ri-ruby.el" nil t)
-
-;;(add-hook 'ruby-mode-hook (lambda ()
-;;                            (local-set-key 'f1 'ri)
-;;                            (local-set-key "\M-\C-i" 'ri-ruby-complete-symbol)
-;;                            (local-set-key 'f4 'ri-ruby-show-args)))
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(erc-nick "gdonald")
- '(erc-nick-uniquifier "42")
- '(js2-basic-offset 2)
- '(js2-highlight-level 3)
- '(js2-idle-timer-delay 0.1))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-
-(put 'downcase-region 'disabled nil)
-
-;(setq inferior-lisp-program "/usr/bin/sbcl")
-;(add-to-list 'load-path "~/.emacs.d/slime")
-;(require 'slime-autoloads)
-
-;(slime-setup)
-
-;(setq inferior-lisp-program "/usr/bin/clisp")
-;(setq inferior-lisp-program "/usr/bin/clisp")
-;(setq slime-contribs '(slime-fancy))
-
-; start package.el with emacs
-(require 'package)
-
-; repo list
-(add-to-list 'package-archives '( "melpa" . "http://melpa.milkbox.net/packages/" ) )
-
-;(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-;                         ("marmalade" . "http://marmalade-repo.org/packages/")
-;                         ("melpa" . "http://melpa.milkbox.net/packages/")))
-
-
-; init packages
-(package-initialize)
-
-; start autotcomplete
-;(require 'auto-complete)
-
-; autocomplete config
-;(require 'auto-complete-config)
-;(ac-config-default)
-
-
-; auto-complete
-(add-to-list 'load-path "/home/destiney/.emacs.d/elpa/auto-complete-20150201.150")
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "/home/destiney/.emacs.d/elpa/auto-complete-20150201.150/dict")
-(ac-config-default)
-
-
-
-(require 'yasnippet)
-(yas-global-mode 1)
-
-(defun my:ac-c-header-init ()
-  (require 'auto-complete-c-headers)
-  (add-to-list 'ac-sources 'ac-source-c-headers))
-
-(add-hook 'c++-mode-hook 'my:ac-c-header-init)
-(add-hook 'c-mode-hook 'my:ac-c-header-init)
-
-; iedit key binding
-(define-key global-map (kbd "C-c ;") 'iedit-mode)
-
-
-; flymake google c++ mode
-(defun my:flymake-google-init()
-  (require 'flymake-google-cpplint)
-  (custom-set-variables
-   '(flymake-google-cpplint-command "/usr/local/bin/cpplint.py"))
-  (flymake-google-cpplint-load)
+(defun duplicate-line()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank)
 )
-(add-hook 'c-mode-hook 'my:flymake-google-init)
-(add-hook 'c++-mode-hook 'my:flymake-google-init)
+(global-set-key (kbd "C-d") 'duplicate-line)
 
-; google c/c++ style
-(require 'google-c-style)
-(add-hook 'c-mode-common-hook 'google-set-c-style)
-(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-;; fixes gnu brace indent
-(setq c-default-style "bsd"
-      c-basic-offset 2)
+(require 'rspec-mode)
 
-; elpy-mode
-;(elpy-enable)
-; deactivate highlight-indentation-mode
-;(cl-callf2 delq 'highlight-indentation-mode elpy-default-minor-modes)
+(add-hook 'after-init-hook 'global-company-mode)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-inf-ruby))
+(setq company-idle-delay 0.1)
+(setq company-minimum-prefix-length 1)
 
-; elpy fixes
-;(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
-;(define-key global-map (kbd "C-c o") 'iedit-mode)
+(unless window-system
+  (require 'mouse)
+  (xterm-mouse-mode t)
+  (defun track-mouse (e)) 
+  (setq mouse-sel-mode t)
+  )
 
+(defun win-resize-top-or-bot ()
+  "Figure out if the current window is on top, bottom or in the middle"
+  (let* ((win-edges (window-edges))
+	 (this-window-y-min (nth 1 win-edges))
+	 (this-window-y-max (nth 3 win-edges))
+	 (fr-height (frame-height)))
+    (cond
+     ((eq 0 this-window-y-min) "top")
+     ((eq (- fr-height 1) this-window-y-max) "bot")
+     (t "mid"))))
 
+(defun win-resize-left-or-right ()
+  "Figure out if the current window is to the left, right or in the middle"
+  (let* ((win-edges (window-edges))
+	 (this-window-x-min (nth 0 win-edges))
+	 (this-window-x-max (nth 2 win-edges))
+	 (fr-width (frame-width)))
+    (cond
+     ((eq 0 this-window-x-min) "left")
+     ((eq (+ fr-width 4) this-window-x-max) "right")
+     (t "mid"))))
 
-; go
-(add-to-list 'load-path "/home/destiney/.emacs.d/elpa/go-mode-20150129.313")
-(require 'go-mode-autoloads)
+(defun win-resize-enlarge-horiz ()
+  (interactive)
+  (cond
+   ((equal "top" (win-resize-top-or-bot)) (enlarge-window -1))
+   ((equal "bot" (win-resize-top-or-bot)) (enlarge-window 1))
+   ((equal "mid" (win-resize-top-or-bot)) (enlarge-window -1))
+   (t (message "nil"))))
 
-; auto-complete
-;(add-to-list 'load-path "/home/destiney/.emacs.d/elpa/auto-complete-20150201.150")
-;(require 'auto-complete-config)
-;(add-to-list 'ac-dictionary-directories "/home/destiney/.emacs.d/elpa/auto-complete-20150201.150/dict")
-;(ac-config-default)
+(defun win-resize-minimize-horiz ()
+  (interactive)
+  (cond
+   ((equal "top" (win-resize-top-or-bot)) (enlarge-window 1))
+   ((equal "bot" (win-resize-top-or-bot)) (enlarge-window -1))
+   ((equal "mid" (win-resize-top-or-bot)) (enlarge-window 1))
+   (t (message "nil"))))
 
-; gocode
+(defun win-resize-enlarge-vert ()
+  (interactive)
+  (cond
+   ((equal "left" (win-resize-left-or-right)) (enlarge-window-horizontally -1))
+   ((equal "right" (win-resize-left-or-right)) (enlarge-window-horizontally 1))
+   ((equal "mid" (win-resize-left-or-right)) (enlarge-window-horizontally -1))))
 
-(require 'go-autocomplete)
-;(require 'auto-complete-config)
+(defun win-resize-minimize-vert ()
+  (interactive)
+  (cond
+   ((equal "left" (win-resize-left-or-right)) (enlarge-window-horizontally 1))
+   ((equal "right" (win-resize-left-or-right)) (enlarge-window-horizontally -1))
+   ((equal "mid" (win-resize-left-or-right)) (enlarge-window-horizontally 1))))
+
+(global-set-key [C-M-down] 'win-resize-minimize-vert)
+(global-set-key [C-M-up] 'win-resize-enlarge-vert)
+(global-set-key [C-M-left] 'win-resize-minimize-horiz)
+(global-set-key [C-M-right] 'win-resize-enlarge-horiz)
+(global-set-key [C-M-up] 'win-resize-enlarge-horiz)
+(global-set-key [C-M-down] 'win-resize-minimize-horiz)
+(global-set-key [C-M-left] 'win-resize-enlarge-vert)
+(global-set-key [C-M-right] 'win-resize-minimize-vert)
+
+(execute-kbd-macro (kbd "
+  C-x 2           ;; split-window-below
+  C-x 3           ;; split-window-right
+  C-x o           ;; switch to other window
+  C-x o           ;; switch to other window
+  C-x o           ;; switch to other window
+  ;; C-u 20 M-x <enlarge-window-horizontally>  ;; shrink bottom
+"))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+ '(custom-enabled-themes (quote (billw)))
+ '(custom-safe-themes
+   (quote
+    ("5eb4b22e97ddb2db9ecce7d983fa45eb8367447f151c7e1b033af27820f43760" "8530b2f7b281ea6f263be265dd8c75b502ecd7a30b9a0f28fa9398739e833a35" "3fe4861111710e42230627f38ebb8f966391eadefb8b809f4bfb8340a4e85529" "5c83b15581cb7274085ba9e486933062652091b389f4080e94e4e9661eaab1aa" "da8e6e5b286cbcec4a1a99f273a466de34763eefd0e84a41c71543b16cd2efac" "77515a438dc348e9d32310c070bfdddc5605efc83671a159b223e89044e4c4f1" "a513bb141af8ece2400daf32251d7afa7813b3a463072020bb14c82fd3a5fe30" "9bd5ee2b24759fbc97f86c2783d1bf8f883eb1c0dd2cf7bda2b539cd28abf6a9" "0c5204945ca5cdf119390fe7f0b375e8d921e92076b416f6615bbe1bd5d80c88" "39a854967792547c704cbff8ad4f97429f77dfcf7b3b4d2a62679ecd34b608da" "2d5c40e709543f156d3dee750cd9ac580a20a371f1b1e1e3ecbef2b895cf0cd2" "392f19e7788de27faf128a6f56325123c47205f477da227baf6a6a918f73b5dc" "b71da830ae97a9b70d14348781494b6c1099dbbb9b1f51494c3dfa5097729736" "011d4421eedbf1a871d1a1b3a4d61f4d0a2be516d4c94e111dfbdc121da0b043" "cdc2a7ba4ecf0910f13ba207cce7080b58d9ed2234032113b8846a4e44597e41" "e26e879d250140e0d4c4d5ab457c32bcb29742599bd28c1ce31301344c6f2a11" "deb7ae3a735635a85c984ece4ce70317268df6027286998b0ea3d10f00764c9b" "0f302165235625ca5a827ac2f963c102a635f27879637d9021c04d845a32c568" "9d9b2cf2ced850aad6eda58e247cf66da2912e0722302aaa4894274e0ea9f894" "ec0c9d1715065a594af90e19e596e737c7b2cdaa18eb1b71baf7ef696adbefb0" "31772cd378fd8267d6427cec2d02d599eee14a1b60e9b2b894dd5487bd30978e" "ed92c27d2d086496b232617213a4e4a28110bdc0730a9457edf74f81b782c5cf" "4c8372c68b3eab14516b6ab8233de2f9e0ecac01aaa859e547f902d27310c0c3" "fe349b21bb978bb1f1f2db05bc87b2c6d02f1a7fe3f27584cd7b6fbf8e53391a" "780c67d3b58b524aa485a146ad9e837051918b722fd32fd1b7e50ec36d413e70" "63aff36a40f41b28b0265ac506faa098fd552fac0a1813b745ba7c27efa5a943" "57d7e8b7b7e0a22dc07357f0c30d18b33ffcbb7bcd9013ab2c9f70748cfa4838" "d9e811d5a12dec79289c5bacaecd8ae393d168e9a92a659542c2a9bab6102041" "b4fd44f653c69fb95d3f34f071b223ae705bb691fb9abaf2ffca3351e92aa374" "09feeb867d1ca5c1a33050d857ad6a5d62ad888f4b9136ec42002d6cdf310235" "9a3c51c59edfefd53e5de64c9da248c24b628d4e78cc808611abd15b3e58858f" "9dc64d345811d74b5cd0dac92e5717e1016573417b23811b2c37bb985da41da2" "6cf0e8d082a890e94e4423fc9e222beefdbacee6210602524b7c84d207a5dfb5" "f831c1716ebc909abe3c851569a402782b01074e665a4c140e3e52214f7504a0" "11e5e95bd3964c7eda94d141e85ad08776fbdac15c99094f14a0531f31a156da" "595099e6f4a036d71de7e1512656e9375dd72cf60ff69a5f6d14f0171f1de9c1" "7bd626fcc9fbfb44186cf3f08b8055d5a15e748d5338e47f9391d459586e20db" "be5b03913a1aaa3709d731e1fcfd4f162db6ca512df9196c8d4693538fa50b86" "a455366c5cdacebd8adaa99d50e37430b0170326e7640a688e9d9ad406e2edfd" default)))
+ '(package-selected-packages
+   (quote
+    (company ag company-inf-ruby color-theme-modern rspec-mode projectile flycheck-perl6 flymake-haml flymake-json flymake-ruby flymake-sass flymake-yaml haml-mode perl6-mode smartparens web-mode company-emoji emojify projectile-rails)))
+ '(recentf-auto-cleanup (quote never))
+ '(recentf-mode t)
+ '(safe-local-variable-values
+   (quote
+    ((projectile-rails-verify-root-file . "config/routes")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
