@@ -25,6 +25,17 @@
 (setq show-paren-mode t)
 (setq size-indication-mode t)
 
+(defun yarn-run-test()
+  (interactive)
+  (shell-command-on-region
+   (point-min)
+   (point-max)
+   "cd ~/my/project; yarn testOne path/to/some/file.ts --grep '#specDescription'"
+   (generate-new-buffer "*yarn tests*")
+   t
+   "*yarn tests*"
+   t))
+
 (defun duplicate-line()
   (interactive)
   (move-beginning-of-line 1)
@@ -48,12 +59,12 @@
 (setq company-idle-delay 0.1)
 (setq company-minimum-prefix-length 1)
 
-(unless window-system
-  (require 'mouse)
-  (xterm-mouse-mode t)
-  (defun track-mouse (e)) 
-  (setq mouse-sel-mode t)
-  )
+;(unless window-system
+;  (require 'mouse)
+;  (xterm-mouse-mode t)
+;  (defun track-mouse (e)) 
+;  (setq mouse-sel-mode t)
+;  )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
