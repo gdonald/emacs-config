@@ -25,6 +25,10 @@
 (setq show-paren-mode t)
 (setq size-indication-mode t)
 
+(savehist-mode 1)
+(setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+(setq savehist-file "~/.emacs.d/history")
+
 (defun duplicate-line()
   (interactive)
   (move-beginning-of-line 1)
