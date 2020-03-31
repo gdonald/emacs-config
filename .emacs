@@ -48,12 +48,88 @@
 (setq company-idle-delay 0.1)
 (setq company-minimum-prefix-length 1)
 
-(unless window-system
-  (require 'mouse)
-  (xterm-mouse-mode t)
-  (defun track-mouse (e)) 
-  (setq mouse-sel-mode t)
-  )
+;(unless window-system
+;  (require 'mouse)
+;  (xterm-mouse-mode t)
+;  (defun track-mouse (e)) 
+;  (setq mouse-sel-mode t)
+;  )
+
+
+(defun my-web-mode-hook ())
+(defun my-tide-setup-hook ()
+  (tide-setup)
+  (eldoc-mode)
+  (tide-hl-identifier-mode +1)
+
+  (setq web-mode-enable-auto-quoting nil)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-attr-indent-offset 2)
+  (setq web-mode-attr-value-indent-offset 2)
+  (set (make-local-variable 'company-backends)
+       '((company-tide company-files :with company-yasnippet)
+         (company-dabbrev-code company-dabbrev)))
+  (flycheck-add-mode 'typescript-tslint 'web-mode)
+  (general-define-key
+   :states 'normal
+   :keymaps 'local
+   :prefix ", ."
+   "f" 'tide-fix
+   "i" 'tide-organize-imports
+   "u" 'tide-references
+   "R" 'tide-restart-server
+   "d" 'tide-documentation-at-point
+   "F" 'tide-format
+
+   "e s" 'tide-error-at-point
+   "e l" 'tide-project-errors
+   "e i" 'tide-add-tslint-disable-next-line
+   "e n" 'flycheck-next-error
+   "e p" 'flycheck-previous-error
+
+   "r r" 'tide-rename-symbol
+   "r F" 'tide-refactor
+   "r f" 'tide-rename-file)
+  (general-define-key
+   :states 'normal
+   :keymaps 'local
+   :prefix "g"
+   :override t
+
+   "d" 'tide-jump-to-definition
+   "D" 'tide-jump-to-implementation
+   "b" 'tide-jump-back))
+
+(use-package prettier-js
+  :defer t)
+
+(use-package tide
+  :defer t)
+
+(use-package web-mode
+  :mode (("\\.tsx$" . web-mode))
+  :init
+  (add-hook 'web-mode-hook 'variable-pitch-mode)
+  (add-hook 'web-mode-hook 'company-mode)
+  (add-hook 'web-mode-hook 'prettier-js-mode)
+  (add-hook 'web-mode-hook (lambda () (pcase (file-name-extension buffer-file-name)
+                      ("tsx" (my-tide-setup-hook))
+                      (_ (my-web-mode-hook))))))
+
+(use-package typescript-mode
+  :mode (("\\.ts$" . typescript-mode))
+  :init
+  (add-hook 'typescript-mode-hook 'my-tide-setup-hook)
+  (add-hook 'typescript-mode-hook 'company-mode)
+  (add-hook 'typescript-mode-hook 'prettier-js-mode))
+
+
+(setq-default typescript-indent-level 2)
+(setq-default tide-tsserver-executable "/usr/local/bin/tsserver")
+
+
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
