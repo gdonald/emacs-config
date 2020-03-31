@@ -25,16 +25,49 @@
 (setq show-paren-mode t)
 (setq size-indication-mode t)
 
+;(defun yarn-run-test()
+;  (interactive)
+;  (shell-command-on-region
+;   (point-min)
+;   (point-max)
+;   "cd ~/my/project; yarn testOne path/to/some/file.ts --grep '#specDescription'"
+;   (generate-new-buffer "*yarn tests*")
+;   t
+;   "*yarn tests*"
+;   t))
+
 (defun yarn-run-test()
   (interactive)
-  (shell-command-on-region
-   (point-min)
-   (point-max)
-   "cd ~/my/project; yarn testOne path/to/some/file.ts --grep '#specDescription'"
-   (generate-new-buffer "*yarn tests*")
-   t
-   "*yarn tests*"
-   t))
+
+  (setq current-line (thing-at-point 'line))
+  (print current-line)
+
+  (setq current-file (buffer-file-name))
+  (print current-file)
+
+  (setq current-dir (file-name-directory current-file))
+  (print current-dir)
+
+  (print (null (directory-files-recursively current-dir "\.json$")))
+  
+  ;(print (directory-files-recursively current-dir "\.json$"))
+  ;(print (replace-regexp-in-string "*?[a-z]*/$" "" current-dir))
+  
+  ;(setq yarn-dir (directory-files-recursively current-dir "^package\.json$" ))
+  ;(print yarn-dir)
+  
+  ;(get-buffer-create "*yarn test*")
+  ;(switch-to-buffer "*yarn test*")
+  
+;  (shell-command-on-region
+;   (point-min)
+;   (point-max)
+;   "cd ~/my/project; yarn testOne path/to/some/file.ts --grep '#specDescription'"
+;   (current-buffer)
+;   t
+;   "*yarn tests*"
+;   t)
+)
 
 (defun duplicate-line()
   (interactive)
