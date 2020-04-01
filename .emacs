@@ -25,36 +25,22 @@
 (setq show-paren-mode t)
 (setq size-indication-mode t)
 
-;(defun yarn-run-test()
-;  (interactive)
-;  (shell-command-on-region
-;   (point-min)
-;   (point-max)
-;   "cd ~/my/project; yarn testOne path/to/some/file.ts --grep '#specDescription'"
-;   (generate-new-buffer "*yarn tests*")
-;   t
-;   "*yarn tests*"
-;   t))
+;; find the dir with the package.json
+(defun yarn-dir()
+  (setq dir (file-name-directory (buffer-file-name)))
+  ;; TODO needs to also handle '/'
+  (while (not (file-exists-p (concat dir "package.json")))
+    (setq dir (replace-regexp-in-string "*?[a-z]*/$" "" dir)))
+  dir)
 
 (defun yarn-run-test()
   (interactive)
-
+  (setq path (yarn-dir))
+  
   (setq current-line (thing-at-point 'line))
-  (print current-line)
-
-  (setq current-file (buffer-file-name))
-  (print current-file)
-
-  (setq current-dir (file-name-directory current-file))
-  (print current-dir)
-
-  (print (null (directory-files-recursively current-dir "\.json$")))
-  
-  ;(print (directory-files-recursively current-dir "\.json$"))
-  ;(print (replace-regexp-in-string "*?[a-z]*/$" "" current-dir))
-  
-  ;(setq yarn-dir (directory-files-recursively current-dir "^package\.json$" ))
-  ;(print yarn-dir)
+  (string-match "\\(it\\|describe\\)(\"\\(.*\\)\"" current-line)
+  (setq desc (match-string 2 current-line))
+  (print desc)
   
   ;(get-buffer-create "*yarn test*")
   ;(switch-to-buffer "*yarn test*")
