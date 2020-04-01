@@ -28,7 +28,10 @@
 ;; find the dir with the package.json
 (defun yarn-dir()
   (setq dir (file-name-directory (buffer-file-name)))
-  ;; TODO needs to also handle '/'
+
+  ;; TODO: try `$(git rev-parse --show-toplevel)/package.json`
+
+  ;; TODO: needs to also handle '/'
   (while (not (file-exists-p (concat dir "package.json")))
     (setq dir (replace-regexp-in-string "*?[a-z]*/$" "" dir)))
   dir)
