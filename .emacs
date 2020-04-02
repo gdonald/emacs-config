@@ -29,7 +29,7 @@
 (defun yarn-dir()
   (setq dir (file-name-directory (buffer-file-name)))
 
-  ;; TODO: try `$(git rev-parse --show-toplevel)/package.json`
+  ;; TODO: try to use `$(git rev-parse --show-toplevel)/package.json` instead
 
   ;; TODO: needs to also handle '/'
   (while (not (file-exists-p (concat dir "package.json")))
@@ -39,24 +39,25 @@
 (defun yarn-run-test()
   (interactive)
   (setq path (yarn-dir))
+  (setq file (buffer-file-name))
   
   (setq current-line (thing-at-point 'line))
-  (string-match "\\(it\\|describe\\)(\"\\(.*\\)\"" current-line)
-  (setq desc (match-string 2 current-line))
-  (print desc)
-  
-  ;(get-buffer-create "*yarn test*")
-  ;(switch-to-buffer "*yarn test*")
-  
-;  (shell-command-on-region
-;   (point-min)
-;   (point-max)
-;   "cd ~/my/project; yarn testOne path/to/some/file.ts --grep '#specDescription'"
-;   (current-buffer)
-;   t
-;   "*yarn tests*"
-;   t)
-)
+  (string-match "\\(it\\|describe\\)(\\('\\|\"\\)\\(.*\\)\\('\\|\"\\)" current-line)
+  (setq desc (match-string 3 current-line))
+
+  (if (not (null desc))
+      (progn
+	(get-buffer-create "*yarn test*")
+	(switch-to-buffer "*yarn test*")
+
+	(let ((default-directory path)) 
+	  (setq cmd (concat "yarn testOne " file " --grep '" desc "'"))
+	  (insert (concat "\n" cmd "\n"))
+	  (insert (concat (make-string (length cmd) ?-) "\n\n"))
+	  (start-process-shell-command "" "*yarn test*" cmd))
+      )
+    )
+  )
 
 (defun duplicate-line()
   (interactive)
