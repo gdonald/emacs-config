@@ -25,39 +25,24 @@
 (setq show-paren-mode t)
 (setq size-indication-mode t)
 
-;; find the dir with the package.json
-(defun yarn-dir()
-  (setq dir (file-name-directory (buffer-file-name)))
-
-  ;; TODO: try to use `$(git rev-parse --show-toplevel)/package.json` instead
-
-  ;; TODO: needs to also handle '/'
-  (while (not (file-exists-p (concat dir "package.json")))
-    (setq dir (replace-regexp-in-string "*?[a-z]*/$" "" dir)))
-  dir)
-
 (defun yarn-run-test()
   (interactive)
-  (setq path (yarn-dir))
   (setq file (buffer-file-name))
   
   (setq current-line (thing-at-point 'line))
   (string-match "\\(it\\|describe\\)(\\('\\|\"\\)\\(.*\\)\\('\\|\"\\)" current-line)
+  (setq quot (match-string 2 current-line))
   (setq desc (match-string 3 current-line))
-
+  
   (if (not (null desc))
       (progn
-	(get-buffer-create "*yarn test*")
-	(switch-to-buffer "*yarn test*")
-
-	(let ((default-directory path)) 
-	  (setq cmd (concat "yarn testOne " file " --grep '" desc "'"))
-	  (insert (concat "\n" cmd "\n"))
-	  (insert (concat (make-string (length cmd) ?-) "\n\n"))
-	  (start-process-shell-command "" "*yarn test*" cmd))
-      )
-    )
-  )
+	(setq yt "*yarn test*")
+	(get-buffer-create yt)
+	(switch-to-buffer yt)
+	(let ((default-directory (substring (shell-command-to-string "git rev-parse --show-toplevel") 0 -1)))
+	  (setq cmd (concat "yarn testOne --no-color " file " --grep " quot desc quot))
+	  (insert (concat "\n" cmd "\n" (make-string (length cmd) ?-) "\n\n"))
+	  (start-process-shell-command "yarn" yt cmd)))))
 
 (defun duplicate-line()
   (interactive)
