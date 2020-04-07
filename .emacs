@@ -10,7 +10,7 @@
 
 (setq load-path (cons "~/.emacs.d/lisp" load-path))
 
-(setq explicit-shell-file-name "/usr/local/bin/zsh")
+(setq explicit-shell-file-name "zsh")
 
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 
