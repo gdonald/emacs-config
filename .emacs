@@ -46,7 +46,8 @@
 	(get-buffer-create yt)
 	(switch-to-buffer yt)
 	(let ((default-directory (substring (shell-command-to-string "git rev-parse --show-toplevel") 0 -1)))
-	  (setq cmd (concat "yarn testOne --no-color " file " --grep " quot desc quot))
+	  ;;(setq cmd (concat "yarn testOne --no-color " file " --grep " quot desc quot))
+	  (setq cmd (concat "yarn test --no-color " file " -t " quot desc quot))
 	  (insert (concat "\n" cmd "\n" (make-string (length cmd) ?-) "\n\n"))
 	  (start-process-shell-command "yarn" yt cmd)))))
 
