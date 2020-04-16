@@ -115,6 +115,14 @@
 	  (error (beep)))))
     (message "Done.")))
 
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+(setq ido-use-filename-at-point 'guess)
+(setq ido-create-new-buffer 'always)
+(setq ido-file-extensions-order '(".rb"))
+
+
 ;(unless window-system
 ;  (require 'mouse)
 ;  (xterm-mouse-mode t)
