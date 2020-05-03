@@ -21,6 +21,6 @@ scss-mode
 ag
 color-theme-modern
 haml-mode
-perl6-mode
+raku-mode
 web-mode
 slime
