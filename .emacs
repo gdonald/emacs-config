@@ -26,6 +26,7 @@
 (setq show-paren-mode t)
 (setq size-indication-mode t)
 (setq inhibit-startup-screen t)
+(show-paren-mode 1)
 
 (savehist-mode 1)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
