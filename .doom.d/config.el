@@ -82,7 +82,7 @@
 
 (setq projectile-project-search-path '("~/workspace/"))
 
-(setq fancy-splash-image "/Users/gd/.emacs.d/splash.png")
+(setq fancy-splash-image "~/.emacs.d/splash.png")
 
 ;; (after! git-gutter-fringe
 ;;   (setq fringe-mode 250))
