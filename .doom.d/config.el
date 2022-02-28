@@ -82,7 +82,12 @@
 
 (setq projectile-project-search-path '("~/workspace/"))
 
-(setq fancy-splash-image "/Users/gd/.emacs.d/emacs_rocks.png")
+(setq fancy-splash-image "/Users/gd/.emacs.d/splash.png")
+
+;; (after! git-gutter-fringe
+;;   (setq fringe-mode 250))
+
+(minimap-mode 1)
 
 (defun duplicate-line()
   (interactive)
