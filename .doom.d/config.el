@@ -75,7 +75,7 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq doom-font (font-spec :family "MesloLGS NF" :size 13 :weight 'semi-light)
+(setq doom-font (font-spec :family "MesloLGS NF" :size 15 :weight 'semi-light)
       doom-variable-pitch-font (font-spec :family "MesloLGS NF") ; inherits `doom-font''s :size
       doom-unicode-font (font-spec :family "MesloLGS NF" :size 11)
       doom-big-font (font-spec :family "MesloLGS NF" :size 17))
@@ -84,10 +84,10 @@
 
 (setq fancy-splash-image "~/.emacs.d/splash.png")
 
-;; (after! git-gutter-fringe
-;;   (setq fringe-mode 250))
-
 (minimap-mode 1)
+
+(advice-add 'undo-auto--last-boundary-amalgamating-number
+            :override #'ignore)
 
 (defun duplicate-line()
   (interactive)
