@@ -42,7 +42,6 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
-
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
@@ -75,20 +74,30 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; fonts
 (setq doom-font (font-spec :family "MesloLGS NF" :size 15 :weight 'semi-light)
       doom-variable-pitch-font (font-spec :family "MesloLGS NF") ; inherits `doom-font''s :size
       doom-unicode-font (font-spec :family "MesloLGS NF" :size 11)
       doom-big-font (font-spec :family "MesloLGS NF" :size 17))
 
+;; mostly so projectile doesn't look everywhere
 (setq projectile-project-search-path '("~/workspace/"))
 
+;; splash on the doom screen
 (setq fancy-splash-image "~/.emacs.d/splash.png")
 
+;; add minimap on the right
 (minimap-mode 1)
 
-(advice-add 'undo-auto--last-boundary-amalgamating-number
-            :override #'ignore)
+;; single keystroke undo using s-z while in insert mode
+(when (timerp undo-auto-current-boundary-timer)
+  (cancel-timer undo-auto-current-boundary-timer))
+(fset 'undo-auto--undoable-change
+  (lambda () (add-to-list 'undo-auto--undoably-changed-buffers (current-buffer))))
+(fset 'undo-auto-amalgamate 'ignore)
+;;
 
+;; duplicate a line
 (defun duplicate-line()
   (interactive)
   (move-beginning-of-line 1)
@@ -98,8 +107,11 @@
   (next-line 1)
   (yank)
 )
-
 (global-set-key (kbd "s-d") 'duplicate-line)
+;;
+
+;; comment out code
 (global-set-key (kbd "s-/") 'comment-dwim)
 
+;; maximize window after launch
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
