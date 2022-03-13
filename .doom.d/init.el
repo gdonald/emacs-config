@@ -20,10 +20,10 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company           ; the ultimate code completion backend
-       ;;helm              ; the *other* search engine for love and life
+       company             ; the ultimate code completion backend
+       (helm +fuzzy)       ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +fuzzy)               ; a search engine for love and life
+       ;;(ivy +fuzzy)      ; a search engine for love and life
        ;;vertico           ; the search engine of the future
 
        :ui
@@ -36,7 +36,7 @@
        hydra
        ;;indent-guides     ; highlighted indent columns
        ligatures         ; ligatures and symbols to make your code pretty again
-       minimap           ; show a map of the code on the side
+       ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
        ;;neotree           ; a project drawer, like NERDTree for vim
