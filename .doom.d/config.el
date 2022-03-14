@@ -109,8 +109,8 @@
 (global-set-key (kbd "s-/") 'comment-dwim)
 
 ;; rubocop
-(setq rubocop-autocorrect-on-save t)
-(setq rubocop-autocorrect-command "rubocop -A --format emacs")
+;(setq rubocop-autocorrect-on-save t)
+;(setq rubocop-autocorrect-command "rubocop -A --format emacs")
 
 (custom-set-faces
   '(default ((t (:background "#000000"))))
@@ -143,6 +143,13 @@
 
 ;; status bar fringe
 (setq doom-modeline-bar-width 8)
+
+;; flyspell
+(eval-after-load "flyspell"
+  '(progn
+     (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
+     (define-key flyspell-mouse-map [mouse-3] #'undefined)))
+(add-hook 'markdown-mode-hook 'flyspell-mode)
 
 ;; transparency
 ;;(set-frame-parameter (selected-frame) 'alpha '(93 50))
