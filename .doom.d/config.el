@@ -155,5 +155,21 @@
 ;;(set-frame-parameter (selected-frame) 'alpha '(93 50))
 ;;(add-to-list 'default-frame-alist '(alpha . (93 . 50)))
 
+;;(setq org-latex-pdf-process
+;;      (list "latexmk -gg -lualatex %f"))
+
+;; (add-to-list 'org-latex-classes
+;;              '("book"
+;;                "\\documentclass{book}"
+;;                ;;("\\part{%s}" . "\\part*{%s}")
+;;                ("\\chapter{%s}" . "\\chapter*{%s}")
+;;                ("\\section{%s}" . "\\section*{%s}")
+;;                ("\\subsection{%s}" . "\\subsection*{%s}")
+;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+;;              )
+
+;; fontify code in code blocks
+(setq org-src-fontify-natively t)
+
 ;; maximize window after launch
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
