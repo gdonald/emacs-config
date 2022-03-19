@@ -152,8 +152,8 @@
 (add-hook 'markdown-mode-hook 'flyspell-mode)
 
 ;; transparency
-;;(set-frame-parameter (selected-frame) 'alpha '(93 50))
-;;(add-to-list 'default-frame-alist '(alpha . (93 . 50)))
+(set-frame-parameter (selected-frame) 'alpha '(95 50))
+(add-to-list 'default-frame-alist '(alpha . (95 . 50)))
 
 ;;(setq org-latex-pdf-process
 ;;      (list "latexmk -gg -lualatex %f"))
