@@ -50,4 +50,5 @@
 ;(unpin! t)
 
 
-;;(package! dired-sidebar)
+(package! beacon)
+(package! google-this)

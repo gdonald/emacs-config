@@ -171,5 +171,16 @@
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 
+;; beacon
+(beacon-mode 1)
+(setq beacon-blink-when-point-moves-vertically 1)
+(setq beacon-blink-when-point-moves-horizontally 1)
+(setq beacon-color "#cc0000")
+(setq beacon-size 120)
+(setq beacon-dont-blink-major-modes nil)
+
+;; google
+(google-this-mode 1)
+
 ;; maximize window after launch
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
