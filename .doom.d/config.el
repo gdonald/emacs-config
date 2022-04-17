@@ -90,7 +90,7 @@
 (when (timerp undo-auto-current-boundary-timer)
   (cancel-timer undo-auto-current-boundary-timer))
 (fset 'undo-auto--undoable-change
-  (lambda () (add-to-list 'undo-auto--undoably-changed-buffers (current-buffer))))
+      (lambda () (add-to-list 'undo-auto--undoably-changed-buffers (current-buffer))))
 (fset 'undo-auto-amalgamate 'ignore)
 
 ;; duplicate a line
@@ -102,22 +102,22 @@
   (open-line 1)
   (next-line 1)
   (yank)
-)
+  )
 (global-set-key (kbd "s-d") 'duplicate-line)
 
 ;; comment out code
 (global-set-key (kbd "s-/") 'comment-dwim)
 
 ;; rubocop
-;(setq rubocop-autocorrect-on-save t)
-;(setq rubocop-autocorrect-command "rubocop -A --format emacs")
+;; (setq rubocop-autocorrect-on-save t)
+;; (setq rubocop-autocorrect-command "rubocop -A --format emacs")
 
 (custom-set-faces
-  '(default ((t (:background "#000000"))))
-  '(hl-line ((t (:background "#0048a3"))))
-  '(region ((t (:background "#006eee"))))
-  '(font-lock-comment-face ((t (:foreground "#808080"))))
-  '(font-lock-doc-face ((t (:foreground "#808080")))))
+ '(default ((t (:background "#000000"))))
+ '(hl-line ((t (:background "#0048a3"))))
+ '(region ((t (:background "#006eee"))))
+ '(font-lock-comment-face ((t (:foreground "#808080"))))
+ '(font-lock-doc-face ((t (:foreground "#808080")))))
 
 ;; git fringe
 (custom-set-faces!
@@ -133,7 +133,7 @@
   (define-fringe-bitmap 'git-gutter-fr:added [255] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:modified [255] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:deleted [1 3 7 15 31 63 127 255] nil nil '(bottom))
-)
+  )
 (global-set-key (kbd "<f12>") 'my-after)
 
 ;; cursor
@@ -181,6 +181,37 @@
 
 ;; google
 (google-this-mode 1)
+
+;; indent entire buffer
+(defun indent-buffer ()
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)))
+;; (global-set-key [f12] 'indent-buffer)
+
+
+;; utf-8
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+;; backwards compatibility as default-buffer-file-coding-system
+;; is deprecated in 23.2.
+(if (boundp 'buffer-file-coding-system)
+    (setq-default buffer-file-coding-system 'utf-8)
+  (setq default-buffer-file-coding-system 'utf-8))
+
+;; Treat clipboard input as UTF-8 string first; compound text next, etc.
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-indent-style 2)
+  )
+(add-hook 'web-mode-hook  'my-web-mode-hook)
 
 ;; maximize window after launch
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
