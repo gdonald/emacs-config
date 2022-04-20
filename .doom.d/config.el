@@ -76,7 +76,7 @@
 
 ;; fonts
 (setq doom-font (font-spec :family "MesloLGS NF" :size 15 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "MesloLGS NF") ; inherits `doom-font''s :size
+      doom-variable-pitch-font (font-spec :family "Arial" :size 12) ; inherits `doom-font''s :size
       doom-unicode-font (font-spec :family "MesloLGS NF" :size 11)
       doom-big-font (font-spec :family "MesloLGS NF" :size 17))
 
@@ -107,10 +107,6 @@
 
 ;; comment out code
 (global-set-key (kbd "s-/") 'comment-dwim)
-
-;; rubocop
-;; (setq rubocop-autocorrect-on-save t)
-;; (setq rubocop-autocorrect-command "rubocop -A --format emacs")
 
 (custom-set-faces
  '(default ((t (:background "#000000"))))
@@ -155,19 +151,6 @@
 (set-frame-parameter (selected-frame) 'alpha '(95 50))
 (add-to-list 'default-frame-alist '(alpha . (95 . 50)))
 
-;;(setq org-latex-pdf-process
-;;      (list "latexmk -gg -lualatex %f"))
-
-;; (add-to-list 'org-latex-classes
-;;              '("book"
-;;                "\\documentclass{book}"
-;;                ;;("\\part{%s}" . "\\part*{%s}")
-;;                ("\\chapter{%s}" . "\\chapter*{%s}")
-;;                ("\\section{%s}" . "\\section*{%s}")
-;;                ("\\subsection{%s}" . "\\subsection*{%s}")
-;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
-;;              )
-
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 
@@ -189,29 +172,27 @@
     (indent-region (point-min) (point-max) nil)))
 ;; (global-set-key [f12] 'indent-buffer)
 
-
-;; utf-8
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-;; backwards compatibility as default-buffer-file-coding-system
-;; is deprecated in 23.2.
-(if (boundp 'buffer-file-coding-system)
-    (setq-default buffer-file-coding-system 'utf-8)
-  (setq default-buffer-file-coding-system 'utf-8))
-
 ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
+;; Indent *.erb two spaces
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
-  (setq web-mode-indent-style 2)
-  )
+  (setq web-mode-indent-style 2))
 (add-hook 'web-mode-hook  'my-web-mode-hook)
+
+;; tabs
+(after! centaur-tabs
+  (centaur-tabs-mode -1)
+  (setq centaur-tabs-height 22
+        centaur-tabs-set-icons t
+        centaur-tabs-icon-scale-factor 0.7
+        centaur-tabs-icon-v-adjust -0.1
+        centaur-tabs-gray-out-icons 'buffer)
+  (centaur-tabs-change-fonts "Arial" 120))
 
 ;; maximize window after launch
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
