@@ -76,8 +76,8 @@
 
 ;; fonts
 (setq doom-font (font-spec :family "MesloLGS NF" :size 15 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Arial" :size 12) ; inherits `doom-font''s :size
-      doom-unicode-font (font-spec :family "MesloLGS NF" :size 11)
+      doom-variable-pitch-font (font-spec :family "Arial" :size 12)
+      doom-unicode-font (font-spec :family "Apple Symbols" :size 16)
       doom-big-font (font-spec :family "MesloLGS NF" :size 17))
 
 ;; mostly so projectile doesn't look everywhere
@@ -148,8 +148,8 @@
 (add-hook 'markdown-mode-hook 'flyspell-mode)
 
 ;; transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 50))
-(add-to-list 'default-frame-alist '(alpha . (95 . 50)))
+(set-frame-parameter (selected-frame) 'alpha '(97 50))
+(add-to-list 'default-frame-alist '(alpha . (97 . 50)))
 
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)

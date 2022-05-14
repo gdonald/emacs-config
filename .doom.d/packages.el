@@ -52,3 +52,4 @@
 
 (package! beacon)
 (package! google-this)
+(package! pde)
