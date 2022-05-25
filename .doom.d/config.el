@@ -119,8 +119,7 @@
 (custom-set-faces!
   '(fringe :background "#001f66")
   '(line-number :foreground "#cccccc" :background "#001f66")
-  '(line-number-current-line :foreground "#ffffff" :background "#0048a3")
-  )
+  '(line-number-current-line :foreground "#ffffff" :background "#0048a3"))
 
 ;; stuff that won't auto-load
 (defun my-after ()
@@ -129,7 +128,7 @@
   (define-fringe-bitmap 'git-gutter-fr:added [255] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:modified [255] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:deleted [1 3 7 15 31 63 127 255] nil nil '(bottom))
-  )
+  (centaur-tabs-group-by-projectile-project))
 (global-set-key (kbd "<f12>") 'my-after)
 
 ;; cursor

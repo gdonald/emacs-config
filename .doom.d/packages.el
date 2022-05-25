@@ -53,3 +53,4 @@
 (package! beacon)
 (package! google-this)
 (package! pde)
+(package! raku-mode)
