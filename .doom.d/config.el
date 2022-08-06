@@ -84,7 +84,8 @@
 (setq projectile-project-search-path '("~/workspace/"))
 
 ;; splash on the doom screen
-(setq fancy-splash-image "~/.emacs.d/splash.png")
+(if (display-graphic-p)
+    (setq fancy-splash-image "~/.emacs.d/splash.png"))
 
 ;; single keystroke undo using s-z while in insert mode
 (when (timerp undo-auto-current-boundary-timer)
@@ -193,5 +194,13 @@
         centaur-tabs-gray-out-icons 'buffer)
   (centaur-tabs-change-fonts "Arial" 120))
 
+;; c
+(defun my-c-mode-common-hook ()
+  ;; customizations for all of c-mode and related modes
+  (setq c-basic-offset 8)
+  (setq indent-tabs-mode t))
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
 ;; maximize window after launch
-(run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
+(if (display-graphic-p)
+    (run-with-idle-timer 0.1 nil 'toggle-frame-maximized))
