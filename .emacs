@@ -39,12 +39,20 @@
 (show-paren-mode 1)
 
 ;;
+(setq vc-follow-symlinks t)
+
+;;
 (savehist-mode 1)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (setq savehist-file "~/.emacs.d/history")
 
 ;;
 (setq inferior-lisp-program "sbcl")
+
+;;
+(require 'rspec-mode)
+;(add-hook 'after-init-hook 'inf-ruby-switch-setup)
+(add-hook 'compilation-filter-hook 'inf-ruby-auto-enter)
 
 ;;
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
@@ -90,7 +98,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(atom-one-dark-theme slime)))
+ '(package-selected-packages '(inf-ruby rspec-mode moe-theme atom-one-dark-theme slime)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
