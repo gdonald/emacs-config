@@ -50,7 +50,9 @@
 (setq savehist-file "~/.emacs.d/history")
 
 ;;
-(setq inferior-lisp-program "sbcl")
+(selectrum-mode +1)
+(selectrum-prescient-mode +1)
+(prescient-persist-mode +1)
 
 ;;
 (require 'rspec-mode)
@@ -60,6 +62,9 @@
 ;;
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.scss.erb\\'" . scss-mode))
+
+;;
+(setq inferior-lisp-program "sbcl")
 
 ;;
 (defun duplicate-line()
@@ -101,7 +106,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(magit inf-ruby rspec-mode slime)))
+ '(package-selected-packages '(selectrum magit inf-ruby rspec-mode slime)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
