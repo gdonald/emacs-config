@@ -54,8 +54,7 @@
 
 ;;
 (require 'rspec-mode)
-(add-hook 'compilation-filter-hook 'inf-ruby-auto-enter)
-(add-hook 'after-init-hook 'inf-ruby-switch-setup)
+(add-hook 'compilation-filter-hook 'inf-ruby-auto-enter-and-focus)
 (setq compilation-scroll-output t)
 
 ;;
@@ -102,7 +101,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(inf-ruby rspec-mode slime)))
+ '(package-selected-packages '(magit inf-ruby rspec-mode slime)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

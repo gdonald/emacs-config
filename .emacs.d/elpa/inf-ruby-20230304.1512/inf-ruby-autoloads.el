@@ -96,7 +96,11 @@ Gemfile, it should use the `gemspec' instruction.
 \(fn DIR)" t nil)
 
 (autoload 'inf-ruby-auto-enter "inf-ruby" "\
-Switch to `inf-ruby-mode' if the breakpoint pattern matches the current line." nil nil)
+Switch to `inf-ruby-mode' if the breakpoint pattern matches the current line.
+Return the end position of the breakpoint prompt." nil nil)
+
+(autoload 'inf-ruby-auto-enter-and-focus "inf-ruby" "\
+Switch to `inf-ruby-mode' on a breakpoint, select that window and set point." nil nil)
 
 (autoload 'inf-ruby-auto-exit "inf-ruby" "\
 Return to the previous compilation mode if INPUT is a debugger exit command.
