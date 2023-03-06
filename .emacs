@@ -61,6 +61,7 @@
 ;;
 (require 'lsp-mode)
 (add-hook 'prog-mode-hook 'lsp-deferred)
+(setq lsp-warn-no-matched-clients nil)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 (setq gc-cons-threshold (* 100 (* 1024 1024)))
 

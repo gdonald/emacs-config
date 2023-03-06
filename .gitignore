@@ -9,3 +9,4 @@
 /.emacs.d/.cache/
 /.emacs.d/.dap-breakpoints
 /.emacs.d/transient/history.el
+/.emacs.d/elpa/archives/melpa/archive-contents
