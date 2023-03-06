@@ -8,3 +8,4 @@
 /.emacs.d/.lsp-session-v1
 /.emacs.d/.cache/
 /.emacs.d/.dap-breakpoints
+/.emacs.d/transient/history.el
