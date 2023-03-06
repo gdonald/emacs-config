@@ -1,4 +1,3 @@
-
 ;;
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -15,6 +14,10 @@
              (file-name-as-directory "~/.emacs.d/themes"))
 (load-theme 'billw t t)
 (enable-theme 'billw)
+
+;;
+(require 'powerline)
+(powerline-center-theme)
 
 ;;
 (global-linum-mode t)
@@ -50,9 +53,16 @@
 (setq savehist-file "~/.emacs.d/history")
 
 ;;
-(selectrum-mode +1)
-(selectrum-prescient-mode +1)
-(prescient-persist-mode +1)
+(company-mode)
+(add-hook 'after-init-hook 'global-company-mode)
+(setq company-minimum-prefix-length 1
+      company-idle-delay 0.0)
+
+;;
+(require 'lsp-mode)
+(add-hook 'prog-mode-hook 'lsp-deferred)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq gc-cons-threshold (* 100 (* 1024 1024)))
 
 ;;
 (require 'rspec-mode)
@@ -106,7 +116,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(selectrum magit inf-ruby rspec-mode slime)))
+ '(package-selected-packages
+   '(spaceline vterm mode-icons powerline-evil powerline ## lsp-latex yasnippet dap-mode helm-lsp lsp-treemacs company lsp-ui lsp-mode selectrum magit inf-ruby rspec-mode slime)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
