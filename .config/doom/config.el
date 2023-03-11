@@ -34,7 +34,8 @@
 ;; `load-theme' function. This is the default:
 ;;(setq doom-theme 'doom-one)
 ;;(setq doom-theme 'doom-material-dark)
-(setq doom-theme 'doom-monokai-classic)
+;(setq doom-theme 'doom-monokai-classic)
+(setq doom-theme 'doom-material)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -76,3 +77,57 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(defun my-logo ()
+  (let* ((banner '("▓█████  ███▄ ▄███▓ ▄▄▄       ▄████▄    ██████ "
+                   "▓█   ▀ ▓██▒▀█▀ ██▒▒████▄    ▒██▀ ▀█  ▒██    ▒ "
+                   "▒███   ▓██    ▓██░▒██  ▀█▄  ▒▓█    ▄ ░ ▓██▄   "
+                   "▒▓█  ▄ ▒██    ▒██ ░██▄▄▄▄██ ▒▓▓▄ ▄██▒  ▒   ██▒"
+                   "░▒████▒▒██▒   ░██▒ ▓█   ▓██▒▒ ▓███▀ ░▒██████▒▒"
+                   "░░ ▒░ ░░ ▒░   ░  ░ ▒▒   ▓▒█░░ ░▒ ▒  ░▒ ▒▓▒ ▒ ░"
+                   " ░ ░  ░░  ░      ░  ▒   ▒▒ ░  ░  ▒   ░ ░▒  ░ ░"
+                   "   ░   ░      ░     ░   ▒   ░        ░  ░  ░  "
+                   "   ░  ░       ░         ░  ░░ ░            ░  "
+                   "                            ░                 "))
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat line (make-string (max 0 (- longest-line (length line))) 32)))
+               "\n"))
+     'face 'doom-dashboard-banner)))
+
+(setq +doom-dashboard-ascii-banner-fn #'my-logo)
+
+;; duplicate a line
+(defun duplicate-line ()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank)
+  )
+(global-set-key (kbd "C-c d") 'duplicate-line)
+
+;; comment out code
+(global-set-key (kbd "C-c /") 'comment-dwim)
+
+;; (setq evil-normal-state-cursor '(box "#cc0000")
+;;       evil-insert-state-cursor '(bar "#cc0000")
+;;       evil-visual-state-cursor '(hollow "#cc0000"))
+
+(custom-set-faces
+ '(default ((t (:background "#000000"))))
+ '(hl-line ((t (:background "#0048a3"))))
+ '(region ((t (:background "#006eee"))))
+ '(font-lock-comment-face ((t (:foreground "#808080"))))
+ '(font-lock-doc-face ((t (:foreground "#808080")))))
+
+(custom-set-faces!
+  ;;'(fringe :background "#001f66")
+  '(line-number :foreground "#cccccc" :background "#001f66")
+  '(line-number-current-line :foreground "#ffffff" :background "#0048a3"))
