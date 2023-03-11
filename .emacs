@@ -10,16 +10,6 @@
 (setq explicit-shell-file-name "zsh")
 
 ;;
-(add-to-list 'custom-theme-load-path
-             (file-name-as-directory "~/.emacs.d/themes"))
-(load-theme 'billw t t)
-(enable-theme 'billw)
-
-;;
-(require 'powerline)
-(powerline-center-theme)
-
-;;
 (save-place-mode t)
 
 ;;
@@ -78,14 +68,16 @@
 (add-to-list 'auto-mode-alist '("\\.scss.erb\\'" . scss-mode))
 
 ;;
-(global-set-key (kbd "C-M-j") 'mc/mark-all-dwim)
-(global-set-key (kbd "C-M-c") 'mc/edit-lines)
+(global-set-key (kbd "C-c j") 'mc/mark-all-dwim)
+(global-set-key (kbd "C-c l") 'mc/edit-lines)
 (global-set-key (kbd "C-M-l") 'er/expand-region)
-(global-set-key (kbd "C-M-/") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-M-,") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-M-.") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-M-<") 'mc/skip-to-previous-like-this)
-(global-set-key (kbd "C-M->") 'mc/skip-to-next-like-this)
+(global-set-key (kbd "C-c /") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c ,") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c .") 'mc/mark-next-like-this)
+
+;;
+(global-set-key (kbd "C-c <up>") 'move-text-up)
+(global-set-key (kbd "C-c <down>") 'move-text-down)
 
 ;;
 (setq inferior-lisp-program "sbcl")
@@ -130,11 +122,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(custom-enabled-themes '(modus-vivendi))
  '(package-selected-packages
-   '(expand-region multiple-cursors vterm mode-icons powerline ## lsp-latex yasnippet dap-mode helm-lsp lsp-treemacs company lsp-ui lsp-mode selectrum magit inf-ruby rspec-mode slime)))
+   '(diff-hl move-text expand-region multiple-cursors mode-icons powerline ## lsp-latex yasnippet dap-mode helm-lsp lsp-treemacs company lsp-ui lsp-mode selectrum magit inf-ruby rspec-mode slime))
+ '(size-indication-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :extend nil :overline nil :underline nil :slant normal :weight normal :height 160 :width normal :foundry "nil" :family "MesloLGS NF")))))
