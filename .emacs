@@ -20,6 +20,9 @@
 (powerline-center-theme)
 
 ;;
+(save-place-mode t)
+
+;;
 (global-linum-mode t)
 (setq linum-format "%4d \u2502 ")
 (setq column-number-mode t)
@@ -75,6 +78,16 @@
 (add-to-list 'auto-mode-alist '("\\.scss.erb\\'" . scss-mode))
 
 ;;
+(global-set-key (kbd "C-M-j") 'mc/mark-all-dwim)
+(global-set-key (kbd "C-M-c") 'mc/edit-lines)
+(global-set-key (kbd "C-M-l") 'er/expand-region)
+(global-set-key (kbd "C-M-/") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-M-,") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-M-.") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-M-<") 'mc/skip-to-previous-like-this)
+(global-set-key (kbd "C-M->") 'mc/skip-to-next-like-this)
+
+;;
 (setq inferior-lisp-program "sbcl")
 
 ;;
@@ -118,7 +131,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(spaceline vterm mode-icons powerline-evil powerline ## lsp-latex yasnippet dap-mode helm-lsp lsp-treemacs company lsp-ui lsp-mode selectrum magit inf-ruby rspec-mode slime)))
+   '(expand-region multiple-cursors vterm mode-icons powerline ## lsp-latex yasnippet dap-mode helm-lsp lsp-treemacs company lsp-ui lsp-mode selectrum magit inf-ruby rspec-mode slime)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

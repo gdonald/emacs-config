@@ -10,3 +10,5 @@
 /.emacs.d/.dap-breakpoints
 /.emacs.d/transient/history.el
 /.emacs.d/elpa/archives/melpa/archive-contents
+/.emacs.d/places
+/.emacs.d/.mc-lists.el
