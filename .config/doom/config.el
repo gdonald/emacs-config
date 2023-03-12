@@ -34,8 +34,8 @@
 ;; `load-theme' function. This is the default:
 ;;(setq doom-theme 'doom-one)
 ;;(setq doom-theme 'doom-material-dark)
-;(setq doom-theme 'doom-monokai-classic)
-(setq doom-theme 'doom-material)
+(setq doom-theme 'doom-monokai-classic)
+;(setq doom-theme 'doom-material)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -119,6 +119,11 @@
 ;; (setq evil-normal-state-cursor '(box "#cc0000")
 ;;       evil-insert-state-cursor '(bar "#cc0000")
 ;;       evil-visual-state-cursor '(hollow "#cc0000"))
+
+(xterm-mouse-mode 1)
+(set-face-attribute 'show-paren-match nil
+                    :background "#ffffff"
+                    :foreground "#000000")
 
 (custom-set-faces
  '(default ((t (:background "#000000"))))
