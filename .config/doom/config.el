@@ -120,10 +120,20 @@
 ;;       evil-insert-state-cursor '(bar "#cc0000")
 ;;       evil-visual-state-cursor '(hollow "#cc0000"))
 
+;(unbind-key "C-<delete>" evil-normal-state-local-map)
+;(unbind-key "C-DEL" evil-normal-state-map)
+;(unbind-key "C-<delete>" evil-normal-state-map)
+;(unbind-key "C-DEL" evil-normal-state-map)
+;(unbind-key "C-<delete>" global-map)
+
 (xterm-mouse-mode 1)
 (set-face-attribute 'show-paren-match nil
-                    :background "#ffffff"
-                    :foreground "#000000")
+                    :background "#ff0000"
+                    :foreground "#ffffff")
+
+;; (setq evil-normal-state-cursor '(box "light blue")
+;;       evil-insert-state-cursor '(bar "medium sea green")
+;;       evil-visual-state-cursor '(hollow "orange"))
 
 (custom-set-faces
  '(default ((t (:background "#000000"))))
