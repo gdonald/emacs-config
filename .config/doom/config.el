@@ -3,7 +3,6 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Greg Donald"
@@ -32,10 +31,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;;(setq doom-theme 'doom-one)
-;;(setq doom-theme 'doom-material-dark)
 (setq doom-theme 'doom-monokai-classic)
-;(setq doom-theme 'doom-material)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -116,25 +112,22 @@
 ;; comment out code
 (global-set-key (kbd "C-c /") 'comment-dwim)
 
-;; (setq evil-normal-state-cursor '(box "#cc0000")
-;;       evil-insert-state-cursor '(bar "#cc0000")
-;;       evil-visual-state-cursor '(hollow "#cc0000"))
-
 ;(unbind-key "C-<delete>" evil-normal-state-local-map)
 ;(unbind-key "C-DEL" evil-normal-state-map)
 ;(unbind-key "C-<delete>" evil-normal-state-map)
 ;(unbind-key "C-DEL" evil-normal-state-map)
 ;(unbind-key "C-<delete>" global-map)
 
+;; turn on terminal mouse and enable wheel
 (xterm-mouse-mode 1)
+(mouse-wheel-mode 1)
+
+;; match paren colors to defined cursor colors
 (set-face-attribute 'show-paren-match nil
                     :background "#ff0000"
                     :foreground "#ffffff")
 
-;; (setq evil-normal-state-cursor '(box "light blue")
-;;       evil-insert-state-cursor '(bar "medium sea green")
-;;       evil-visual-state-cursor '(hollow "orange"))
-
+;; make stuff pretty
 (custom-set-faces
  '(default ((t (:background "#000000"))))
  '(hl-line ((t (:background "#0048a3"))))
@@ -142,7 +135,7 @@
  '(font-lock-comment-face ((t (:foreground "#808080"))))
  '(font-lock-doc-face ((t (:foreground "#808080")))))
 
+;; make line numbers pretty
 (custom-set-faces!
-  ;;'(fringe :background "#001f66")
   '(line-number :foreground "#cccccc" :background "#001f66")
   '(line-number-current-line :foreground "#ffffff" :background "#0048a3"))
