@@ -97,6 +97,11 @@
 
 (setq +doom-dashboard-ascii-banner-fn #'my-logo)
 
+;; magit show better diff
+;(after! magit (setq magit-diff-refine-hunk 'all))
+
+;(show-paren-mode nil)
+
 ;; duplicate a line
 (defun duplicate-line ()
   (interactive)
@@ -124,7 +129,7 @@
 
 ;; match paren colors to defined cursor colors
 (set-face-attribute 'show-paren-match nil
-                    :background "#ff0000"
+                    :background "#000000"
                     :foreground "#ffffff")
 
 ;; make stuff pretty
