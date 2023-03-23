@@ -132,6 +132,11 @@
                     :background "#000000"
                     :foreground "#ffffff")
 
+;;
+(helm-flx-mode +1)
+(setq helm-flx-for-helm-find-files t
+      helm-flx-for-helm-locate t)
+
 ;; make stuff pretty
 (custom-set-faces
  '(default ((t (:background "#000000"))))
