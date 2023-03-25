@@ -137,6 +137,13 @@
 (setq helm-flx-for-helm-find-files t
       helm-flx-for-helm-locate t)
 
+;;
+(drag-stuff-global-mode)
+(global-set-key (kbd "S-<up>") 'drag-stuff-up)
+(global-set-key (kbd "S-<down>") 'drag-stuff-down)
+(global-set-key (kbd "S-<left>") 'drag-stuff-left)
+(global-set-key (kbd "S-<right>") 'drag-stuff-right)
+
 ;; make stuff pretty
 (custom-set-faces
  '(default ((t (:background "#000000"))))
