@@ -133,9 +133,9 @@
                     :foreground "#ffffff")
 
 ;;
-(helm-flx-mode +1)
-(setq helm-flx-for-helm-find-files t
-      helm-flx-for-helm-locate t)
+;; (helm-flx-mode +1)
+;; (setq helm-flx-for-helm-find-files t
+;;       helm-flx-for-helm-locate t)
 
 ;;
 (drag-stuff-global-mode)
