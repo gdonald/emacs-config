@@ -152,6 +152,23 @@
  '(font-lock-comment-face ((t (:foreground "#808080"))))
  '(font-lock-doc-face ((t (:foreground "#808080")))))
 
+;; ielm
+(add-hook 'ielm-mode-hook 'eldoc-mode)
+(defun g-ielm-init-history ()
+  (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
+    (make-directory (file-name-directory path) t)
+    (setq-local comint-input-ring-file-name path))
+  (setq-local comint-input-ring-size 10000)
+  (setq-local comint-input-ignoredups t)
+  (comint-read-input-ring))
+(add-hook 'ielm-mode-hook 'g-ielm-init-history)
+(defun g-ielm-write-history (&rest _args)
+  (with-file-modes #o600
+    (comint-write-input-ring)))
+(advice-add 'ielm-send-input :after 'g-ielm-write-history)
+;; (global-set-key (kbd "C-k") 'comint-clear-buffer)
+;; (global-set-key (kbd "C-r") 'helm-comint-input-ring)
+
 ;; make line numbers pretty
 (custom-set-faces!
   '(line-number :foreground "#cccccc" :background "#001f66")
