@@ -52,6 +52,34 @@
       company-idle-delay 0.0)
 
 ;;
+(ivy-mode)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+;; enable this if you want `swiper' to use it
+;; (setq search-default-mode #'char-fold-to-regexp)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+;; fuzzy filenames
+(setq ivy-re-builders-alist
+      '((read-file-name-internal . ivy--regex-fuzzy)
+        (t . ivy--regex-plus)))
+
+;;
 (require 'lsp-mode)
 (add-hook 'prog-mode-hook 'lsp-deferred)
 (setq lsp-warn-no-matched-clients nil)
@@ -126,7 +154,7 @@
  '(custom-safe-themes
    '("eb7cd622a0916358a6ef6305e661c6abfad4decb4a7c12e73d6df871b8a195f8" default))
  '(package-selected-packages
-   '(modus-themes company use-package diff-hl move-text expand-region multiple-cursors mode-icons powerline ## lsp-latex yasnippet dap-mode helm-lsp lsp-treemacs lsp-ui lsp-mode selectrum magit inf-ruby rspec-mode slime))
+   '(vterm counsel ivy modus-themes company use-package diff-hl move-text expand-region multiple-cursors mode-icons powerline ## lsp-latex yasnippet dap-mode helm-lsp lsp-treemacs lsp-ui lsp-mode selectrum magit inf-ruby rspec-mode slime))
  '(size-indication-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
