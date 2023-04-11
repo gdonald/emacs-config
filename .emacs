@@ -1,117 +1,170 @@
 ;;
+;; me
+;;
+(setq user-full-name "Greg Donald"
+      user-mail-address "gdonald@gmail.com")
+
+;;
+;; add melpa to package archives
+;;
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
 ;;
+;; add path to manually added code
+;;
 (setq load-path (cons "~/.emacs.d/lisp" load-path))
 
+;;
+;; set shell to zsh
 ;;
 (setq explicit-shell-file-name "zsh")
 
 ;;
+;; re-open files to same line number as before
+;;
 (save-place-mode t)
 
 ;;
-(global-linum-mode t)
-(setq linum-format "%4d \u2502 ")
-(setq column-number-mode t)
+;; always show formatted line numbers in the left column
+;;
+(global-display-line-numbers-mode)
+(setq-default display-line-numbers-width 2)
 
+;;
+;; always use two space indent
 ;;
 (setq indent-tabs-mode nil)
 (setq tab-width 2)
 (setq js-indent-level 2)
 
 ;;
+;; never make backup files
+;;
 (setq make-backup-files nil)
 
 ;;
+;; highlight matching parentheses immedietly
+;;
 (setq show-paren-mode t)
+(setq show-paren-delay 0)
 
 ;;
-(setq size-indication-mode t)
+;; highlight current line
+;;
+(global-hl-line-mode)
 
+;;
+;; never show startup screen
 ;;
 (setq inhibit-startup-screen t)
 
 ;;
-(show-paren-mode 1)
+;; custom dashboard
+;;
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-banner-logo-title "Would you like to play a game?"
+	dashboard-startup-banner "~/workspace/emacs-config/banner.txt"
+	dashboard-center-content t
+	dashboard-items '((recents  . 25)
+                          (projects . 5)
+                          ;(bookmarks . 0)
+                          ;(agenda . 0)
+			  ;(registers . 0)
+			  )))
 
+;;
+;; maybe remove?
+;;
+(use-package page-break-lines
+  :ensure t)
+
+;;
+;; projectile
+;;
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-mode +1)
+  :bind (("C-c p" . 'projectile-command-map))
+  :custom
+  (setq projectile-completion-system 'ivy))
+
+;;
+;; theme
+;;
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-monokai-classic t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+;;
+;; match paren colors to defined cursor colors
+;;
+(set-face-attribute 'show-paren-match nil
+                    :background "#ff48a3"
+                    :foreground "#ffffff")
+
+;;
+;; change some colors
+;;
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:background "#121212"))))
+ '(font-lock-comment-face ((t (:foreground "#808080"))))
+ '(font-lock-doc-face ((t (:foreground "#808080"))))
+ '(hl-line ((t (:background "#0048a3"))))
+ '(region ((t (:background "#006eee")))))
+
+;;
+;; show file size
+;;
+(setq size-indication-mode t)
+
+;;
+;; always follow symlinks when opening files
 ;;
 (setq vc-follow-symlinks t)
 
+;;
+;; save history for everything
 ;;
 (savehist-mode 1)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (setq savehist-file "~/.emacs.d/history")
 
 ;;
-(company-mode)
-(add-hook 'after-init-hook 'global-company-mode)
-(setq company-minimum-prefix-length 1
-      company-idle-delay 0.0)
+;; recent files
+;;
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(setq recentf-max-saved-items 25)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 ;;
-(ivy-mode)
-(setq ivy-use-virtual-buffers t)
-(setq enable-recursive-minibuffers t)
-;; enable this if you want `swiper' to use it
-;; (setq search-default-mode #'char-fold-to-regexp)
-(global-set-key "\C-s" 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "<f6>") 'ivy-resume)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
-;; fuzzy filenames
-(setq ivy-re-builders-alist
-      '((read-file-name-internal . ivy--regex-fuzzy)
-        (t . ivy--regex-plus)))
-
+;; duplicate a line
 ;;
-(require 'lsp-mode)
-(add-hook 'prog-mode-hook 'lsp-deferred)
-(setq lsp-warn-no-matched-clients nil)
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-(setq gc-cons-threshold (* 100 (* 1024 1024)))
-
-;;
-(require 'rspec-mode)
-(add-hook 'compilation-filter-hook 'inf-ruby-auto-enter-and-focus)
-(setq compilation-scroll-output t)
-
-;;
-(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.scss.erb\\'" . scss-mode))
-
-;;
-(global-set-key (kbd "C-c j") 'mc/mark-all-dwim)
-(global-set-key (kbd "C-c l") 'mc/edit-lines)
-(global-set-key (kbd "C-M-l") 'er/expand-region)
-(global-set-key (kbd "C-c /") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-c ,") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c .") 'mc/mark-next-like-this)
-
-;;
-(global-set-key (kbd "C-c <up>") 'move-text-up)
-(global-set-key (kbd "C-c <down>") 'move-text-down)
-
-;;
-(setq inferior-lisp-program "sbcl")
-
-;;
-(defun duplicate-line()
+(defun duplicate-line ()
   (interactive)
   (move-beginning-of-line 1)
   (kill-line)
@@ -119,9 +172,177 @@
   (open-line 1)
   (next-line 1)
   (yank)
-)
-(global-set-key (kbd "C-d") 'duplicate-line)
+  )
+(global-set-key (kbd "C-c d") 'duplicate-line)
 
+;;
+;; comment out code
+;;
+(global-set-key (kbd "C-c /") 'comment-dwim)
+
+;;
+;; turn on terminal mouse and enable wheel
+;;
+(xterm-mouse-mode 1)
+(mouse-wheel-mode 1)
+
+;;
+;; drag-stuff
+;;
+(use-package drag-stuff
+  :ensure t
+  :commands drag-stuff-global-mode
+  :bind (("S-<up>" . 'drag-stuff-up)
+	 ("S-<down>" . 'drag-stuff-down)
+	 ("S-<left>" . 'drag-stuff-left)
+	 ("S-<right>" . 'drag-stuff-right)))
+
+;;
+;; magit
+;;
+(use-package magit
+  :ensure t)
+
+;;
+;; use company
+;;
+(use-package company
+  :ensure t
+  :commands company-mode
+  :init (add-hook 'after-init-hook 'global-company-mode)
+  :config (setq company-minimum-prefix-length 1
+		company-idle-delay 0.0))
+
+;;
+;; ivy
+;;
+(use-package ivy
+  :defer 0.1
+  :diminish
+  :bind (("C-c C-r" . ivy-resume)
+         ("C-x B" . ivy-switch-buffer-other-window))
+  :commands ivy-mode
+  :custom
+  (ivy-count-format "(%d/%d) ")
+  (ivy-use-virtual-buffers t)
+  (enable-recursive-minibuffers t)
+  (search-default-mode #'char-fold-to-regexp)
+  (ivy-re-builders-alist '((read-file-name-internal . ivy--regex-fuzzy)
+			   (t . ivy--regex-plus))))
+
+;;
+;; counsel
+;;
+(use-package counsel
+  :after ivy
+  :config (counsel-mode)
+  :bind (("C-x C-f" . 'counsel-find-file)))
+
+;; (global-set-key "\C-s" 'swiper)
+;; (global-set-key (kbd "C-c C-r") 'ivy-resume)
+;; (global-set-key (kbd "<f6>") 'ivy-resume)
+;; (global-set-key (kbd "M-x") 'counsel-M-x)
+;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;; (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+;; (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+;; (global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
+;; (global-set-key (kbd "<f1> l") 'counsel-find-library)
+;; (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+;; (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+;; (global-set-key (kbd "C-c g") 'counsel-git)
+;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
+;; (global-set-key (kbd "C-c k") 'counsel-ag)
+;; (global-set-key (kbd "C-x l") 'counsel-locate)
+;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+;; (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+;; ;; fuzzy filenames
+;; (setq ivy-re-builders-alist
+;;       '((read-file-name-internal . ivy--regex-fuzzy)
+;;         (t . ivy--regex-plus)))
+
+
+;;
+;; lsp-mode
+;;
+(use-package lsp-mode
+  :ensure t
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l"
+	lsp-headerline-arrow "=>"
+	lsp-warn-no-matched-clients nil
+	read-process-output-max (* 1024 1024)
+	gc-cons-threshold (* 100 (* 1024 1024)))
+  :hook ((ruby-mode . lsp-deferred)
+	 (rust-mode . lsp-deferred)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp lsp-deferred)
+
+;; optionally
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+
+;; if you are ivy user
+(use-package lsp-ivy
+  :ensure t
+  :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-treemacs
+  :ensure t
+  :commands lsp-treemacs-errors-list)
+
+;; optionally if you want to use debugger
+;(use-package dap-mode
+;  :ensure t)
+;(use-package dap-ruby-setup) ; load the dap adapter for your language
+
+;; optional if you want which-key integration
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
+;;
+;; rust-mode
+;;
+(use-package rust-mode
+  :ensure t
+  :commands rust-mode
+  :hook (rust-mode . lsp)
+  )
+
+;;
+;; rspec-mode
+;;
+(use-package rspec-mode
+  :ensure t
+  :hook
+  ('compilation-filter-hook 'inf-ruby-auto-enter-and-focus)
+  :custom
+  (setq compilation-scroll-output t))
+
+;;
+;; add some file mode extensions
+;;
+(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.scss.erb\\'" . scss-mode))
+
+;; ;;
+;; (global-set-key (kbd "C-c j") 'mc/mark-all-dwim)
+;; (global-set-key (kbd "C-c l") 'mc/edit-lines)
+;; (global-set-key (kbd "C-M-l") 'er/expand-region)
+;; (global-set-key (kbd "C-c /") 'mc/mark-all-like-this)
+;; (global-set-key (kbd "C-c ,") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "C-c .") 'mc/mark-next-like-this)
+
+;;
+;; set sbcl
+;;
+(setq inferior-lisp-program "sbcl")
+
+;;
+;; run yarn tests
 ;;
 (defun yarn-run-test()
   (interactive)
@@ -144,21 +365,27 @@
 	  (start-process-shell-command "yarn" yt cmd)))))
 
 ;;
+;; ielm
+;;
+(add-hook 'ielm-mode-hook 'eldoc-mode)
+(defun g-ielm-init-history ()
+  (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
+    (make-directory (file-name-directory path) t)
+    (setq-local comint-input-ring-file-name path))
+  (setq-local comint-input-ring-size 10000)
+  (setq-local comint-input-ignoredups t)
+  (comint-read-input-ring))
+(add-hook 'ielm-mode-hook 'g-ielm-init-history)
+(defun g-ielm-write-history (&rest _args)
+  (with-file-modes #o600
+    (comint-write-input-ring)))
+(advice-add 'ielm-send-input :after 'g-ielm-write-history)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(column-number-mode t)
- '(custom-enabled-themes '(modus-vivendi))
- '(custom-safe-themes
-   '("eb7cd622a0916358a6ef6305e661c6abfad4decb4a7c12e73d6df871b8a195f8" default))
  '(package-selected-packages
-   '(vterm counsel ivy modus-themes company use-package diff-hl move-text expand-region multiple-cursors mode-icons powerline ## lsp-latex yasnippet dap-mode helm-lsp lsp-treemacs lsp-ui lsp-mode selectrum magit inf-ruby rspec-mode slime))
- '(size-indication-mode t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :extend nil :overline nil :underline nil :slant normal :weight normal :height 160 :width normal :foundry "nil" :family "MesloLGS NF")))))
+   '(treemacs-all-the-icons all-the-icons doom-themes counsel use-package)))
+
