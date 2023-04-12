@@ -122,29 +122,6 @@
   (doom-themes-org-config))
 
 ;;
-;; match paren colors to defined cursor colors
-;;
-(set-face-attribute 'show-paren-match nil
-                    :background "#ff48a3"
-                    :foreground "#ffffff")
-
-;;
-;; change some colors
-;;
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- ;; '(default ((t (:background "#121212"))))
- '(font-lock-comment-face ((t (:foreground "#808080"))))
- '(font-lock-doc-face ((t (:foreground "#808080"))))
- '(hl-line ((t (:background "#0048a3"))))
- '(region ((t (:background "#006eee")))))
-
-(set-face-background 'default "#00000080")
-
-;;
 ;; show file size
 ;;
 (setq size-indication-mode t)
@@ -250,27 +227,6 @@
   :bind (("C-x C-f" . 'counsel-find-file)
 	 ("C-x C-r" . 'counsel-recentf)))
 
-;; (global-set-key "\C-s" 'swiper)
-;; (global-set-key (kbd "<f6>") 'ivy-resume)
-;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-;; (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-;; (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-;; (global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
-;; (global-set-key (kbd "<f1> l") 'counsel-find-library)
-;; (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-;; (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-;; (global-set-key (kbd "C-c g") 'counsel-git)
-;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
-;; (global-set-key (kbd "C-c k") 'counsel-ag)
-;; (global-set-key (kbd "C-x l") 'counsel-locate)
-;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-;; (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
-;; ;; fuzzy filenames
-;; (setq ivy-re-builders-alist
-;;       '((read-file-name-internal . ivy--regex-fuzzy)
-;;         (t . ivy--regex-plus)))
-
-
 ;;
 ;; lsp-mode
 ;;
@@ -284,7 +240,6 @@
 	gc-cons-threshold (* 100 (* 1024 1024)))
   :hook ((ruby-mode . lsp-deferred)
 	 (rust-mode . lsp-deferred)
-	 ;(crystal-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp lsp-deferred)
 
@@ -302,12 +257,9 @@
   :ensure t
   :commands lsp-treemacs-errors-list)
 
-;; optionally if you want to use debugger
-;(use-package dap-mode
-;  :ensure t)
-;(use-package dap-ruby-setup) ; load the dap adapter for your language
-
-;; optional if you want which-key integration
+;;
+;; which-key
+;;
 (use-package which-key
   :ensure t
   :config
@@ -400,6 +352,25 @@
   (with-file-modes #o600
     (comint-write-input-ring)))
 (advice-add 'ielm-send-input :after 'g-ielm-write-history)
+
+;;
+;; change some colors
+;;
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(font-lock-comment-face ((t (:foreground "#808080"))))
+ '(font-lock-doc-face ((t (:foreground "#808080"))))
+ '(hl-line ((t (:background "#0048a3"))))
+ '(region ((t (:background "#006eee")))))
+
+(set-face-background 'default "#00000080") ;; seems to work in iTerm
+
+(set-face-attribute 'show-paren-match nil
+                    :background "#ff48a3"
+                    :foreground "#ffffff")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
