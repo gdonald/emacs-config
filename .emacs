@@ -222,13 +222,15 @@
   :bind (("C-c C-r" . ivy-resume)
          ("C-x B" . ivy-switch-buffer-other-window))
   :commands ivy-mode
-  :custom
-  (ivy-count-format "(%d/%d) ")
-  (ivy-use-virtual-buffers t)
-  (enable-recursive-minibuffers t)
-  (search-default-mode #'char-fold-to-regexp)
-  (ivy-re-builders-alist '((read-file-name-internal . ivy--regex-fuzzy)
-			   (t . ivy--regex-plus))))
+  :config (setq ivy-count-format "(%d/%d) "
+		ivy-use-virtual-buffers t
+		enable-recursive-minibuffers t
+		search-default-mode #'char-fold-to-regexp
+		ivy-re-builders-alist '(
+					(read-file-name-internal . ivy--regex-fuzzy)
+					(counsel-recentf . ivy--regex-fuzzy)
+					(counsel-M-x . ivy--regex-fuzzy)
+					(t . ivy--regex-plus))))
 
 ;;
 ;; counsel
@@ -236,12 +238,12 @@
 (use-package counsel
   :after ivy
   :config (counsel-mode)
-  :bind (("C-x C-f" . 'counsel-find-file)))
+  :bind (
+	 ("C-x C-f" . 'counsel-find-file)
+	 ("C-x C-r" . 'counsel-recentf)))
 
 ;; (global-set-key "\C-s" 'swiper)
-;; (global-set-key (kbd "C-c C-r") 'ivy-resume)
 ;; (global-set-key (kbd "<f6>") 'ivy-resume)
-;; (global-set-key (kbd "M-x") 'counsel-M-x)
 ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 ;; (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 ;; (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
@@ -269,12 +271,13 @@
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l"
-	lsp-headerline-arrow "=>"
+	lsp-headerline-arrow "→"
 	lsp-warn-no-matched-clients nil
 	read-process-output-max (* 1024 1024)
 	gc-cons-threshold (* 100 (* 1024 1024)))
   :hook ((ruby-mode . lsp-deferred)
 	 (rust-mode . lsp-deferred)
+	 ;(crystal-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp lsp-deferred)
 
@@ -302,6 +305,12 @@
   :ensure t
   :config
   (which-key-mode))
+
+;;
+;; crystal-mode
+;;
+(use-package crystal-mode
+  :ensure t)
 
 ;;
 ;; rust-mode
