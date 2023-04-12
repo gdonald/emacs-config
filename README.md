@@ -1,11 +1,41 @@
 
 ## .emacs
 
-My emacs configuration.  It's [Doom](https://github.com/doomemacs/doomemacs) Emacs with customizations.
+My emacs configuration.
 
-| Keys  | Description |
-|-------|-------------|
-| C-c d | Duplicate current line. |
-| C-c / | Comment out line(s) of code.  Select at least one line. | 
-| M-d   | Invoke multiple cursors.  Select some text first. |
+### Keyboard Shortcuts
+
+| Keys      | Description                                             |
+|-----------|---------------------------------------------------------|
+| C-c p F   | Find file in project.                                   |
+| C-x C-r   | Find recent file.                                       |
+| C-x C-f   | Find file in file system.                               |
+| C-x g     | Magit git status.                                       |
+| C-x B     | Switch buffer.                                          |
+| C-c l     | LSP commands.                                           |
+| C-c j     | Mark all, do what I mean.                               |
+| C-c l     | Create multiple cursors at start of selected lines.     |
+| C-c /     | Mark all like this                                      |
+| C-c ,     | Mark previous like this.                                |
+| C-c .     | Mark next like this.                                    |
+| C-c d     | Duplicate current line.                                 |
+| C-c /     | Comment out line(s) of code.  Select at least one line. |
+| C-M-l     | Expand region.                                          |
+| S-<up>    | Move line under cursor up.                              |
+| S-<down>  | Move line under cursor down.                            |
+| S-<left>  | Move selection under cursor left.                       |
+| S-<right> | Move selection under cursor right.                      |
+
+### Install
+
+	mkdir -p ~/workspace
+	cd ~/workspace
+	git clone git@github.com:gdonald/emacs-config.git
+	cd
+	ln -s ~/workspace/emacs-config/.emacs
+
+	emacs
+	M-x package-install RET use-package RET
+	C-x C-c
+	emacs
 

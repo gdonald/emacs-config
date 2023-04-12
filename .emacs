@@ -138,7 +138,6 @@
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
 (setq recentf-max-saved-items 25)
-(global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 ;;
 ;; duplicate a line
@@ -198,8 +197,7 @@
 (use-package ivy
   :defer 0.1
   :diminish
-  :bind (("C-c C-r" . ivy-resume)
-         ("C-x B" . ivy-switch-buffer-other-window))
+  :bind (("C-x B" . ivy-switch-buffer-other-window))
   :commands ivy-mode
   :config (setq ivy-count-format "(%d/%d) "
 		ivy-use-virtual-buffers t
