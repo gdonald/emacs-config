@@ -84,6 +84,14 @@
   :ensure t)
 
 ;;
+;; rainbow-delimiters
+;;
+(use-package rainbow-delimiters
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+;;
 ;; projectile
 ;;
 (use-package projectile
