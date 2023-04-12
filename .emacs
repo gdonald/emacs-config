@@ -88,6 +88,15 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;;
+;; diff-hl-mode
+;;
+(use-package diff-hl
+  :ensure t
+  :init
+  (global-diff-hl-mode)
+  (diff-hl-margin-mode))
+
+;;
 ;; projectile
 ;;
 (use-package projectile
