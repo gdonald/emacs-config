@@ -74,12 +74,6 @@
                           (projects . 5))))
 
 ;;
-;; maybe remove?
-;;
-(use-package page-break-lines
-  :ensure t)
-
-;;
 ;; rainbow-delimiters
 ;;
 (use-package rainbow-delimiters
