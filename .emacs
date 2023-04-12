@@ -296,7 +296,7 @@
   :bind (("C-c j" . 'mc/mark-all-dwim)
 	 ("C-c l" . 'mc/edit-lines)
 	 ("C-M-l" . 'er/expand-region)
-	 ("C-c /" . 'mc/mark-all-like-this)
+	 ("C-c m" . 'mc/mark-all-like-this)
 	 ("C-c ," . 'mc/mark-previous-like-this)
 	 ("C-c ." . 'mc/mark-next-like-this)))
 

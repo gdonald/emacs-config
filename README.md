@@ -12,10 +12,11 @@ My emacs configuration.
 | C-x C-f         | Find file in file system.                               |
 | C-x g           | Magit git status.                                       |
 | C-x B           | Switch buffer.                                          |
+| C-x k           | Kill buffer.                                            |
 | C-c l           | LSP commands.                                           |
 | C-c j           | Mark all, do what I mean.                               |
 | C-c l           | Create multiple cursors at start of selected lines.     |
-| C-c /           | Mark all like this                                      |
+| C-c m           | Mark all like this                                      |
 | C-c ,           | Mark previous like this.                                |
 | C-c .           | Mark next like this.                                    |
 | C-c d           | Duplicate current line.                                 |
