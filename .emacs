@@ -71,11 +71,7 @@
 	dashboard-startup-banner "~/workspace/emacs-config/banner.txt"
 	dashboard-center-content t
 	dashboard-items '((recents  . 25)
-                          (projects . 5)
-                          ;(bookmarks . 0)
-                          ;(agenda . 0)
-			  ;(registers . 0)
-			  )))
+                          (projects . 5))))
 
 ;;
 ;; maybe remove?
@@ -96,31 +92,23 @@
 ;;
 (use-package projectile
   :ensure t
-  :config
-  (projectile-mode +1)
+  :config (projectile-mode +1)
   :bind (("C-c p" . 'projectile-command-map))
-  :custom
-  (setq projectile-completion-system 'ivy))
+  :custom (setq projectile-completion-system 'ivy))
 
 ;;
-;; theme
+;; doom-themes
 ;;
 (use-package doom-themes
   :ensure t
   :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
   (load-theme 'doom-monokai-classic t)
-
-  ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
   (doom-themes-neotree-config)
-  ;; or for treemacs users
-  (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+  (setq doom-themes-treemacs-theme "doom-atom")
   (doom-themes-treemacs-config)
-  ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
 ;;
@@ -234,8 +222,7 @@
 		ivy-use-virtual-buffers t
 		enable-recursive-minibuffers t
 		search-default-mode #'char-fold-to-regexp
-		ivy-re-builders-alist '(
-					(read-file-name-internal . ivy--regex-fuzzy)
+		ivy-re-builders-alist '((read-file-name-internal . ivy--regex-fuzzy)
 					(counsel-recentf . ivy--regex-fuzzy)
 					(counsel-M-x . ivy--regex-fuzzy)
 					(t . ivy--regex-plus))))
@@ -244,10 +231,10 @@
 ;; counsel
 ;;
 (use-package counsel
+  :ensure t
   :after ivy
   :config (counsel-mode)
-  :bind (
-	 ("C-x C-f" . 'counsel-find-file)
+  :bind (("C-x C-f" . 'counsel-find-file)
 	 ("C-x C-r" . 'counsel-recentf)))
 
 ;; (global-set-key "\C-s" 'swiper)
@@ -277,7 +264,6 @@
 (use-package lsp-mode
   :ensure t
   :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l"
 	lsp-headerline-arrow "→"
 	lsp-warn-no-matched-clients nil
@@ -403,6 +389,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(treemacs-all-the-icons all-the-icons doom-themes counsel use-package)))
+ '(package-selected-packages '(treemacs-all-the-icons all-the-icons use-package)))
 
