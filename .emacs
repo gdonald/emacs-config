@@ -340,13 +340,17 @@
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.scss.erb\\'" . scss-mode))
 
-;; ;;
-;; (global-set-key (kbd "C-c j") 'mc/mark-all-dwim)
-;; (global-set-key (kbd "C-c l") 'mc/edit-lines)
-;; (global-set-key (kbd "C-M-l") 'er/expand-region)
-;; (global-set-key (kbd "C-c /") 'mc/mark-all-like-this)
-;; (global-set-key (kbd "C-c ,") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C-c .") 'mc/mark-next-like-this)
+;;
+;; multple-cursors
+;;
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-c j" . 'mc/mark-all-dwim)
+	 ("C-c l" . 'mc/edit-lines)
+	 ("C-M-l" . 'er/expand-region)
+	 ("C-c /" . 'mc/mark-all-like-this)
+	 ("C-c ," . 'mc/mark-previous-like-this)
+	 ("C-c ." . 'mc/mark-next-like-this)))
 
 ;;
 ;; set sbcl
