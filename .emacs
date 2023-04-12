@@ -101,9 +101,10 @@
 ;;
 (use-package projectile
   :ensure t
-  :config (projectile-mode +1)
-  :bind (("C-c p" . 'projectile-command-map))
-  :custom (setq projectile-completion-system 'ivy))
+  :config
+  (projectile-mode +1)
+  (setq projectile-completion-system 'ivy)
+  :bind (("C-c p" . 'projectile-command-map)))
 
 ;;
 ;; doom-themes
@@ -234,6 +235,7 @@
 		ivy-re-builders-alist '((read-file-name-internal . ivy--regex-fuzzy)
 					(counsel-recentf . ivy--regex-fuzzy)
 					(counsel-M-x . ivy--regex-fuzzy)
+					(projectile-completing-read . ivy--regex-fuzzy)
 					(t . ivy--regex-plus))))
 
 ;;
