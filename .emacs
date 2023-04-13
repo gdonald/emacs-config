@@ -108,7 +108,8 @@
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (load-theme 'doom-monokai-classic t)
+  ;; (load-theme 'doom-monokai-classic t)
+  (load-theme 'doom-material-dark t)
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   (setq doom-themes-treemacs-theme "doom-atom")
@@ -258,6 +259,34 @@
   (which-key-mode))
 
 ;;
+;; web-mode
+;;
+(use-package web-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil))
+  :custom
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-enable-auto-pairing t)
+  (setq web-mode-enable-current-element-highlight t)
+  (setq web-mode-enable-current-column-highlight t))
+
+;;
+;; scss-mode
+;;
+(use-package scss-mode
+  :ensure t
+  :commands scss-mode)
+(setq css-indent-offset 2)
+
+;;
 ;; crystal-mode
 ;;
 (use-package crystal-mode
@@ -287,6 +316,15 @@
 ;;
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.scss.erb\\'" . scss-mode))
+
+;;
+;; rubocop-mode
+;;
+(use-package rubocop
+  :ensure t
+  :commands rubocop
+  :custom
+  (add-hook 'ruby-mode-hook #'rubocop-mode))
 
 ;;
 ;; multple-cursors
@@ -358,7 +396,7 @@
  '(hl-line ((t (:background "#0048a3"))))
  '(region ((t (:background "#006eee")))))
 
-(set-face-background 'default "#00000080") ;; seems to work in iTerm
+(set-face-background 'default "#000000") ;; seems to work in iTerm
 
 (set-face-attribute 'show-paren-match nil
                     :background "#ff48a3"
