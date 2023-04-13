@@ -21,6 +21,8 @@ My emacs configuration.
 | C-c .           | Mark next like this.                                    |
 | C-c d           | Duplicate current line.                                 |
 | C-c /           | Comment out line(s) of code.  Select at least one line. |
+| C-c , t         | Switch from implementation file to spec file.           |
+| C-c , s         | Run a spec.                                             |
 | C-M-l           | Expand region.                                          |
 | S-&lt;up&gt;    | Move line under cursor up.                              |
 | S-&lt;down&gt;  | Move line under cursor down.                            |
