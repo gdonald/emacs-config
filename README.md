@@ -29,7 +29,7 @@ My emacs configuration.
 
 ### Install
 
-	mkdir -p ~/workspace
+	mkdir ~/workspace
 	cd ~/workspace
 	git clone git@github.com:gdonald/emacs-config.git
 	cd
@@ -37,6 +37,5 @@ My emacs configuration.
 
 	emacs
 	M-x package-install RET use-package RET
-	C-x C-c
-	emacs
+
 
