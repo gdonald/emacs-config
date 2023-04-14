@@ -339,6 +339,19 @@
 	 ("C-c ." . 'mc/mark-next-like-this)))
 
 ;;
+;; all-the-icons
+;;
+(use-package all-the-icons
+  :ensure t)
+
+;;
+;; yasnippet
+;;
+(use-package yasnippet
+  :ensure t
+  :config (yas-global-mode 1))
+
+;;
 ;; set sbcl
 ;;
 (setq inferior-lisp-program "sbcl")
@@ -407,5 +420,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(treemacs-all-the-icons all-the-icons use-package)))
+ '(package-selected-packages '(treemacs-all-the-icons use-package)))
 
