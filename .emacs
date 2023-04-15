@@ -406,6 +406,15 @@
 (advice-add 'ielm-send-input :after 'g-ielm-write-history)
 
 ;;
+;; indent-buffer
+;;
+(defun indent-buffer ()
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)))
+(global-set-key [f12] 'indent-buffer)
+
+;;
 ;; flycheck
 ;;
 (use-package flycheck
