@@ -13,6 +13,7 @@ My emacs configuration.
 | C-x g           | Magit git status.                                       |
 | C-x B           | Switch buffer.                                          |
 | C-x k           | Kill buffer.                                            |
+| C-c k           | Kill current line.                                      |
 | C-c l           | LSP commands.                                           |
 | C-c j           | Mark all, do what I mean.                               |
 | C-c l           | Create multiple cursors at start of selected lines.     |
@@ -23,7 +24,6 @@ My emacs configuration.
 | C-c /           | Comment out line(s) of code.  Select at least one line. |
 | C-c , t         | Switch from implementation file to spec file.           |
 | C-c , s         | Run a spec.                                             |
-| C-M-l           | Expand region.                                          |
 | M-.             | Jump to definition under cursor.                        |
 | M-,             | Return from jump to definition.                         |
 | S-&lt;up&gt;    | Move line under cursor up.                              |

@@ -108,11 +108,9 @@
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  ;; (load-theme 'doom-monokai-classic t)
   (load-theme 'doom-material-dark t)
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
-  (setq doom-themes-treemacs-theme "doom-atom")
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
 
@@ -144,15 +142,21 @@
 ;; duplicate a line
 ;;
 (defun duplicate-line ()
+  "Duplicate line under cursor."
   (interactive)
   (move-beginning-of-line 1)
   (kill-line)
   (yank)
   (open-line 1)
-  (next-line 1)
+  (forward-line 1)
   (yank)
   )
 (global-set-key (kbd "C-c d") 'duplicate-line)
+
+;;
+;; kill current line
+;;
+(global-set-key (kbd "C-c k") 'kill-whole-line)
 
 ;;
 ;; comment out code
@@ -226,8 +230,8 @@
 (use-package lsp-mode
   :ensure t
   :init
-  (setq lsp-keymap-prefix "C-c l"
-	lsp-headerline-arrow "→"
+  (setq lsp-headerline-arrow "→"
+	;lsp-keymap-prefix "C-c l"
 	lsp-warn-no-matched-clients nil
 	read-process-output-max (* 1024 1024)
 	gc-cons-threshold (* 100 (* 1024 1024)))
@@ -338,8 +342,7 @@
 (use-package multiple-cursors
   :ensure t
   :bind (("C-c j" . 'mc/mark-all-dwim)
-	 ("C-c l" . 'mc/edit-lines)
-	 ("C-M-l" . 'er/expand-region)
+	 ("C-c e" . 'mc/edit-lines)
 	 ("C-c m" . 'mc/mark-all-like-this)
 	 ("C-c ," . 'mc/mark-previous-like-this)
 	 ("C-c ." . 'mc/mark-next-like-this)))
