@@ -70,7 +70,7 @@
   (setq dashboard-banner-logo-title "Would you like to play a game?"
 	dashboard-startup-banner "~/workspace/emacs-config/banner.txt"
 	dashboard-center-content t
-	dashboard-items '((recents  . 25)
+	dashboard-items '((recents  . 15)
                           (projects . 5))))
 
 ;;
@@ -401,6 +401,13 @@
   (with-file-modes #o600
     (comint-write-input-ring)))
 (advice-add 'ielm-send-input :after 'g-ielm-write-history)
+
+;;
+;; flycheck
+;;
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
 
 ;;
 ;; change some colors
