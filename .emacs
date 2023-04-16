@@ -393,6 +393,7 @@
 ;;
 (add-hook 'ielm-mode-hook 'eldoc-mode)
 (defun g-ielm-init-history ()
+  "Save IELM history."
   (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
     (make-directory (file-name-directory path) t)
     (setq-local comint-input-ring-file-name path))
@@ -409,10 +410,36 @@
 ;; indent-buffer
 ;;
 (defun indent-buffer ()
+  "Re-indent current buffer."
   (interactive)
   (save-excursion
     (indent-region (point-min) (point-max) nil)))
 (global-set-key [f12] 'indent-buffer)
+
+;;
+;; centaur-tabs
+;;
+(use-package centaur-tabs
+  :ensure t
+  :demand
+  :init
+  (setq centaur-tabs-enable-key-bindings t)
+  :config
+  (centaur-tabs-mode t)
+  :custom
+  (centaur-tabs-group-by-projectile-project)
+  (centaur-tabs-show-count t)
+  :bind
+  ("C-c b" . centaur-tabs-backward)
+  ("C-c f" . centaur-tabs-forward)
+  ("C-c l" . centaur-tabs-move-current-tab-to-left)
+  ("C-c r" . centaur-tabs-move-current-tab-to-right))
+
+;;
+;; smex
+;;
+(use-package smex
+  :ensure t)
 
 ;;
 ;; flycheck
@@ -429,12 +456,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(centaur-tabs-close-selected ((t (:background "black" :foreground "brightred"))))
+ '(centaur-tabs-close-unselected ((t (:foreground "white"))))
+ '(centaur-tabs-default ((t nil)))
+ '(centaur-tabs-selected ((t (:background "black" :foreground "brightcyan" :box nil))))
+ '(centaur-tabs-unselected ((t (:inherit tab-line-tab :background "#3e3e3e" :foreground "#aaaaaa" :box nil))))
  '(font-lock-comment-face ((t (:foreground "#808080"))))
  '(font-lock-doc-face ((t (:foreground "#808080"))))
  '(hl-line ((t (:background "#0048a3"))))
+ '(minibuffer-prompt ((t (:foreground "brightcyan"))))
  '(region ((t (:background "#006eee")))))
 
-(set-face-background 'default "#000000") ;; seems to work in iTerm
+(set-face-background 'default "#000000")
 
 (set-face-attribute 'show-paren-match nil
                     :background "#ff48a3"
@@ -445,5 +478,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(treemacs-all-the-icons use-package)))
+ '(package-selected-packages '(centaur-tabs treemacs-all-the-icons use-package)))
 

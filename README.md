@@ -24,12 +24,17 @@ My emacs configuration.
 | C-c /           | Comment out line(s) of code.  Select at least one line. |
 | C-c , t         | Switch from implementation file to spec file.           |
 | C-c , s         | Run a spec.                                             |
+| C-c b           | Back one tab                                            |
+| C-c f           | Forward one tab                                         |
+| C-c l           | Move current tab left                                   |
+| C-c r           | Move current tab right                                  |
 | M-.             | Jump to definition under cursor.                        |
 | M-,             | Return from jump to definition.                         |
 | S-&lt;up&gt;    | Move line under cursor up.                              |
 | S-&lt;down&gt;  | Move line under cursor down.                            |
 | S-&lt;left&gt;  | Move selection under cursor left.                       |
 | S-&lt;right&gt; | Move selection under cursor right.                      |
+| F12             | Re-indent buffer.                                       |
 
 ### Install
 
