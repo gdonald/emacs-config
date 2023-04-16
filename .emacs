@@ -13,7 +13,21 @@
 ;;
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+;;
+;; initialize and refresh package list
+;;
 (package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;;
+;; install initial packages
+;;
+(let* ((package-list '(use-package)))
+  (dolist (package package-list)
+    (unless (package-installed-p package)
+      (package-install package))))
 
 ;;
 ;; add path to manually added code
@@ -495,6 +509,12 @@
  '(font-lock-comment-face ((t (:foreground "#808080"))))
  '(font-lock-doc-face ((t (:foreground "#808080"))))
  '(hl-line ((t (:background "#0048a3"))))
+ '(ivy-minibuffer-match-face-1 ((t (:foreground "yellow1" :weight light))))
+ '(ivy-minibuffer-match-face-2 ((t (:inherit ivy-minibuffer-match-face-1 :background "#262626" :foreground "brightgreen" :weight semi-bold))))
+ '(ivy-minibuffer-match-face-3 ((t (:inherit ivy-minibuffer-match-face-2 :foreground "brightcyan" :weight semi-bold))))
+ '(ivy-minibuffer-match-face-4 ((t (:inherit ivy-minibuffer-match-face-2 :foreground "orange" :weight semi-bold))))
+ '(ivy-minibuffer-match-highlight ((t nil)))
+ '(lsp-face-highlight-textual ((t (:background "mediumblue" :foreground "brightcyan" :weight normal))))
  '(marginalia-documentation ((t (:foreground "cornflowerblue"))))
  '(minibuffer-prompt ((t (:foreground "brightcyan"))))
  '(region ((t (:background "#006eee")))))
@@ -513,7 +533,7 @@
  '(doom-modeline-github t)
  '(doom-modeline-minor-modes t)
  '(doom-modeline-project-detection 'projectile)
- '(package-selected-packages '(centaur-tabs treemacs-all-the-icons use-package)))
+ '(package-selected-packages nil))
 
 (provide '.emacs)
 ;;; .emacs ends here
