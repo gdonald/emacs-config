@@ -464,6 +464,22 @@
   :init (doom-modeline-mode 1))
 
 ;;
+;; imenu
+;;
+(menu-bar-mode 1)
+(defun try-to-add-imenu ()
+  "Add imenu."
+  (condition-case nil (imenu-add-to-menubar "Code") (error nil)))
+(add-hook 'font-lock-mode-hook 'try-to-add-imenu)
+
+;;
+;; marginalia-mode
+;;
+(use-package marginalia
+  :ensure t
+  :init (marginalia-mode))
+
+;;
 ;; change some colors
 ;;
 (custom-set-faces
@@ -479,6 +495,7 @@
  '(font-lock-comment-face ((t (:foreground "#808080"))))
  '(font-lock-doc-face ((t (:foreground "#808080"))))
  '(hl-line ((t (:background "#0048a3"))))
+ '(marginalia-documentation ((t (:foreground "cornflowerblue"))))
  '(minibuffer-prompt ((t (:foreground "brightcyan"))))
  '(region ((t (:background "#006eee")))))
 
@@ -493,6 +510,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(doom-modeline-github t)
+ '(doom-modeline-minor-modes t)
+ '(doom-modeline-project-detection 'projectile)
  '(package-selected-packages '(centaur-tabs treemacs-all-the-icons use-package)))
 
 (provide '.emacs)
