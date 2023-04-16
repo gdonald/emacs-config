@@ -1,5 +1,9 @@
+;;; package --- Emacs Configuration
+;;; Commentary:
+;;; Code:
+
 ;;
-;; me
+;; user info
 ;;
 (setq user-full-name "Greg Donald"
       user-mail-address "gdonald@gmail.com")
@@ -19,7 +23,7 @@
 ;;
 ;; set shell to zsh
 ;;
-(setq explicit-shell-file-name "zsh")
+(setq-default explicit-shell-file-name "zsh")
 
 ;;
 ;; re-open files to same line number as before
@@ -37,7 +41,7 @@
 ;;
 (setq indent-tabs-mode nil)
 (setq tab-width 2)
-(setq js-indent-level 2)
+(setq-default js-indent-level 2)
 
 ;;
 ;; never make backup files
@@ -129,7 +133,7 @@
 ;;
 (savehist-mode 1)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
-(setq savehist-file "~/.emacs.d/history")
+(setq-default savehist-file "~/.emacs.d/history")
 
 ;;
 ;; recent files
@@ -230,11 +234,11 @@
 (use-package lsp-mode
   :ensure t
   :init
-  (setq lsp-headerline-arrow "→"
-	;lsp-keymap-prefix "C-c l"
-	lsp-warn-no-matched-clients nil
-	read-process-output-max (* 1024 1024)
-	gc-cons-threshold (* 100 (* 1024 1024)))
+  (setq-default lsp-headerline-arrow "→"
+					;lsp-keymap-prefix "C-c l"
+		lsp-warn-no-matched-clients nil
+		read-process-output-max (* 1024 1024)
+		gc-cons-threshold (* 100 (* 1024 1024)))
   :hook ((ruby-mode . lsp-deferred)
 	 (rust-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
@@ -285,7 +289,7 @@
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
-)
+  )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
 ;;
@@ -294,7 +298,7 @@
 (use-package scss-mode
   :ensure t
   :commands scss-mode)
-(setq css-indent-offset 2)
+(setq-default css-indent-offset 2)
 
 ;;
 ;; crystal-mode
@@ -363,47 +367,51 @@
 ;;
 ;; set sbcl
 ;;
-(setq inferior-lisp-program "sbcl")
+(setq-default inferior-lisp-program "sbcl")
 
 ;;
 ;; run yarn tests
 ;;
 (defun yarn-run-test()
+  "Run a javascript test with yarn."
   (interactive)
-  (setq file (buffer-file-name))
-  
-  (setq current-line (thing-at-point 'line))
-  (string-match "\\(it\\|describe\\)(\\('\\|\"\\)\\(.*\\)\\('\\|\"\\)" current-line)
-  (setq quot (match-string 2 current-line))
-  (setq desc (match-string 3 current-line))
-  
-  (if (not (null desc))
-      (progn
-	(setq yt "*yarn test*")
-	(get-buffer-create yt)
-	(switch-to-buffer yt)
-	(let ((default-directory (substring (shell-command-to-string "git rev-parse --show-toplevel") 0 -1)))
-	  ;;(setq cmd (concat "yarn testOne --no-color " file " --grep " quot desc quot))
-	  (setq cmd (concat "yarn test --no-color " file " -t " quot desc quot))
-	  (insert (concat "\n" cmd "\n" (make-string (length cmd) ?-) "\n\n"))
-	  (start-process-shell-command "yarn" yt cmd)))))
+  (let* ((file (buffer-file-name))
+	 (current-line (thing-at-point 'line))
+	 (quot nil)
+	 (desc nil))
+    (string-match "\\(it\\|describe\\)(\\('\\|\"\\)\\(.*\\)\\('\\|\"\\)" current-line)
+    (setq quot (match-string 2 current-line))
+    (setq desc (match-string 3 current-line))
+    (if (not (null desc))
+	(progn
+	  (let* ((yt "*yarn test*"))
+	    (get-buffer-create yt)
+	    (switch-to-buffer yt)
+	    (let* ((default-directory (substring (shell-command-to-string "git rev-parse --show-toplevel") 0 -1))
+		   (cmd (concat "yarn test --no-color " file " -t " quot desc quot)))
+	      ;;(setq cmd (concat "yarn testOne --no-color " file " --grep " quot desc quot))
+	      (insert (concat "\n" cmd "\n" (make-string (length cmd) ?-) "\n\n"))
+	      (start-process-shell-command "yarn" yt cmd)))))))
 
 ;;
 ;; ielm
 ;;
 (add-hook 'ielm-mode-hook 'eldoc-mode)
 (defun g-ielm-init-history ()
-  "Save IELM history."
+  "Initialize saved IELM history."
   (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
     (make-directory (file-name-directory path) t)
     (setq-local comint-input-ring-file-name path))
   (setq-local comint-input-ring-size 10000)
   (setq-local comint-input-ignoredups t)
-  (comint-read-input-ring))
+  (if (fboundp 'comint-read-input-ring)
+      (comint-read-input-ring)))
 (add-hook 'ielm-mode-hook 'g-ielm-init-history)
 (defun g-ielm-write-history (&rest _args)
+  "Save IELM history."
   (with-file-modes #o600
-    (comint-write-input-ring)))
+    (if (fboundp 'comint-write-input-ring)
+	(comint-write-input-ring))))
 (advice-add 'ielm-send-input :after 'g-ielm-write-history)
 
 ;;
@@ -449,6 +457,13 @@
   :init (global-flycheck-mode))
 
 ;;
+;; doom-modeline
+;;
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+
+;;
 ;; change some colors
 ;;
 (custom-set-faces
@@ -479,4 +494,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages '(centaur-tabs treemacs-all-the-icons use-package)))
+
+(provide '.emacs)
+;;; .emacs ends here
 
