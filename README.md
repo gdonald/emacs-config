@@ -30,6 +30,7 @@ My emacs configuration.
 | C-c r           | Move current tab right                                  |
 | M-.             | Jump to definition under cursor.                        |
 | M-,             | Return from jump to definition.                         |
+| M-g g           | Goto line number.                                       |
 | S-&lt;up&gt;    | Move line under cursor up.                              |
 | S-&lt;down&gt;  | Move line under cursor down.                            |
 | S-&lt;left&gt;  | Move selection under cursor left.                       |
