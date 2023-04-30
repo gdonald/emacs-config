@@ -79,6 +79,11 @@
 (setq inhibit-startup-screen t)
 
 ;;
+;; only spaces
+;;
+(setq-default indent-tabs-mode nil)
+
+;;
 ;; custom dashboard
 ;;
 (use-package dashboard
@@ -533,7 +538,19 @@
  '(doom-modeline-github t)
  '(doom-modeline-minor-modes t)
  '(doom-modeline-project-detection 'projectile)
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
+ '(safe-local-variable-values
+   '((eval and buffer-file-name
+           (not
+            (eq major-mode 'package-recipe-mode))
+           (or
+            (require 'package-recipe-mode nil t)
+            (let
+                ((load-path
+                  (cons "../package-build" load-path)))
+              (require 'package-recipe-mode nil t)))
+           (package-recipe-mode)))))
 
 (provide '.emacs)
 ;;; .emacs ends here
