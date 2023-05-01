@@ -91,9 +91,9 @@
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-banner-logo-title "Would you like to play a game?"
-	dashboard-startup-banner "~/workspace/emacs-config/banner.txt"
-	dashboard-center-content t
-	dashboard-items '((recents  . 15)
+        dashboard-startup-banner "~/workspace/emacs-config/banner.txt"
+        dashboard-center-content t
+        dashboard-items '((recents  . 15)
                           (projects . 5))))
 
 ;;
@@ -199,9 +199,9 @@
   :ensure t
   :commands drag-stuff-global-mode
   :bind (("S-<up>" . 'drag-stuff-up)
-	 ("S-<down>" . 'drag-stuff-down)
-	 ("S-<left>" . 'drag-stuff-left)
-	 ("S-<right>" . 'drag-stuff-right)))
+         ("S-<down>" . 'drag-stuff-down)
+         ("S-<left>" . 'drag-stuff-left)
+         ("S-<right>" . 'drag-stuff-right)))
 
 ;;
 ;; magit
@@ -217,7 +217,7 @@
   :commands company-mode
   :init (add-hook 'after-init-hook 'global-company-mode)
   :config (setq company-minimum-prefix-length 1
-		company-idle-delay 0.0))
+                company-idle-delay 0.0))
 
 ;;
 ;; ivy
@@ -228,14 +228,14 @@
   :bind (("C-x B" . ivy-switch-buffer-other-window))
   :commands ivy-mode
   :config (setq ivy-count-format "(%d/%d) "
-		ivy-use-virtual-buffers t
-		enable-recursive-minibuffers t
-		search-default-mode #'char-fold-to-regexp
-		ivy-re-builders-alist '((read-file-name-internal . ivy--regex-fuzzy)
-					(counsel-recentf . ivy--regex-fuzzy)
-					(counsel-M-x . ivy--regex-fuzzy)
-					(projectile-completing-read . ivy--regex-fuzzy)
-					(t . ivy--regex-plus))))
+                ivy-use-virtual-buffers t
+                enable-recursive-minibuffers t
+                search-default-mode #'char-fold-to-regexp
+                ivy-re-builders-alist '((read-file-name-internal . ivy--regex-fuzzy)
+                                        (counsel-recentf . ivy--regex-fuzzy)
+                                        (counsel-M-x . ivy--regex-fuzzy)
+                                        (projectile-completing-read . ivy--regex-fuzzy)
+                                        (t . ivy--regex-plus))))
 
 ;;
 ;; counsel
@@ -245,7 +245,7 @@
   :after ivy
   :config (counsel-mode)
   :bind (("C-x C-f" . 'counsel-find-file)
-	 ("C-x C-r" . 'counsel-recentf)))
+         ("C-x C-r" . 'counsel-recentf)))
 
 ;;
 ;; lsp-mode
@@ -254,12 +254,12 @@
   :ensure t
   :init
   (setq-default lsp-headerline-arrow "→"
-					;lsp-keymap-prefix "C-c l"
-		lsp-warn-no-matched-clients nil
-		read-process-output-max (* 1024 1024)
-		gc-cons-threshold (* 100 (* 1024 1024)))
+                                        ;lsp-keymap-prefix "C-c l"
+                lsp-warn-no-matched-clients nil
+                read-process-output-max (* 1024 1024)
+                gc-cons-threshold (* 100 (* 1024 1024)))
   :hook ((ruby-mode . lsp-deferred)
-	 (rust-mode . lsp-deferred)
+         (rust-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp lsp-deferred)
 
@@ -365,10 +365,10 @@
 (use-package multiple-cursors
   :ensure t
   :bind (("C-c j" . 'mc/mark-all-dwim)
-	 ("C-c e" . 'mc/edit-lines)
-	 ("C-c m" . 'mc/mark-all-like-this)
-	 ("C-c ," . 'mc/mark-previous-like-this)
-	 ("C-c ." . 'mc/mark-next-like-this)))
+         ("C-c e" . 'mc/edit-lines)
+         ("C-c m" . 'mc/mark-all-like-this)
+         ("C-c ," . 'mc/mark-previous-like-this)
+         ("C-c ." . 'mc/mark-next-like-this)))
 
 ;;
 ;; all-the-icons
@@ -395,22 +395,22 @@
   "Run a javascript test with yarn."
   (interactive)
   (let* ((file (buffer-file-name))
-	 (current-line (thing-at-point 'line))
-	 (quot nil)
-	 (desc nil))
+         (current-line (thing-at-point 'line))
+         (quot nil)
+         (desc nil))
     (string-match "\\(it\\|describe\\)(\\('\\|\"\\)\\(.*\\)\\('\\|\"\\)" current-line)
     (setq quot (match-string 2 current-line))
     (setq desc (match-string 3 current-line))
     (if (not (null desc))
-	(progn
-	  (let* ((yt "*yarn test*"))
-	    (get-buffer-create yt)
-	    (switch-to-buffer yt)
-	    (let* ((default-directory (substring (shell-command-to-string "git rev-parse --show-toplevel") 0 -1))
-		   (cmd (concat "yarn test --no-color " file " -t " quot desc quot)))
-	      ;;(setq cmd (concat "yarn testOne --no-color " file " --grep " quot desc quot))
-	      (insert (concat "\n" cmd "\n" (make-string (length cmd) ?-) "\n\n"))
-	      (start-process-shell-command "yarn" yt cmd)))))))
+        (progn
+          (let* ((yt "*yarn test*"))
+            (get-buffer-create yt)
+            (switch-to-buffer yt)
+            (let* ((default-directory (substring (shell-command-to-string "git rev-parse --show-toplevel") 0 -1))
+                   (cmd (concat "yarn test --no-color " file " -t " quot desc quot)))
+              ;;(setq cmd (concat "yarn testOne --no-color " file " --grep " quot desc quot))
+              (insert (concat "\n" cmd "\n" (make-string (length cmd) ?-) "\n\n"))
+              (start-process-shell-command "yarn" yt cmd)))))))
 
 ;;
 ;; ielm
@@ -430,7 +430,7 @@
   "Save IELM history."
   (with-file-modes #o600
     (if (fboundp 'comint-write-input-ring)
-	(comint-write-input-ring))))
+        (comint-write-input-ring))))
 (advice-add 'ielm-send-input :after 'g-ielm-write-history)
 
 ;;
