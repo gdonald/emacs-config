@@ -44,8 +44,5 @@ My emacs configuration.
 	git clone git@github.com:gdonald/emacs-config.git
 	cd
 	ln -s ~/workspace/emacs-config/.emacs
-
 	emacs
-	M-x package-install RET use-package RET
-
 
