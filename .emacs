@@ -355,6 +355,15 @@
   (add-hook 'ruby-mode-hook #'rubocop-mode))
 
 ;;
+;; yaml
+;;
+(use-package yaml-mode
+  :ensure t
+  :commands yaml-mode
+  :custom
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+
+;;
 ;; multple-cursors
 ;;
 (use-package multiple-cursors
