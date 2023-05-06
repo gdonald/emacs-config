@@ -508,6 +508,12 @@
   :init (marginalia-mode))
 
 ;;
+;; blackjack
+;;
+(use-package blackjack
+  :ensure t)
+
+;;
 ;; change some colors
 ;;
 (custom-set-faces
