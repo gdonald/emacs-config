@@ -51,6 +51,11 @@
 (setq-default display-line-numbers-width 2)
 
 ;;
+;; always show column numbers
+;;
+(setq column-number-mode t)
+
+;;
 ;; always use two space indent
 ;;
 (setq indent-tabs-mode nil)
@@ -331,8 +336,16 @@
 (use-package rust-mode
   :ensure t
   :commands rust-mode
-  :hook (rust-mode . lsp)
-  )
+  :hook (rust-mode . lsp))
+
+;;
+;; projectile-rails
+;;
+(use-package projectile-rails
+  :ensure t
+  :config
+  (projectile-rails-global-mode)
+  (define-key projectile-rails-mode-map (kbd "C-c C-r") 'projectile-rails-command-map))
 
 ;;
 ;; rspec-mode
@@ -545,6 +558,12 @@
                     :background "#ff48a3"
                     :foreground "#ffffff")
 
+;;
+;; quiet narrowing
+;;
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -554,7 +573,7 @@
  '(doom-modeline-minor-modes t)
  '(doom-modeline-project-detection 'projectile)
  '(package-selected-packages
-   '(slime sly speed-type package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
+   '(rg ag slime sly speed-type package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
  '(safe-local-variable-values
    '((eval and buffer-file-name
            (not
@@ -569,4 +588,3 @@
 
 (provide '.emacs)
 ;;; .emacs ends here
-

@@ -31,6 +31,8 @@ My emacs configuration.
 | M-.             | Jump to definition under cursor.                        |
 | M-,             | Return from jump to definition.                         |
 | M-g g           | Goto line number.                                       |
+| C-d             | Delete character to the right of cursor.                |
+| M-d             | Delete word to the right of cursor                      |
 | S-&lt;up&gt;    | Move line under cursor up.                              |
 | S-&lt;down&gt;  | Move line under cursor down.                            |
 | S-&lt;left&gt;  | Move selection under cursor left.                       |
