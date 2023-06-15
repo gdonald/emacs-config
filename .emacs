@@ -373,6 +373,12 @@
   (add-hook 'ruby-mode-hook #'rubocop-mode))
 
 ;;
+;; typescript-mode
+;;
+(use-package typescript-mode
+  :ensure t)
+
+;;
 ;; yaml
 ;;
 (use-package yaml-mode
