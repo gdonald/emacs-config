@@ -379,13 +379,19 @@
   :ensure t)
 
 ;;
-;; yaml
+;; yaml-mode
 ;;
 (use-package yaml-mode
   :ensure t
   :commands yaml-mode
   :custom
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+
+;;
+;; go-mode
+;;
+(use-package go-mode
+  :ensure t)
 
 ;;
 ;; multple-cursors
