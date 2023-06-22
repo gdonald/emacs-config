@@ -167,6 +167,11 @@
 (setq recentf-max-saved-items 25)
 
 ;;
+;; increase undo limit
+;;
+(setq undo-limit 100000000)
+
+;;
 ;; duplicate a line
 ;;
 (defun duplicate-line ()
