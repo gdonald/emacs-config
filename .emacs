@@ -428,6 +428,12 @@
 (setq-default inferior-lisp-program "sbcl")
 
 ;;
+;; cmake-mode
+;;
+(use-package cmake-mode
+  :ensure t)
+
+;;
 ;; run yarn tests
 ;;
 (defun yarn-run-test()
@@ -598,7 +604,7 @@
  '(doom-modeline-minor-modes t)
  '(doom-modeline-project-detection 'projectile)
  '(package-selected-packages
-   '(rg ag slime sly speed-type package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
+   '(undercover buttercup rg ag slime sly speed-type package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
  '(safe-local-variable-values
    '((eval and buffer-file-name
            (not
