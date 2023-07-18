@@ -538,6 +538,14 @@
   :init (marginalia-mode))
 
 ;;
+;; automatically balance windows
+;;
+(seq-doseq (fn (list #'split-window #'delete-window))
+  (advice-add fn
+              :after
+              #'(lambda (&rest args) (balance-windows))))
+
+;;
 ;; blackjack
 ;;
 ;(use-package blackjack
