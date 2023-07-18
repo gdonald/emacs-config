@@ -434,6 +434,15 @@
   :ensure t)
 
 ;;
+;; c language style
+;;
+(setq c-default-style "linux"
+      c-basic-offset 2)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (c-set-offset 'case-label '+)))
+
+;;
 ;; run yarn tests
 ;;
 (defun yarn-run-test()
