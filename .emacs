@@ -399,6 +399,12 @@
   :ensure t)
 
 ;;
+;; raku-mode
+;;
+(use-package raku-mode
+  :ensure t)
+
+;;
 ;; multple-cursors
 ;;
 (use-package multiple-cursors
