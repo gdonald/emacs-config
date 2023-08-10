@@ -61,6 +61,7 @@
 (setq indent-tabs-mode nil)
 (setq tab-width 2)
 (setq-default js-indent-level 2)
+(setq-default typescript-indent-level 2)
 
 ;;
 ;; never make backup files
