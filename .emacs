@@ -64,6 +64,11 @@
 (setq-default typescript-indent-level 2)
 
 ;;
+;; only spaces
+;;
+(setq-default indent-tabs-mode nil)
+
+;;
 ;; never make backup files
 ;;
 (setq make-backup-files nil)
@@ -83,11 +88,6 @@
 ;; never show startup screen
 ;;
 (setq inhibit-startup-screen t)
-
-;;
-;; only spaces
-;;
-(setq-default indent-tabs-mode nil)
 
 ;;
 ;; custom dashboard
@@ -265,7 +265,7 @@
   :ensure t
   :init
   (setq-default lsp-headerline-arrow "→"
-                                        ;lsp-keymap-prefix "C-c l"
+                ; lsp-keymap-prefix "C-c l"
                 lsp-warn-no-matched-clients nil
                 read-process-output-max (* 1024 1024)
                 gc-cons-threshold (* 100 (* 1024 1024)))
@@ -279,11 +279,12 @@
   :ensure t
   :commands lsp-ui-mode)
 
-;; if you are ivy user
+;; connect lsp and ivy
 (use-package lsp-ivy
   :ensure t
   :commands lsp-ivy-workspace-symbol)
 
+;; add treemacs errors
 (use-package lsp-treemacs
   :ensure t
   :commands lsp-treemacs-errors-list)
