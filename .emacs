@@ -183,8 +183,7 @@
   (yank)
   (open-line 1)
   (forward-line 1)
-  (yank)
-  )
+  (yank))
 (global-set-key (kbd "C-c d") 'duplicate-line)
 
 ;;
@@ -265,7 +264,7 @@
   :ensure t
   :init
   (setq-default lsp-headerline-arrow "→"
-                ; lsp-keymap-prefix "C-c l"
+                ;; lsp-keymap-prefix "C-c l"
                 lsp-warn-no-matched-clients nil
                 read-process-output-max (* 1024 1024)
                 gc-cons-threshold (* 100 (* 1024 1024)))
@@ -571,8 +570,8 @@
 ;;
 ;; blackjack
 ;;
-;(use-package blackjack
-;  :ensure t)
+;;(use-package blackjack
+;;  :ensure t)
 
 ;;
 ;; change some colors
