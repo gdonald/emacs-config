@@ -90,6 +90,11 @@
 (setq inhibit-startup-screen t)
 
 ;;
+;; confirm kill
+;;
+(setq confirm-kill-emacs 'y-or-n-p)
+
+;;
 ;; custom dashboard
 ;;
 (use-package dashboard
