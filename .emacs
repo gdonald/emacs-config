@@ -336,6 +336,12 @@
 (setq-default css-indent-offset 2)
 
 ;;
+;; org-mode
+;;
+(use-package org-roam
+  :ensure t)
+
+;;
 ;; crystal-mode
 ;;
 (use-package crystal-mode
