@@ -5,7 +5,6 @@ My emacs configuration.
 
 ### Keyboard Shortcuts
 
-|-----------------|---------------------------------------------------------|
 | Keys            | Description                                             |
 |-----------------|---------------------------------------------------------|
 | C-x B           | Switch buffer.                                          | 
@@ -13,7 +12,7 @@ My emacs configuration.
 | C-x C-r         | Find recent file.                                       |
 | C-x g           | Magit git status.                                       |
 | C-x k           | Kill buffer.                                            |
-|-----------------|---------------------------------------------------------|
+|                 |                                                         |
 | C-c k           | Kill current line.                                      |
 | C-c l           | LSP commands.                                           |
 | C-c j           | Mark all, do what I mean.                               |
@@ -30,7 +29,7 @@ My emacs configuration.
 | C-c f           | Forward one tab                                         |
 | C-c l           | Move current tab left                                   |
 | C-c r           | Move current tab right                                  |
-|-----------------|---------------------------------------------------------|
+|                 |                                                         |
 | C-d             | Delete character to the right of cursor.                |
 | M-.             | Jump to definition under cursor.                        |
 | M-,             | Return from jump to definition.                         |
@@ -41,7 +40,6 @@ My emacs configuration.
 | S-&lt;left&gt;  | Move selection under cursor left.                       |
 | S-&lt;right&gt; | Move selection under cursor right.                      |
 | F12             | Re-indent buffer.                                       |
-|-----------------|---------------------------------------------------------|
 
 ### Install
 
