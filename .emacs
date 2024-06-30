@@ -206,11 +206,10 @@
 ;;
 (global-set-key (kbd "C-c /") 'comment-dwim)
 
-;;
 ;; turn on terminal mouse and enable wheel
 ;;
-(xterm-mouse-mode 1)
-(mouse-wheel-mode 1)
+;;(xterm-mouse-mode 1)
+;;(mouse-wheel-mode 1)
 
 ;;
 ;; drag-stuff
@@ -339,6 +338,12 @@
   :ensure t
   :commands scss-mode)
 (setq-default css-indent-offset 2)
+
+;;
+;; org-mode
+;;
+(use-package org-roam
+  :ensure t)
 
 ;;
 ;; crystal-mode
@@ -640,6 +645,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:family "MesloLGS NF" :foundry "PfEd" :slant normal :weight regular :height 128 :width normal))))
  '(centaur-tabs-close-selected ((t (:background "black" :foreground "brightred"))))
  '(centaur-tabs-close-unselected ((t (:foreground "white"))))
  '(centaur-tabs-default ((t nil)))
@@ -675,9 +681,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
  '(doom-modeline-github t)
  '(doom-modeline-minor-modes t)
  '(doom-modeline-project-detection 'projectile)
+ '(global-display-line-numbers-mode t)
  '(package-selected-packages
    '(undercover buttercup rg ag slime sly speed-type package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
  '(safe-local-variable-values
@@ -690,7 +698,9 @@
                 ((load-path
                   (cons "../package-build" load-path)))
               (require 'package-recipe-mode nil t)))
-           (package-recipe-mode)))))
+           (package-recipe-mode))))
+ '(size-indication-mode t))
 
 (provide '.emacs)
 ;;; .emacs ends here
+(put 'erase-buffer 'disabled nil)
