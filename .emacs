@@ -95,6 +95,11 @@
 (setq confirm-kill-emacs 'y-or-n-p)
 
 ;;
+;; silent save
+;;
+(setq save-silently t)
+
+;;
 ;; custom dashboard
 ;;
 (use-package dashboard
@@ -563,6 +568,55 @@
 (use-package marginalia
   :ensure t
   :init (marginalia-mode))
+
+;;
+;; editorconfig
+;;
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
+;;
+;; jsonrpc
+;;
+(require 'jsonrpc) ; from ~/.emacs.d/lisp/jsonrpc.el
+
+;;
+;; node path
+;;
+(defvar copilot-node-executable "/opt/homebrew/bin/node")
+
+;;
+;; quelpa
+;;
+(unless (package-installed-p 'quelpa)
+  (with-temp-buffer
+    (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
+    (eval-buffer)
+    (quelpa-self-upgrade)))
+
+;; Install copilot from a GitHub repository using Quelpa
+(quelpa '(copilot :fetcher github :repo "copilot-emacs/copilot.el"))
+
+;; Configure copilot using use-package
+(use-package copilot
+  :ensure t  ; Ensure the package is installed
+  :config
+  ;; TODO: copilot configuration
+  )
+(add-hook 'prog-mode-hook 'copilot-mode)
+(define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+(define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+
+;;
+;; copilot
+;;
+;; (use-package copilot
+;;   :quelpa (copilot :fetcher github
+;;                    :repo "copilot-emacs/copilot.el"
+;;                    :branch "main"
+;;                    :files ("*.el")))
 
 ;;
 ;; automatically balance windows
