@@ -280,7 +280,9 @@
   :hook ((ruby-mode . lsp-deferred)
          (rust-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp lsp-deferred)
+  :commands lsp lsp-deferred
+  :config
+  (setq lsp-restart 'ignore))
 
 ;; optionally
 (use-package lsp-ui
