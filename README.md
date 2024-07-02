@@ -12,6 +12,8 @@ My emacs configuration.
 | C-x C-r         | Find recent file.                                       |
 | C-x g           | Magit git status.                                       |
 | C-x k           | Kill buffer.                                            |
+| C-x 3           | Split window right.                                     |
+| C-x 0           | Delete current window.                                  |
 | C-c k           | Kill current line.                                      |
 | C-c l           | LSP commands.                                           |
 | C-c j           | Mark all, do what I mean.                               |
