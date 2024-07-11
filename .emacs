@@ -140,6 +140,14 @@
   :bind (("C-c p" . 'projectile-command-map)))
 
 ;;
+;; projectile-rails
+;;
+(use-package projectile-rails
+  :ensure t
+  :after projectile
+  :hook (projectile-mode . projectile-rails-global-mode))
+
+;;
 ;; doom-themes
 ;;
 (use-package doom-themes
@@ -236,7 +244,8 @@
   :commands company-mode
   :init (add-hook 'after-init-hook 'global-company-mode)
   :config (setq company-minimum-prefix-length 1
-                company-idle-delay 0.0))
+                company-idle-delay 0.0)
+  (push 'company-robe company-backends))
 
 ;;
 ;; ivy
@@ -371,6 +380,37 @@
   (define-key projectile-rails-mode-map (kbd "C-c C-r") 'projectile-rails-command-map))
 
 ;;
+;; ruby mode
+;;
+(use-package ruby-mode
+  :ensure t
+  :mode "\\.rb\\'"
+  :interpreter "ruby"
+  :hook (ruby-mode . (lambda ()
+                       (robe-mode)
+                       (flycheck-mode))))
+
+;;
+;; robe mode
+;;
+(use-package robe
+  :ensure t
+  :after ruby-mode
+  :hook (ruby-mode . robe-mode))
+
+;;
+;; inf-ruby mode
+;;
+(use-package inf-ruby
+  :ensure t
+  :hook (ruby-mode . inf-ruby-minor-mode))
+
+;; rinari
+(use-package rinari
+  :ensure t
+  :hook (ruby-mode . rinari-minor-mode))
+
+;;
 ;; rspec-mode
 ;;
 (use-package rspec-mode
@@ -379,6 +419,11 @@
   ('compilation-filter-hook 'inf-ruby-auto-enter-and-focus)
   :custom
   (setq compilation-scroll-output t))
+
+(use-package rbenv
+  :ensure t
+  :config
+  (global-rbenv-mode))
 
 ;;
 ;; add some file mode extensions
