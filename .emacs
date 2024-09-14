@@ -637,7 +637,12 @@
 ;;
 ;; node path
 ;;
-(defvar copilot-node-executable "/opt/homebrew/bin/node")
+(defvar copilot-node-executable
+  (cond
+   ((eq system-type 'darwin) "/opt/homebrew/bin/node")
+   ((eq system-type 'gnu/linux) "/usr/local/bin/node")
+   ;; Add other OS-specific paths here if needed
+   ))
 
 ;;
 ;; quelpa
