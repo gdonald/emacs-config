@@ -359,16 +359,16 @@
 ;;
 ;; crystal-mode
 ;;
-(use-package crystal-mode
-  :ensure t)
+;;(use-package crystal-mode
+;;  :ensure t)
 
 ;;
 ;; rust-mode
 ;;
-(use-package rust-mode
-  :ensure t
-  :commands rust-mode
-  :hook (rust-mode . lsp))
+;; (use-package rust-mode
+;;   :ensure t
+;;   :commands rust-mode
+;;   :hook (rust-mode . lsp))
 
 ;;
 ;; projectile-rails
@@ -443,8 +443,8 @@
 ;;
 ;; typescript-mode
 ;;
-(use-package typescript-mode
-  :ensure t)
+;; (use-package typescript-mode
+;;   :ensure t)
 
 ;;
 ;; yaml-mode
@@ -458,14 +458,14 @@
 ;;
 ;; go-mode
 ;;
-(use-package go-mode
-  :ensure t)
+;; (use-package go-mode
+;;   :ensure t)
 
 ;;
 ;; raku-mode
 ;;
-(use-package raku-mode
-  :ensure t)
+;; (use-package raku-mode
+;;   :ensure t)
 
 ;;
 ;; multple-cursors
@@ -494,22 +494,22 @@
 ;;
 ;; set sbcl
 ;;
-(setq-default inferior-lisp-program "sbcl")
+;; (setq-default inferior-lisp-program "sbcl")
 
 ;;
 ;; cmake-mode
 ;;
-(use-package cmake-mode
-  :ensure t)
+;; (use-package cmake-mode
+;;   :ensure t)
 
 ;;
 ;; c language style
 ;;
-(setq c-default-style "linux"
-      c-basic-offset 2)
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (c-set-offset 'case-label '+)))
+;; (setq c-default-style "linux"
+;;       c-basic-offset 2)
+;; (add-hook 'c-mode-common-hook
+;;           (lambda ()
+;;             (c-set-offset 'case-label '+)))
 
 ;;
 ;; run yarn tests
@@ -538,23 +538,23 @@
 ;;
 ;; ielm
 ;;
-(add-hook 'ielm-mode-hook 'eldoc-mode)
-(defun g-ielm-init-history ()
-  "Initialize saved IELM history."
-  (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
-    (make-directory (file-name-directory path) t)
-    (setq-local comint-input-ring-file-name path))
-  (setq-local comint-input-ring-size 10000)
-  (setq-local comint-input-ignoredups t)
-  (if (fboundp 'comint-read-input-ring)
-      (comint-read-input-ring)))
-(add-hook 'ielm-mode-hook 'g-ielm-init-history)
-(defun g-ielm-write-history (&rest _args)
-  "Save IELM history."
-  (with-file-modes #o600
-    (if (fboundp 'comint-write-input-ring)
-        (comint-write-input-ring))))
-(advice-add 'ielm-send-input :after 'g-ielm-write-history)
+;; (add-hook 'ielm-mode-hook 'eldoc-mode)
+;; (defun g-ielm-init-history ()
+;;   "Initialize saved IELM history."
+;;   (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
+;;     (make-directory (file-name-directory path) t)
+;;     (setq-local comint-input-ring-file-name path))
+;;   (setq-local comint-input-ring-size 10000)
+;;   (setq-local comint-input-ignoredups t)
+;;   (if (fboundp 'comint-read-input-ring)
+;;       (comint-read-input-ring)))
+;; (add-hook 'ielm-mode-hook 'g-ielm-init-history)
+;; (defun g-ielm-write-history (&rest _args)
+;;   "Save IELM history."
+;;   (with-file-modes #o600
+;;     (if (fboundp 'comint-write-input-ring)
+;;         (comint-write-input-ring))))
+;; (advice-add 'ielm-send-input :after 'g-ielm-write-history)
 
 ;;
 ;; indent-buffer
@@ -643,45 +643,6 @@
    ((eq system-type 'gnu/linux) "/usr/local/bin/node")
    ;; Add other OS-specific paths here if needed
    ))
-
-;;
-;; quelpa
-;;
-(unless (package-installed-p 'quelpa)
-  (with-temp-buffer
-    (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
-    (eval-buffer)
-    (quelpa-self-upgrade)))
-
-;; Install copilot from a GitHub repository using Quelpa
-(quelpa '(copilot :fetcher github :repo "copilot-emacs/copilot.el"))
-
-;; Configure copilot using use-package
-(use-package copilot
-  :ensure t  ; Ensure the package is installed
-  :config
-  ;; TODO: copilot configuration
-  )
-(add-hook 'prog-mode-hook 'copilot-mode)
-(define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-(define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
-
-;;
-;; copilot
-;;
-;; (use-package copilot
-;;   :quelpa (copilot :fetcher github
-;;                    :repo "copilot-emacs/copilot.el"
-;;                    :branch "main"
-;;                    :files ("*.el")))
-
-;;
-;; automatically balance windows
-;;
-(seq-doseq (fn (list #'split-window #'delete-window))
-  (advice-add fn
-              :after
-              #'(lambda (&rest args) (balance-windows))))
 
 ;;
 ;; blackjack
