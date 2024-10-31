@@ -468,6 +468,12 @@
 ;;   :ensure t)
 
 ;;
+;; smalltalk-mode
+;;
+(use-package smalltalk-mode
+  :ensure t)
+
+;;
 ;; multple-cursors
 ;;
 (use-package multiple-cursors
@@ -700,7 +706,7 @@
  '(doom-modeline-project-detection 'projectile)
  '(global-display-line-numbers-mode t)
  '(package-selected-packages
-   '(undercover buttercup rg ag slime sly speed-type package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
+   '(smalltalk-mode undercover buttercup rg ag slime sly speed-type package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
  '(safe-local-variable-values
    '((eval and buffer-file-name
            (not
