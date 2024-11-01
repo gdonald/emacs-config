@@ -7,11 +7,12 @@ My emacs configuration.
 
 | Keys            | Description                                             |
 |-----------------|---------------------------------------------------------|
-| C-x B           | Switch buffer.                                          | 
+| C-x B           | Switch buffer.                                          |
 | C-x C-f         | Find file in file system.                               |
 | C-x C-r         | Find recent file.                                       |
 | C-x g           | Magit git status.                                       |
 | C-x k           | Kill buffer.                                            |
+| C-x 2           | Split window down.                                      |
 | C-x 3           | Split window right.                                     |
 | C-x 0           | Delete current window.                                  |
 | C-c k           | Kill current line.                                      |
