@@ -14,7 +14,8 @@ My emacs configuration.
 | C-x k           | Kill buffer.                                            |
 | C-x 2           | Split window down.                                      |
 | C-x 3           | Split window right.                                     |
-| C-x 0           | Delete current window.                                  |
+| C-x 0           | Delete current window.                                  | 
+| C-x u           | Undo, works on regions too.                             |
 | C-c k           | Kill current line.                                      |
 | C-c l           | LSP commands.                                           |
 | C-c j           | Mark all, do what I mean.                               |
