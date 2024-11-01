@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;;
-;; user info
+;; my user info
 ;;
 (setq user-full-name "Greg Donald"
       user-mail-address "gdonald@gmail.com")
