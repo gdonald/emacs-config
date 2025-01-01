@@ -281,27 +281,32 @@
 (use-package lsp-mode
   :ensure t
   :init
+  ;(setq lsp-keymap-prefix "C-c l")
   (setq-default lsp-headerline-arrow "→"
                 ;; lsp-keymap-prefix "C-c l"
                 lsp-warn-no-matched-clients nil
                 read-process-output-max (* 1024 1024)
                 gc-cons-threshold (* 100 (* 1024 1024)))
-  :hook ((ruby-mode . lsp-deferred)
-         (rust-mode . lsp-deferred)
+  :hook ((rust-mode . lsp-deferred)
+         (ruby-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp lsp-deferred
   :config
-  (setq lsp-restart 'ignore))
+  (setq lsp-rust-server 'rust-analyzer)
+  (setq lsp-restart 'ignore)
+  :commands lsp lsp-deferred)
 
-;; optionally
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
-
-;; connect lsp and ivy
 (use-package lsp-ivy
   :ensure t
   :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-treemacs
+  :ensure t
+  :commands lsp-treemacs-errors-list)
+
+;; optional if you want which-key integration
+(use-package which-key
+    :config
+    (which-key-mode))
 
 ;; add treemacs errors
 (use-package lsp-treemacs
@@ -365,10 +370,10 @@
 ;;
 ;; rust-mode
 ;;
-;; (use-package rust-mode
-;;   :ensure t
-;;   :commands rust-mode
-;;   :hook (rust-mode . lsp))
+(use-package rust-mode
+  :ensure t
+  :commands rust-mode
+  :hook (rust-mode . lsp))
 
 ;;
 ;; projectile-rails
@@ -672,7 +677,7 @@
  '(centaur-tabs-unselected ((t (:inherit tab-line-tab :background "#3e3e3e" :foreground "#aaaaaa" :box nil))))
  '(font-lock-comment-face ((t (:foreground "#808080"))))
  '(font-lock-doc-face ((t (:foreground "#808080"))))
- '(hl-line ((t (:background "#0048a3"))))
+ '(hl-line ((t (:background "#0048a3" :foreground unspecified))))
  '(ivy-minibuffer-match-face-1 ((t (:foreground "yellow1" :weight light))))
  '(ivy-minibuffer-match-face-2 ((t (:inherit ivy-minibuffer-match-face-1 :background "#262626" :foreground "brightgreen" :weight semi-bold))))
  '(ivy-minibuffer-match-face-3 ((t (:inherit ivy-minibuffer-match-face-2 :foreground "brightcyan" :weight semi-bold))))
