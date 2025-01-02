@@ -677,7 +677,6 @@
  '(centaur-tabs-unselected ((t (:inherit tab-line-tab :background "#3e3e3e" :foreground "#aaaaaa" :box nil))))
  '(font-lock-comment-face ((t (:foreground "#808080"))))
  '(font-lock-doc-face ((t (:foreground "#808080"))))
- '(hl-line ((t (:background "#0048a3" :foreground unspecified))))
  '(ivy-minibuffer-match-face-1 ((t (:foreground "yellow1" :weight light))))
  '(ivy-minibuffer-match-face-2 ((t (:inherit ivy-minibuffer-match-face-1 :background "#262626" :foreground "brightgreen" :weight semi-bold))))
  '(ivy-minibuffer-match-face-3 ((t (:inherit ivy-minibuffer-match-face-2 :foreground "brightcyan" :weight semi-bold))))
@@ -688,7 +687,10 @@
  '(minibuffer-prompt ((t (:foreground "brightcyan"))))
  '(region ((t (:background "#006eee")))))
 
-(set-face-background 'default "#000000")
+(set-face-background 'default "unspecified-bg")
+
+(set-face-background 'hl-line "#0048a3")
+;(set-face-foreground 'hl-line "unspecified")
 
 (set-face-attribute 'show-paren-match nil
                     :background "#ff48a3"
