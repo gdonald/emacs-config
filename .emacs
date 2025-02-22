@@ -47,8 +47,8 @@
 ;;
 ;; always show formatted line numbers in the left column
 ;;
-(global-display-line-numbers-mode)
-(setq-default display-line-numbers-width 2)
+;; (global-display-line-numbers-mode)
+;; (setq-default display-line-numbers-width 2)
 
 ;;
 ;; always show column numbers
@@ -281,9 +281,7 @@
 (use-package lsp-mode
   :ensure t
   :init
-  ;(setq lsp-keymap-prefix "C-c l")
   (setq-default lsp-headerline-arrow "→"
-                ;; lsp-keymap-prefix "C-c l"
                 lsp-warn-no-matched-clients nil
                 read-process-output-max (* 1024 1024)
                 gc-cons-threshold (* 100 (* 1024 1024)))
@@ -475,8 +473,8 @@
 ;;
 ;; smalltalk-mode
 ;;
-(use-package smalltalk-mode
-  :ensure t)
+;; (use-package smalltalk-mode
+;;   :ensure t)
 
 ;;
 ;; multple-cursors
@@ -498,9 +496,9 @@
 ;;
 ;; yasnippet
 ;;
-(use-package yasnippet
-  :ensure t
-  :config (yas-global-mode 1))
+;; (use-package yasnippet
+;;   :ensure t
+;;   :config (yas-global-mode 1))
 
 ;;
 ;; set sbcl
@@ -605,9 +603,9 @@
 ;;
 ;; flycheck
 ;;
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
+;; (use-package flycheck
+;;   :ensure t
+;;   :init (global-flycheck-mode))
 
 ;;
 ;; doom-modeline
@@ -713,7 +711,7 @@
  '(doom-modeline-project-detection 'projectile)
  '(global-display-line-numbers-mode t)
  '(package-selected-packages
-   '(smalltalk-mode undercover buttercup rg ag slime sly speed-type package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
+   '(go-mode smalltalk-mode undercover buttercup rg ag slime sly speed-type package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
  '(safe-local-variable-values
    '((eval and buffer-file-name
            (not
