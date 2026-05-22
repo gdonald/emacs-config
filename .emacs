@@ -601,11 +601,11 @@
   :ensure t)
 
 ;;
-;; flycheck
+;; flychck
 ;;
-;; (use-package flycheck
-;;   :ensure t
-;;   :init (global-flycheck-mode))
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
 
 ;;
 ;; doom-modeline
@@ -710,18 +710,13 @@
  '(doom-modeline-minor-modes t)
  '(doom-modeline-project-detection 'projectile)
  '(global-display-line-numbers-mode t)
- '(package-selected-packages
-   '(go-mode smalltalk-mode undercover buttercup rg ag slime sly speed-type package-lint blackjack yasnippet which-key web-mode use-package smex scss-mode rust-mode rubocop rspec-mode rainbow-delimiters projectile multiple-cursors marginalia magit lsp-ui lsp-treemacs lsp-ivy flycheck drag-stuff doom-themes doom-modeline diff-hl dashboard crystal-mode counsel company centaur-tabs all-the-icons))
+ '(package-selected-packages nil)
  '(safe-local-variable-values
    '((eval and buffer-file-name
-           (not
-            (eq major-mode 'package-recipe-mode))
-           (or
-            (require 'package-recipe-mode nil t)
-            (let
-                ((load-path
-                  (cons "../package-build" load-path)))
-              (require 'package-recipe-mode nil t)))
+           (not (eq major-mode 'package-recipe-mode))
+           (or (require 'package-recipe-mode nil t)
+               (let ((load-path (cons "../package-build" load-path)))
+                 (require 'package-recipe-mode nil t)))
            (package-recipe-mode))))
  '(size-indication-mode t))
 
