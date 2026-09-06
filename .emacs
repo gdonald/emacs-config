@@ -1,4 +1,4 @@
-;;; package --- Emacs Configuration
+;;; package --- Emacs Configuration  -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -710,7 +710,14 @@
  '(doom-modeline-minor-modes t)
  '(doom-modeline-project-detection 'projectile)
  '(global-display-line-numbers-mode t)
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(all-the-icons blackjack buttercup centaur-tabs company counsel
+                   dashboard diff-hl doom-modeline doom-themes
+                   drag-stuff flycheck lsp-ivy lsp-treemacs magit
+                   marginalia multiple-cursors org-roam
+                   projectile-rails rainbow-delimiters rbenv rinari
+                   robe rspec-mode rubocop rust-mode scss-mode smex
+                   undercover web-mode yaml-mode))
  '(safe-local-variable-values
    '((eval and buffer-file-name
            (not (eq major-mode 'package-recipe-mode))
