@@ -1,0 +1,701 @@
+#+TITLE: Emacs Configuration
+#+PROPERTY: header-args:emacs-lisp :tangle init.el
+
+Edit this file, not =init.el= or =early-init.el=. Saving it in Emacs writes both files with =org-babel-tangle=. Blocks marked =:tangle no= are not written out.
+
+* Early init
+
+Emacs loads =early-init.el= before the package system and the first frame.
+
+#+begin_src emacs-lisp :tangle early-init.el
+;;; early-init.el --- Emacs Early Init  -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+#+end_src
+
+Garbage collection is off during startup and set back to 100MB once startup finishes.
+
+#+begin_src emacs-lisp :tangle early-init.el
+(defconst gd-gc-cons-threshold-after-startup (* 100 1024 1024))
+
+(setq gc-cons-threshold most-positive-fixnum)
+(add-hook 'emacs-startup-hook
+          (lambda () (setq gc-cons-threshold gd-gc-cons-threshold-after-startup)))
+#+end_src
+
+#+begin_src emacs-lisp :tangle early-init.el
+(setq package-quickstart t)
+
+(provide 'early-init)
+;;; early-init.el ends here
+#+end_src
+
+* Init file header
+
+#+begin_src emacs-lisp
+;;; init.el --- Emacs Configuration  -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+#+end_src
+
+* This config
+
+=gd-config-directory= is the repository directory, found by following the =~/.emacs.d/init.el= symlink.
+
+#+begin_src emacs-lisp
+(defconst gd-config-directory
+  (file-name-directory (file-truename (or load-file-name buffer-file-name))))
+
+(defconst gd-config-org-file (expand-file-name "config.org" gd-config-directory))
+
+(defun gd-tangle-config-on-save ()
+  "Write init.el and early-init.el when config.org is saved."
+  (when (and buffer-file-name
+             (string= (file-truename buffer-file-name) gd-config-org-file))
+    (org-babel-tangle)))
+
+(add-hook 'org-mode-hook
+          (lambda () (add-hook 'after-save-hook #'gd-tangle-config-on-save nil t)))
+#+end_src
+
+Customize writes to =custom.el=, so it never edits the generated =init.el=.
+
+#+begin_src emacs-lisp
+(setq custom-file (expand-file-name "custom.el" gd-config-directory))
+(load custom-file 'noerror 'nomessage)
+#+end_src
+
+* User
+
+#+begin_src emacs-lisp
+(setq user-full-name "Greg Donald"
+      user-mail-address "gdonald@gmail.com")
+#+end_src
+
+* Package archives
+
+#+begin_src emacs-lisp
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+#+end_src
+
+* Editing defaults
+
+#+begin_src emacs-lisp
+(setq-default explicit-shell-file-name "zsh")
+
+(save-place-mode t)
+
+(setq-default tab-width 2)
+(setq-default js-indent-level 2)
+(setq-default typescript-indent-level 2)
+(setq-default indent-tabs-mode nil)
+
+(setq make-backup-files nil)
+
+(setq show-paren-delay 0)
+
+(global-hl-line-mode)
+
+(setq inhibit-startup-screen t)
+
+(setq confirm-kill-emacs 'y-or-n-p)
+
+(setq save-silently t)
+
+(setq vc-follow-symlinks t)
+
+(setq undo-limit 100000000)
+
+(column-number-mode 1)
+(size-indication-mode 1)
+(global-display-line-numbers-mode 1)
+(setq-default display-line-numbers-width 2)
+#+end_src
+
+Emacs 31 turns on =xterm-mouse-mode= in compatible terminals, which takes mouse selection away from the terminal. Calling the mode function here stops the automatic enable.
+
+#+begin_src emacs-lisp
+(xterm-mouse-mode -1)
+#+end_src
+
+* History and recent files
+
+#+begin_src emacs-lisp
+(savehist-mode 1)
+(setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+(setq-default savehist-file "~/.emacs.d/history")
+
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(setq recentf-max-saved-items 25)
+#+end_src
+
+* Key bindings
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c d") 'duplicate-line)
+(global-set-key (kbd "C-c k") 'kill-whole-line)
+(global-set-key (kbd "C-c /") 'comment-dwim)
+#+end_src
+
+#+begin_src emacs-lisp
+(defun indent-buffer ()
+  "Re-indent current buffer."
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)))
+(global-set-key [f12] 'indent-buffer)
+#+end_src
+
+* Disabled commands
+
+Add =put= lines here. Answering =y= to the "enable this command" prompt writes to the generated =init.el=, and the next save of this file removes it.
+
+#+begin_src emacs-lisp
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'erase-buffer 'disabled nil)
+#+end_src
+
+* Appearance
+
+** Dashboard
+
+#+begin_src emacs-lisp
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-banner-logo-title "Would you like to play a game?"
+        dashboard-startup-banner (expand-file-name "banner.txt" gd-config-directory)
+        dashboard-center-content t
+        dashboard-icon-type 'nerd-icons
+        dashboard-display-icons-p t
+        dashboard-set-heading-icons t
+        dashboard-set-file-icons t
+        dashboard-items '((recents  . 15)
+                          (projects . 5))))
+#+end_src
+
+** Theme
+
+#+begin_src emacs-lisp
+(use-package doom-themes
+  :ensure t
+  :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  (load-theme 'doom-material-dark t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
+#+end_src
+
+** Mode line
+
+#+begin_src emacs-lisp
+(use-package doom-modeline
+  :ensure t
+  :custom
+  (doom-modeline-github t)
+  (doom-modeline-minor-modes t)
+  (doom-modeline-project-detection 'projectile)
+  :init (doom-modeline-mode 1))
+#+end_src
+
+** Tabs
+
+#+begin_src emacs-lisp
+(use-package centaur-tabs
+  :ensure t
+  :demand
+  :init
+  (setq centaur-tabs-enable-key-bindings t)
+  :custom
+  (centaur-tabs-show-count t)
+  (centaur-tabs-set-icons t)
+  (centaur-tabs-icon-type 'nerd-icons)
+  :config
+  (centaur-tabs-mode t)
+  (centaur-tabs-group-by-projectile-project)
+  :bind
+  ("C-c b" . centaur-tabs-backward)
+  ("C-c f" . centaur-tabs-forward)
+  ("C-c l" . centaur-tabs-move-current-tab-to-left)
+  ("C-c r" . centaur-tabs-move-current-tab-to-right))
+#+end_src
+
+** Icons
+
+#+begin_src emacs-lisp
+(use-package nerd-icons
+  :ensure t
+  :defer t)
+#+end_src
+
+** Delimiters and version control margin
+
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(use-package diff-hl
+  :ensure t
+  :init
+  (global-diff-hl-mode)
+  (diff-hl-margin-mode))
+#+end_src
+
+** Menu bar and imenu
+
+#+begin_src emacs-lisp
+(menu-bar-mode 1)
+(defun try-to-add-imenu ()
+  "Add imenu."
+  (condition-case nil (imenu-add-to-menubar "Code") (error nil)))
+(add-hook 'font-lock-mode-hook 'try-to-add-imenu)
+#+end_src
+
+** Faces
+
+#+begin_src emacs-lisp
+(custom-set-faces
+ '(default ((t (:family "MesloLGS NF" :foundry "PfEd" :slant normal :weight regular :height 128 :width normal))))
+ '(centaur-tabs-close-selected ((t (:background "black" :foreground "brightred"))))
+ '(centaur-tabs-close-unselected ((t (:foreground "white"))))
+ '(centaur-tabs-default ((t nil)))
+ '(centaur-tabs-selected ((t (:background "black" :foreground "brightcyan" :box nil))))
+ '(centaur-tabs-unselected ((t (:inherit tab-line-tab :background "#3e3e3e" :foreground "#aaaaaa" :box nil))))
+ '(eglot-highlight-symbol-face ((t (:background "mediumblue" :foreground "brightcyan" :weight normal))))
+ '(font-lock-comment-face ((t (:foreground "#808080"))))
+ '(font-lock-doc-face ((t (:foreground "#808080"))))
+ '(marginalia-documentation ((t (:foreground "cornflowerblue"))))
+ '(minibuffer-prompt ((t (:foreground "brightcyan"))))
+ '(orderless-match-face-0 ((t (:background "#262626" :foreground "brightgreen" :weight semi-bold))))
+ '(orderless-match-face-1 ((t (:background "#262626" :foreground "brightcyan" :weight semi-bold))))
+ '(orderless-match-face-2 ((t (:background "#262626" :foreground "orange" :weight semi-bold))))
+ '(orderless-match-face-3 ((t (:background "#262626" :foreground "yellow1" :weight semi-bold))))
+ '(org-block ((t (:background "#1c1c1c" :extend t))))
+ '(org-block-begin-line ((t (:background "#1c1c1c"))))
+ '(region ((t (:background "#006eee")))))
+
+(set-face-background 'default "unspecified-bg")
+
+(set-face-background 'hl-line "#0048a3")
+
+(set-face-attribute 'show-paren-match nil
+                    :background "#ff48a3"
+                    :foreground "#ffffff")
+#+end_src
+
+* Completion
+
+** Minibuffer
+
+#+begin_src emacs-lisp
+(setq enable-recursive-minibuffers t
+      search-default-mode #'char-fold-to-regexp)
+
+(use-package vertico
+  :ensure t
+  :custom
+  (vertico-count 15)
+  :init
+  (vertico-mode))
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion))))
+  (orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex)))
+
+(use-package marginalia
+  :ensure t
+  :init (marginalia-mode))
+
+(use-package nerd-icons-completion
+  :ensure t
+  :after marginalia
+  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
+  :config
+  (nerd-icons-completion-mode))
+
+(use-package consult
+  :ensure t
+  :bind (("C-x B" . consult-buffer-other-window)
+         ("C-x C-r" . consult-recent-file)))
+
+(use-package embark
+  :ensure t
+  :bind (("C-c a" . embark-act)))
+
+(use-package embark-consult
+  :ensure t
+  :after (embark consult))
+
+(use-package which-key
+  :config
+  (which-key-mode))
+#+end_src
+
+** In-buffer
+
+#+begin_src emacs-lisp
+(use-package corfu
+  :ensure t
+  :custom
+  (corfu-auto t)
+  (corfu-auto-delay 0.0)
+  (corfu-auto-prefix 1)
+  :init
+  (global-corfu-mode))
+#+end_src
+
+* Projects and version control
+
+#+begin_src emacs-lisp
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-mode +1)
+  (setq projectile-completion-system 'default)
+  :bind (("C-c p" . 'projectile-command-map)))
+
+(use-package projectile-rails
+  :ensure t
+  :after projectile
+  :hook (find-file . projectile-rails-on)
+  :bind (:map projectile-rails-mode-map
+              ("C-c C-r" . projectile-rails-command-map)))
+
+(use-package magit
+  :ensure t
+  :defer t)
+
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+#+end_src
+
+* Editing tools
+
+#+begin_src emacs-lisp
+(use-package drag-stuff
+  :ensure t
+  :commands drag-stuff-global-mode
+  :bind (("S-<up>" . 'drag-stuff-up)
+         ("S-<down>" . 'drag-stuff-down)
+         ("S-<left>" . 'drag-stuff-left)
+         ("S-<right>" . 'drag-stuff-right)))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-c j" . 'mc/mark-all-dwim)
+         ("C-c e" . 'mc/edit-lines)
+         ("C-c m" . 'mc/mark-all-like-this)
+         ("C-c ," . 'mc/mark-previous-like-this)
+         ("C-c ." . 'mc/mark-next-like-this)))
+#+end_src
+
+tempel offers templates as completion candidates, so they show up in corfu. =tempel-collection= provides ready-made templates.
+
+#+begin_src emacs-lisp
+(defun gd-tempel-setup-capf ()
+  "Offer tempel templates through completion-at-point."
+  (setq-local completion-at-point-functions
+              (cons #'tempel-expand completion-at-point-functions)))
+
+(use-package tempel
+  :ensure t
+  :bind (("M-+" . tempel-complete)
+         ("M-*" . tempel-insert))
+  :hook ((conf-mode prog-mode text-mode) . gd-tempel-setup-capf))
+
+(use-package tempel-collection
+  :ensure t
+  :after tempel)
+#+end_src
+
+* Language support
+
+** Tree-sitter, eglot, and flymake
+
+#+begin_src emacs-lisp
+(use-package treesit
+  :custom
+  (treesit-enabled-modes t))
+
+(use-package eglot
+  :hook ((ruby-base-mode rust-ts-mode c-ts-mode c++-ts-mode swift-mode) . eglot-ensure)
+  :init
+  (setq read-process-output-max (* 1024 1024))
+  :config
+  (add-to-list 'eglot-server-programs '(swift-mode . ("sourcekit-lsp"))))
+
+(use-package flymake
+  :hook (prog-mode . flymake-mode))
+
+(setq sh-shellcheck-arguments '("-x"))
+#+end_src
+
+** Ruby
+
+#+begin_src emacs-lisp
+(use-package ruby-mode
+  :mode "\\.rb\\'"
+  :interpreter "ruby")
+
+(use-package robe
+  :ensure t
+  :after ruby-mode
+  :hook (ruby-base-mode . robe-mode))
+
+(use-package inf-ruby
+  :ensure t
+  :hook (ruby-base-mode . inf-ruby-minor-mode))
+
+(use-package rspec-mode
+  :ensure t
+  :hook (compilation-filter . inf-ruby-auto-enter-and-focus)
+  :custom
+  (compilation-scroll-output t))
+
+(use-package rbenv
+  :ensure t
+  :config
+  (global-rbenv-mode))
+
+(use-package rubocop
+  :ensure t
+  :commands rubocop
+  :hook (ruby-base-mode . rubocop-mode))
+
+(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+#+end_src
+
+** Web
+
+#+begin_src emacs-lisp
+(use-package web-mode
+  :ensure t
+  :mode ("\\.erb\\'" "\\.html?\\'")
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  (web-mode-enable-auto-pairing t)
+  (web-mode-enable-current-element-highlight t)
+  (web-mode-enable-current-column-highlight t)
+  :config
+  (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil)))
+
+(use-package scss-mode
+  :ensure t
+  :commands scss-mode)
+(setq-default css-indent-offset 2)
+(add-to-list 'auto-mode-alist '("\\.scss.erb\\'" . scss-mode))
+#+end_src
+
+#+begin_src emacs-lisp
+(defun yarn-run-test()
+  "Run a javascript test with yarn."
+  (interactive)
+  (let* ((file (buffer-file-name))
+         (current-line (thing-at-point 'line))
+         (quot nil)
+         (desc nil))
+    (string-match "\\(it\\|describe\\)(\\('\\|\"\\)\\(.*\\)\\('\\|\"\\)" current-line)
+    (setq quot (match-string 2 current-line))
+    (setq desc (match-string 3 current-line))
+    (if (not (null desc))
+        (progn
+          (let* ((yt "*yarn test*"))
+            (get-buffer-create yt)
+            (switch-to-buffer yt)
+            (let* ((default-directory (substring (shell-command-to-string "git rev-parse --show-toplevel") 0 -1))
+                   (cmd (concat "yarn test --no-color " file " -t " quot desc quot)))
+              (insert (concat "\n" cmd "\n" (make-string (length cmd) ?-) "\n\n"))
+              (start-process-shell-command "yarn" yt cmd)))))))
+#+end_src
+
+** Terraform
+
+#+begin_src emacs-lisp
+(use-package terraform-mode
+  :ensure t
+  :defer t)
+#+end_src
+
+** C
+
+=c-mode= is remapped to =c-ts-mode=. The =linux= style aligns =case= with =switch=, so this style function adds a rule that indents =case= one level.
+
+#+begin_src emacs-lisp
+(defun gd-c-ts-linux-style-with-indented-case ()
+  "Linux indent rules for c-ts-mode with case labels indented one level."
+  (let* ((language (if (derived-mode-p 'c++-ts-mode) 'cpp 'c))
+         (rules (alist-get language (c-ts-mode--simple-indent-rules language 'linux))))
+    `((,language ((node-is "case") standalone-parent c-ts-mode-indent-offset)
+                 ,@rules))))
+
+(use-package c-ts-mode
+  :defer t
+  :custom
+  (c-ts-mode-indent-offset 2)
+  (c-ts-mode-indent-style #'gd-c-ts-linux-style-with-indented-case))
+#+end_src
+
+** Go, TypeScript, and CMake
+
+The built-in =go-ts-mode=, =typescript-ts-mode=, and =cmake-ts-mode= handle these through =treesit-enabled-modes=, so they need no packages.
+
+** Markdown and AsciiDoc
+
+=markdown-ts-mode= ships with Emacs 31 without a file mapping.
+
+#+begin_src emacs-lisp
+(use-package markdown-ts-mode
+  :mode ("\\.md\\'" . markdown-ts-mode))
+
+(use-package adoc-mode
+  :ensure t
+  :defer t)
+#+end_src
+
+** HAML
+
+#+begin_src emacs-lisp
+(use-package haml-mode
+  :ensure t
+  :defer t)
+#+end_src
+
+** Zig, Kotlin, Swift, and Clojure
+
+kotlin-ts-mode needs its grammar source and file mapping set here. cider depends on clojure-mode, which claims =.clj= files, so the =:mode= entries send them to =clojure-ts-mode=.
+
+#+begin_src emacs-lisp
+(use-package zig-ts-mode
+  :ensure t
+  :defer t)
+
+(use-package kotlin-ts-mode
+  :ensure t
+  :mode "\\.kts?\\'"
+  :init
+  (add-to-list 'treesit-language-source-alist
+               '(kotlin "https://github.com/fwcd/tree-sitter-kotlin"))
+  :config
+  (treesit-ensure-installed 'kotlin))
+
+(use-package swift-mode
+  :ensure t
+  :defer t)
+
+(use-package clojure-ts-mode
+  :ensure t
+  :mode (("\\.\\(clj\\|edn\\)\\'" . clojure-ts-mode)
+         ("\\.cljs\\'" . clojure-ts-clojurescript-mode)
+         ("\\.cljc\\'" . clojure-ts-clojurec-mode)))
+
+(use-package cider
+  :ensure t
+  :defer t)
+#+end_src
+
+** GDScript
+
+#+begin_src emacs-lisp
+(use-package gdscript-mode
+  :ensure t
+  :defer t)
+#+end_src
+
+** Crystal, Raku, and Smalltalk
+
+#+begin_src emacs-lisp
+(use-package crystal-mode
+  :ensure t
+  :defer t)
+
+(use-package raku-mode
+  :ensure t
+  :defer t)
+
+(use-package smalltalk-mode
+  :ensure t
+  :defer t)
+#+end_src
+
+** Common Lisp
+
+SLY runs SBCL with =M-x sly=.
+
+#+begin_src emacs-lisp
+(use-package sly
+  :ensure t
+  :defer t
+  :custom
+  (inferior-lisp-program "sbcl"))
+#+end_src
+
+* IELM
+
+Emacs 30 and later save IELM input history to =ielm-history-file-name=, which defaults to =~/.emacs.d/ielm-history.eld=.
+
+#+begin_src emacs-lisp
+(add-hook 'ielm-mode-hook 'eldoc-mode)
+#+end_src
+
+* Games
+
+#+begin_src emacs-lisp
+(use-package blackjack
+  :ensure t
+  :defer t)
+#+end_src
+
+* Notes
+
+#+begin_src emacs-lisp
+(use-package org-roam
+  :ensure t
+  :defer t)
+#+end_src
+
+* Claude Code
+
+agent-shell opens Claude Code in a right-side window, one shell per project.
+
+#+begin_src emacs-lisp
+(use-package agent-shell
+  :ensure t
+  :custom
+  (agent-shell-preferred-agent-config 'claude-code)
+  (agent-shell-display-action
+   '(display-buffer-in-side-window
+     (side . right)
+     (window-width . 0.35)
+     (preserve-size . (t . nil))
+     (window-parameters . ((no-delete-other-windows . t)))))
+  (agent-shell-file-display-action
+   '((display-buffer-reuse-window display-buffer-use-some-window)
+     (inhibit-same-window . t)))
+  :bind (("C-c c" . agent-shell)
+         ("C-c o" . agent-shell-toggle)
+         ("C-c s" . agent-shell-send-dwim)
+         ("C-c S" . agent-shell-send-file)))
+#+end_src
+
+* Init file footer
+
+#+begin_src emacs-lisp
+(provide 'init)
+;;; init.el ends here
+#+end_src
