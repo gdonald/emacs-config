@@ -140,6 +140,8 @@ Then the config:
 	ln -s ~/workspace/emacs-config/init.el ~/.emacs.d/init.el
 	emacs
 
+Both links go in `~/.emacs.d/`, not the home directory. Emacs reads `early-init.el` only from `user-emacs-directory` (`~/.emacs.d/` or `~/.config/emacs/`), never from `~/`. If an old `~/.emacs` or `~/.emacs.el` is present, Emacs loads it instead of `~/.emacs.d/init.el`, so remove it.
+
 The first time Emacs opens a file in a tree-sitter mode, it asks to install that language's grammar. Installing a grammar needs `git` and a C compiler.
 
 External programs the config uses:
