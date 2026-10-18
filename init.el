@@ -55,6 +55,17 @@
 (global-display-line-numbers-mode 1)
 (setq-default display-line-numbers-width 2)
 
+(delete-selection-mode 1)
+
+(global-auto-revert-mode 1)
+
+(defun gd-electric-pair-inhibit (char)
+  "Skip pairing CHAR when it would unbalance delimiters or precede a word."
+  (or (eq (char-syntax (following-char)) ?w)
+      (electric-pair-default-inhibit char)))
+(setq electric-pair-inhibit-predicate #'gd-electric-pair-inhibit)
+(electric-pair-mode 1)
+
 (xterm-mouse-mode -1)
 
 (savehist-mode 1)

@@ -111,6 +111,17 @@ Customize writes to =custom.el=, so it never edits the generated =init.el=.
 (size-indication-mode 1)
 (global-display-line-numbers-mode 1)
 (setq-default display-line-numbers-width 2)
+
+(delete-selection-mode 1)
+
+(global-auto-revert-mode 1)
+
+(defun gd-electric-pair-inhibit (char)
+  "Skip pairing CHAR when it would unbalance delimiters or precede a word."
+  (or (eq (char-syntax (following-char)) ?w)
+      (electric-pair-default-inhibit char)))
+(setq electric-pair-inhibit-predicate #'gd-electric-pair-inhibit)
+(electric-pair-mode 1)
 #+end_src
 
 Emacs 31 turns on =xterm-mouse-mode= in compatible terminals, which takes mouse selection away from the terminal. Calling the mode function here stops the automatic enable.
