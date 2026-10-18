@@ -232,6 +232,33 @@
   :init
   (global-corfu-mode))
 
+(use-package treemacs
+  :ensure t
+  :defer t
+  :custom
+  (treemacs-width-is-initially-locked nil)
+  :config
+  (treemacs-follow-mode t)
+  (treemacs-project-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode 'always)
+  (treemacs-git-mode (if treemacs-python-executable 'deferred 'simple))
+  :bind ("C-c t" . treemacs))
+
+(use-package treemacs-nerd-icons
+  :ensure t
+  :after treemacs
+  :config
+  (treemacs-nerd-icons-config))
+
+(use-package treemacs-projectile
+  :ensure t
+  :after (treemacs projectile))
+
+(use-package treemacs-magit
+  :ensure t
+  :after (treemacs magit))
+
 (use-package projectile
   :ensure t
   :config

@@ -42,6 +42,7 @@ Customize writes to `custom.el`, which `init.el` loads. That is where Emacs reco
 | C-c f           | Forward one tab                                         |
 | C-c l           | Move current tab left                                   |
 | C-c r           | Move current tab right                                  |
+| C-c t           | Show or hide the treemacs file tree.                    |
 | C-d             | Delete character to the right of cursor.                |
 | M-.             | Jump to definition under cursor.                        |
 | M-,             | Return from jump to definition.                         |
@@ -103,6 +104,10 @@ Installed from the package archives by `use-package` with `:ensure t`:
 | tempel                | Templates offered as completion candidates.                                |
 | tempel-collection     | Ready-made templates for tempel.                                           |
 | terraform-mode        | Terraform and `.tfvars` editing.                                           |
+| treemacs              | File tree on the left that follows the current file and project.           |
+| treemacs-magit        | Refreshes treemacs git status after magit commands.                        |
+| treemacs-nerd-icons   | nerd-icons file icons in treemacs.                                         |
+| treemacs-projectile   | Adds projectile projects to treemacs.                                      |
 | vertico               | Vertical minibuffer completion.                                            |
 | web-mode              | HTML and ERB editing.                                                      |
 | zig-ts-mode           | Zig editing with tree-sitter.                                              |

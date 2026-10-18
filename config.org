@@ -354,6 +354,39 @@ Add =put= lines here. Answering =y= to the "enable this command" prompt writes t
   (global-corfu-mode))
 #+end_src
 
+* File tree
+
+treemacs shows the current project's files on the left. It follows the current file and project, and can be resized by dragging its edge.
+
+#+begin_src emacs-lisp
+(use-package treemacs
+  :ensure t
+  :defer t
+  :custom
+  (treemacs-width-is-initially-locked nil)
+  :config
+  (treemacs-follow-mode t)
+  (treemacs-project-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode 'always)
+  (treemacs-git-mode (if treemacs-python-executable 'deferred 'simple))
+  :bind ("C-c t" . treemacs))
+
+(use-package treemacs-nerd-icons
+  :ensure t
+  :after treemacs
+  :config
+  (treemacs-nerd-icons-config))
+
+(use-package treemacs-projectile
+  :ensure t
+  :after (treemacs projectile))
+
+(use-package treemacs-magit
+  :ensure t
+  :after (treemacs magit))
+#+end_src
+
 * Projects and version control
 
 #+begin_src emacs-lisp
