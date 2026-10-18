@@ -126,7 +126,7 @@ Requires Emacs 31.1:
 
 	brew install emacs
 
-The Claude Code integration needs the Agent Client Protocol adapter:
+The Claude Code integration needs the Agent Client Protocol adapter. Without `claude-agent-acp` on the `PATH`, the config skips agent-shell and leaves its keys unbound:
 
 	npm install -g @agentclientprotocol/claude-agent-acp
 

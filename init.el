@@ -461,23 +461,24 @@
   :ensure t
   :defer t)
 
-(use-package agent-shell
-  :ensure t
-  :custom
-  (agent-shell-preferred-agent-config 'claude-code)
-  (agent-shell-display-action
-   '(display-buffer-in-side-window
-     (side . right)
-     (window-width . 0.35)
-     (preserve-size . (t . nil))
-     (window-parameters . ((no-delete-other-windows . t)))))
-  (agent-shell-file-display-action
-   '((display-buffer-reuse-window display-buffer-use-some-window)
-     (inhibit-same-window . t)))
-  :bind (("C-c c" . agent-shell)
-         ("C-c o" . agent-shell-toggle)
-         ("C-c s" . agent-shell-send-dwim)
-         ("C-c S" . agent-shell-send-file)))
+(when (executable-find "claude-agent-acp")
+  (use-package agent-shell
+    :ensure t
+    :custom
+    (agent-shell-preferred-agent-config 'claude-code)
+    (agent-shell-display-action
+     '(display-buffer-in-side-window
+       (side . right)
+       (window-width . 0.35)
+       (preserve-size . (t . nil))
+       (window-parameters . ((no-delete-other-windows . t)))))
+    (agent-shell-file-display-action
+     '((display-buffer-reuse-window display-buffer-use-some-window)
+       (inhibit-same-window . t)))
+    :bind (("C-c c" . agent-shell)
+           ("C-c o" . agent-shell-toggle)
+           ("C-c s" . agent-shell-send-dwim)
+           ("C-c S" . agent-shell-send-file))))
 
 (provide 'init)
 ;;; init.el ends here
