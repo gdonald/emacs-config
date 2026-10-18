@@ -66,7 +66,7 @@
 (setq electric-pair-inhibit-predicate #'gd-electric-pair-inhibit)
 (electric-pair-mode 1)
 
-(xterm-mouse-mode -1)
+(xterm-mouse-mode 1)
 
 (savehist-mode 1)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))

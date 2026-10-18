@@ -124,10 +124,10 @@ Customize writes to =custom.el=, so it never edits the generated =init.el=.
 (electric-pair-mode 1)
 #+end_src
 
-Emacs 31 turns on =xterm-mouse-mode= in compatible terminals, which takes mouse selection away from the terminal. Calling the mode function here stops the automatic enable.
+=xterm-mouse-mode= sends terminal mouse clicks, drags, and scrolling to Emacs. Hold Option in iTerm2 to select with the terminal instead.
 
 #+begin_src emacs-lisp
-(xterm-mouse-mode -1)
+(xterm-mouse-mode 1)
 #+end_src
 
 * History and recent files
