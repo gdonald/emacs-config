@@ -42,7 +42,6 @@ Customize writes to `custom.el`, which `init.el` loads. That is where Emacs reco
 | C-c f           | Forward one tab                                         |
 | C-c l           | Move current tab left                                   |
 | C-c r           | Move current tab right                                  |
-| C-c t           | Show or hide the treemacs file tree.                    |
 | C-d             | Delete character to the right of cursor.                |
 | M-.             | Jump to definition under cursor.                        |
 | M-,             | Return from jump to definition.                         |
@@ -54,6 +53,7 @@ Customize writes to `custom.el`, which `init.el` loads. That is where Emacs reco
 | S-&lt;down&gt;  | Move line under cursor down.                            |
 | S-&lt;left&gt;  | Move selection under cursor left.                       |
 | S-&lt;right&gt; | Move selection under cursor right.                      |
+| F8              | Show or hide the treemacs file tree.                    |
 | F12             | Re-indent buffer.                                       |
 
 ### Packages

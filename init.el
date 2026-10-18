@@ -243,7 +243,7 @@
   (treemacs-filewatch-mode t)
   (treemacs-fringe-indicator-mode 'always)
   (treemacs-git-mode (if treemacs-python-executable 'deferred 'simple))
-  :bind ("C-c t" . treemacs))
+  :bind ("<f8>" . treemacs))
 
 (use-package treemacs-nerd-icons
   :ensure t
