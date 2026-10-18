@@ -16,7 +16,9 @@
                projectile-rails rainbow-delimiters raku-mode rbenv
                robe rspec-mode rubocop scss-mode sly smalltalk-mode
                swift-mode tempel tempel-collection terraform-mode
-               undercover vertico web-mode zig-ts-mode))
+               treemacs treemacs-magit treemacs-nerd-icons
+               treemacs-projectile undercover vertico web-mode
+               zig-ts-mode))
  '(safe-local-variable-values
    '((eval and buffer-file-name
            (not (eq major-mode 'package-recipe-mode))
