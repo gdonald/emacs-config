@@ -296,8 +296,13 @@
   :config
   (add-to-list 'eglot-server-programs '(swift-mode . ("sourcekit-lsp"))))
 
+(defun gd-flymake-mode-unless-scratch ()
+  "Enable `flymake-mode' except in `lisp-interaction-mode'."
+  (unless (derived-mode-p 'lisp-interaction-mode)
+    (flymake-mode)))
+
 (use-package flymake
-  :hook (prog-mode . flymake-mode))
+  :hook (prog-mode . gd-flymake-mode-unless-scratch))
 
 (setq sh-shellcheck-arguments '("-x"))
 
